@@ -1,0 +1,3 @@
+buivang nhanvien001 3 2
+phanvanh nvpassword 4 3
+levani staffpass 2 1
