@@ -101,3 +101,7 @@ SanPham* timSanPham(const string& tenSanPham, const vector<SanPham*>& dsSanPham)
     }
     return nullptr; // Nếu không tìm thấy
 }
+
+string KhachHang::getTenSanPham() const {
+    return "Tên khách hàng: " + getTen(); // Hoặc bất kỳ tên nào mà bạn muốn trả về
+}

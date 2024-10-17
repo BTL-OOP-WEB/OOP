@@ -96,7 +96,7 @@ void menuKhachHang(KhachHang& khachHang) {
                 cin >> soLuong;
 
                 // Giả sử bạn có một hàm tìm kiếm sản phẩm theo tên
-                SanPham* sanPham = timSanPham(tenSanPham); // Bạn cần cài đặt hàm này
+                // SanPham* sanPham = timSanPham(tenSanPham); // Bạn cần cài đặt hàm này
                 if (sanPham != nullptr) {
                     khachHang.themVaoGioHang(sanPham, soLuong);
                     cout << "Sản phẩm đã được thêm vào giỏ hàng." << endl;

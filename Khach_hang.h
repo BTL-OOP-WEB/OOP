@@ -29,7 +29,7 @@ public:
     SanPham* timSanPhamTrongGioHang(const string& tenSanPham);
     // Khai báo hàm timSanPham
     SanPham* timSanPham(const string& tenSanPham, const vector<SanPham*>& dsSanPham);
-    virtual string getTenSanPham() const = 0;
+    virtual string getTenSanPham() const;
 };
 
 #endif // KHACHHANG_H
