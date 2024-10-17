@@ -21,10 +21,13 @@ public:
     SanPham(int soLuong, const string& ngaySanXuat, const string& hanSuDung, double giaTien);
     
     virtual void inThongTin() const;
+    virtual string getTenSanPham() const = 0;
+
     void themSanPham(int soLuong);
     int getSoLuong() const;
     void setSoLuong(int soLuongMoi);
     bool banSanPham(int soLuong);
+    
 };
 
 // Lớp con cho thịt
@@ -35,6 +38,7 @@ private:
 public:
     Thit(int soLuong, const string& ngaySanXuat, const string& hanSuDung, const string& loaiThit, double giaTien);
     void inThongTin() const override;
+    string getTenSanPham() const override;
 };
 
 // Lớp con cho cá
@@ -45,6 +49,7 @@ private:
 public:
     Ca(int soLuong, const string& ngaySanXuat, const string& hanSuDung, const string& loaiCa, double giaTien);
     void inThongTin() const override;
+    string getTenSanPham() const override;
 };
 
 // Lớp con cho kẹo
@@ -55,6 +60,7 @@ private:
 public:
     Keo(int soLuong, const string& ngaySanXuat, const string& hanSuDung, const string& loaiKeo, double giaTien);
     void inThongTin() const override;
+    string getTenSanPham() const override;
 };
 
 // Lớp con cho nước
@@ -65,6 +71,7 @@ private:
 public:
     Nuoc(int soLuong, const string& ngaySanXuat, const string& hanSuDung, const string& loaiNuoc, double giaTien);
     void inThongTin() const override;
+    string getTenSanPham() const override;
 };
 
 // Lớp con cho rau củ
@@ -75,6 +82,7 @@ private:
 public:
     RauCu(int soLuong, const string& ngaySanXuat, const string& hanSuDung, const string& loaiRauCu, double giaTien);
     void inThongTin() const override;
+    string getTenSanPham() const override;
 };
 
 // Lớp con cho gia vị
@@ -85,6 +93,7 @@ private:
 public:
     GiaVi(int soLuong, const string& ngaySanXuat, const string& hanSuDung, const string& loaiGiaVi, double giaTien);
     void inThongTin() const override;
+    string getTenSanPham() const override;
 };
 
 // Lớp con cho bánh
@@ -95,6 +104,7 @@ private:
 public:
     Banh(int soLuong, const string& ngaySanXuat, const string& hanSuDung, const string& loaiBanh, double giaTien);
     void inThongTin() const override;
+    string getTenSanPham() const override;
 };
 
 // Lớp con cho giấy
@@ -105,6 +115,7 @@ private:
 public:
     Giay(int soLuong, const string& ngaySanXuat, const string& hanSuDung, const string& loaiGiay, double giaTien);
     void inThongTin() const override;
+    string getTenSanPham() const override;
 };
 
 // Lớp con cho chén bát
@@ -115,6 +126,7 @@ private:
 public:
     ChenBat(int soLuong, const string& ngaySanXuat, const string& hanSuDung, const string& loaiChenBat, double giaTien);
     void inThongTin() const override;
+    string getTenSanPham() const override;
 };
 
 // Lớp con cho đồ đóng hộp
@@ -125,6 +137,7 @@ private:
 public:
     DoDongHop(int soLuong, const string& ngaySanXuat, const string& hanSuDung, const string& loaiDoDongHop, double giaTien);
     void inThongTin() const override;
+    string getTenSanPham() const override;
 };
 
 // Các hàm khác

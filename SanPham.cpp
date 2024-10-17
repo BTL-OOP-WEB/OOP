@@ -128,6 +128,46 @@ void DoDongHop::inThongTin() const {
     cout << "Loai do dong hop: " << loaiDoDongHop << "\n";
 }
 
+string Thit::getTenSanPham() const {
+    return loaiThit; // Trả về loại thịt
+}
+
+string Ca::getTenSanPham() const {
+    return loaiCa; // Trả về loại thịt
+}
+
+string Keo::getTenSanPham() const {
+    return loaiKeo; // Trả về loại thịt
+}
+
+string Nuoc::getTenSanPham() const {
+    return loaiNuoc; // Trả về loại thịt
+}
+
+string RauCu::getTenSanPham() const {
+    return loaiRauCu; // Trả về loại thịt
+}
+
+string GiaVi::getTenSanPham() const {
+    return loaiGiaVi; // Trả về loại thịt
+}
+
+string Banh::getTenSanPham() const {
+    return loaiBanh; // Trả về loại thịt
+}
+
+string ChenBat::getTenSanPham() const {
+    return loaiChenBat; // Trả về loại thịt
+}
+
+string Giay::getTenSanPham() const {
+    return loaiGiay; // Trả về loại thịt
+}
+
+string DoDongHop::getTenSanPham() const {
+    return loaiDoDongHop; // Trả về loại thịt
+}
+
 // Hàm hiển thị thông tin tất cả các sản phẩm
 void hienThiThongTin(const vector<SanPham*>& dsSanPham) {
     for (const auto& sp : dsSanPham) {
