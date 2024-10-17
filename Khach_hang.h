@@ -24,6 +24,12 @@ public:
     
     void suDungDiem();         // Hàm cho khách hàng chọn sử dụng điểm để giảm tiền
     void xuatHoaDon() const;   // Xuất hóa đơn sau khi thanh toán
+
+    // Khai báo hàm tìm sản phẩm trong giỏ hàng
+    SanPham* timSanPhamTrongGioHang(const string& tenSanPham);
+    // Khai báo hàm timSanPham
+    SanPham* timSanPham(const string& tenSanPham, const vector<SanPham*>& dsSanPham);
+    virtual string getTenSanPham() const = 0;
 };
 
 #endif // KHACHHANG_H

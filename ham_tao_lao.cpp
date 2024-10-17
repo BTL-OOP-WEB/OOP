@@ -37,7 +37,9 @@ void dangNhap(const string& vaiTro) {
                 KhachHang khachHang(ten, matKhau, diemTichLuy); // Khởi tạo KhachHang
                 menuKhachHang(khachHang); // Gọi hàm menu cho khách hàng
             } else if (vaiTro == "NhanVien") {
-                NhanVien nhanVien(ten, matKhau); // Khởi tạo NhanVien
+                string lichLamViec; // Khai báo biến lichLamViec
+                iss >> lichLamViec; // Đọc lịch làm việc từ file
+                NhanVien nhanVien(ten, matKhau, lichLamViec); // Khởi tạo NhanVien với lichLamViec
                 menuNhanVien(nhanVien); // Gọi hàm menu cho nhân viên
             } else if (vaiTro == "GiamDoc") {
                 GiamDoc giamDoc(ten, matKhau); // Khởi tạo GiamDoc
@@ -57,20 +59,20 @@ void dangNhap(const string& vaiTro) {
 void dangKy(const string& vaiTro) {
     string ten, matKhau, tenFile = vaiTro + ".txt";
 
-    cout << "Nhập tên đăng ký: ";
+    cout << "Nhap ten dang ky: ";
     cin >> ten;
-    cout << "Nhập mật khẩu: ";
+    cout << "Nhap mat khau: ";
     cin >> matKhau;
 
     ofstream file(tenFile, ios::app);
     if (!file) {
-        cout << "Không thể mở file!" << endl;
+        cout << "Khong the mo file!" << endl;
         return;
     }
 
     file << ten << " " << matKhau << endl;
     file.close();
-    cout << "Đăng ký thành công!" << endl;
+    cout << "Dang ky thanh cong!" << endl;
 }
 
 void menuKhachHang(KhachHang& khachHang) {
@@ -86,12 +88,40 @@ void menuKhachHang(KhachHang& khachHang) {
         switch (luaChon) {
             case 1: {
                 // Thêm sản phẩm vào giỏ
-                // Gọi hàm themVaoGioHang() từ KhachHang
+                string tenSanPham;
+                int soLuong;
+                cout << "Nhập tên sản phẩm: ";
+                cin >> tenSanPham;
+                cout << "Nhập số lượng: ";
+                cin >> soLuong;
+
+                // Giả sử bạn có một hàm tìm kiếm sản phẩm theo tên
+                SanPham* sanPham = timSanPham(tenSanPham); // Bạn cần cài đặt hàm này
+                if (sanPham != nullptr) {
+                    khachHang.themVaoGioHang(sanPham, soLuong);
+                    cout << "Sản phẩm đã được thêm vào giỏ hàng." << endl;
+                } else {
+                    cout << "Sản phẩm không tồn tại!" << endl;
+                }
                 break;
             }
             case 2: {
                 // Xóa sản phẩm khỏi giỏ
-                // Gọi hàm boSanPham() từ KhachHang
+                string tenSanPham;
+                int soLuong;
+                cout << "Nhập tên sản phẩm cần xóa: ";
+                cin >> tenSanPham;
+                cout << "Nhập số lượng cần xóa: ";
+                cin >> soLuong;
+
+                // Giả sử bạn có một hàm tìm kiếm sản phẩm trong giỏ hàng
+                SanPham* sanPham = khachHang.timSanPhamTrongGioHang(tenSanPham); // Bạn cần cài đặt hàm này
+                if (sanPham != nullptr) {
+                    khachHang.boSanPham(sanPham, soLuong);
+                    cout << "Sản phẩm đã được xóa khỏi giỏ hàng." << endl;
+                } else {
+                    cout << "Sản phẩm không có trong giỏ hàng!" << endl;
+                }
                 break;
             }
             case 3: {
@@ -111,6 +141,7 @@ void menuKhachHang(KhachHang& khachHang) {
     } while (luaChon != 5);
 }
 
+
 void menuNhanVien(NhanVien& nhanVien) {
     vector<SanPham*> dsSanPham; // Danh sách sản phẩm
     int luaChon;
@@ -118,12 +149,12 @@ void menuNhanVien(NhanVien& nhanVien) {
     int soCa;
     
     do {
-        cout << "===== Menu Nhân Viên =====" << endl;
-        cout << "1. Nhập sản phẩm" << endl;
-        cout << "2. Xóa sản phẩm" << endl;
-        cout << "3. Đăng ký ca làm" << endl;
-        cout << "0. Thoát" << endl;
-        cout << "Nhập lựa chọn của bạn: ";
+        cout << "===== Menu Nhan Vien =====" << endl;
+        cout << "1. Nhap san pham" << endl;
+        cout << "2. Xoa san pham" << endl;
+        cout << "3. Dang ky ca lam" << endl;
+        cout << "0. Thoat" << endl;
+        cout << "Nhap lua chon cua ban: ";
         cin >> luaChon;
 
         switch (luaChon) {
@@ -133,62 +164,62 @@ void menuNhanVien(NhanVien& nhanVien) {
                 string ngaySanXuat, hanSuDung, loaiSanPham;
                 double giaTien;
 
-                cout << "Nhập loại sản phẩm (Thit/Ca/Keo/Nuoc/RauCu): ";
+                cout << "Nhap loai san pham (Thit/Ca/Keo/Nuoc/RauCu): ";
                 cin >> loaiSanPham;
-                cout << "Nhập số lượng: ";
+                cout << "Nhap so luong: ";
                 cin >> soLuong;
-                cout << "Nhập ngày sản xuất: ";
+                cout << "Nhap ngay san xuat: ";
                 cin >> ngaySanXuat;
-                cout << "Nhập hạn sử dụng: ";
+                cout << "Nhap han su dung: ";
                 cin >> hanSuDung;
-                cout << "Nhập giá tiền: ";
+                cout << "Nhap gia tien: ";
                 cin >> giaTien;
 
                 // Thêm sản phẩm vào danh sách
                 if (loaiSanPham == "Thit") {
                     string loaiThit;
-                    cout << "Nhập loại thịt: ";
+                    cout << "Nhap loai thit: ";
                     cin >> loaiThit;
                     dsSanPham.push_back(new Thit(soLuong, ngaySanXuat, hanSuDung, loaiThit, giaTien));
                 } else if (loaiSanPham == "Ca") {
                     string loaiCa;
-                    cout << "Nhập loại cá: ";
+                    cout << "Nhap loai ca: ";
                     cin >> loaiCa;
                     dsSanPham.push_back(new Ca(soLuong, ngaySanXuat, hanSuDung, loaiCa, giaTien));
                 } else if (loaiSanPham == "Keo") {
                     string loaiKeo;
-                    cout << "Nhập loại kẹo: ";
+                    cout << "Nhap loai keo: ";
                     cin >> loaiKeo;
                     dsSanPham.push_back(new Keo(soLuong, ngaySanXuat, hanSuDung, loaiKeo, giaTien));
                 } else if (loaiSanPham == "Nuoc") {
                     string loaiNuoc;
-                    cout << "Nhập loại nước: ";
+                    cout << "Nhap loai nuoc: ";
                     cin >> loaiNuoc;
                     dsSanPham.push_back(new Nuoc(soLuong, ngaySanXuat, hanSuDung, loaiNuoc, giaTien));
                 } else if (loaiSanPham == "RauCu") {
                     string loaiRauCu;
-                    cout << "Nhập loại rau củ: ";
+                    cout << "Nhap loai rau cu: ";
                     cin >> loaiRauCu;
                     dsSanPham.push_back(new RauCu(soLuong, ngaySanXuat, hanSuDung, loaiRauCu, giaTien));
                 } else {
-                    cout << "Loại sản phẩm không hợp lệ!" << endl;
+                    cout << "Loai san pham khong hop le!" << endl;
                 }
 
-                cout << "Sản phẩm đã được thêm thành công!" << endl;
+                cout << "San pham da duoc them thanh cong!" << endl;
                 break;
             }
             case 2: {
                 // Xóa sản phẩm
                 int index;
-                cout << "Nhập chỉ số sản phẩm cần xóa (0 - " << dsSanPham.size() - 1 << "): ";
+                cout << "Nhap chi so san pham can xoa (0 - " << dsSanPham.size() - 1 << "): ";
                 cin >> index;
 
                 if (index >= 0 && index < dsSanPham.size()) {
                     delete dsSanPham[index]; // Giải phóng bộ nhớ
                     dsSanPham.erase(dsSanPham.begin() + index);
-                    cout << "Sản phẩm đã được xóa thành công!" << endl;
+                    cout << "San pham da duoc xoa thanh cong!" << endl;
                 } else {
-                    cout << "Chỉ số không hợp lệ!" << endl;
+                    cout << "Chi so khong hop le!" << endl;
                 }
                 break;
             }
@@ -205,23 +236,26 @@ void menuNhanVien(NhanVien& nhanVien) {
                         ca.push_back(caLam);  // Thêm ca làm vào vector
                     }
 
-                    nhanVien.dangKyCaLam(ca);
+                    nhanVien.dangKyCaLam();
+                }
+                break; // Thêm break ở đây để tránh lặp vô hạn
             }
             case 0:
-                cout << "Thoát chương trình!" << endl;
+                cout << "Thoat chuong trinh!" << endl;
                 break;
             default:
-                cout << "Lựa chọn không hợp lệ!" << endl;
+                cout << "Lua chon khong hop le!" << endl;
                 break;
         }
 
-    } }while (luaChon != 0);
+    } while (luaChon != 0);
 
     // Giải phóng bộ nhớ cho danh sách sản phẩm
     for (SanPham* sp : dsSanPham) {
         delete sp;
     }
 }
+
 void menuGiamDoc(GiamDoc& giamDoc) {
     int luaChon;
     do {
@@ -239,7 +273,7 @@ void menuGiamDoc(GiamDoc& giamDoc) {
                 break;
             }
             case 2: {
-                // Xử lý xuất lương cho nhân viên
+                // Xu ly xuat luong cho nhan vien
                 NhanVien* nhanVien = nullptr;  // Giả sử bạn đã có con trỏ nhân viên
                 giamDoc.xuatLuongNhanVien(nhanVien);  // Gọi hàm xuất lương
                 break;
@@ -253,3 +287,4 @@ void menuGiamDoc(GiamDoc& giamDoc) {
         }
     } while (luaChon != 3);
 }
+

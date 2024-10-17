@@ -1,17 +1,25 @@
 #include "NhanVien.h"
 #include <iostream>
 
+using namespace std;
+
 NhanVien::NhanVien(const string& ten, const string& matKhau, const string& lichLamViec) 
-    : User(ten, matKhau), lichLamViec(lichLamViec);
+    : User(ten, matKhau), lichLamViec(lichLamViec) {}
 
 // Hàm trả về số ca đã làm
 int NhanVien::getSoCaDaLam() const {
-    return caLamViec.size(); // Trả về số lượng ca đã đăng ký
+    int soCaDaLam = 0;
+    for (char c : lichLamViec) {
+        if (c == '1') {
+            soCaDaLam++;
+        }
+    }
+    return soCaDaLam; // Trả về số lượng ca đã đăng ký
 }
 
 // Hàm lấy tên người dùng
 string NhanVien::getTenNguoiDung() const {
-    return ten;
+    return ten; // Giả sử `ten` là thuộc tính trong lớp User
 }
 
 // Hàm nhập thêm sản phẩm vào kho
@@ -47,19 +55,32 @@ void NhanVien::xoaSanPham(SanPham* sanPham, int soLuong) {
         cout << "Sản phẩm đã hết hàng." << endl;
     }
 }
-
 // Hàm đăng ký ca làm việc cho nhân viên
-void NhanVien::dangKyCaLam(const vector<string>& ca) {
-    if (ca.size() >= 1 && ca.size() <= 5) {
-        caLamViec = ca;
-        cout << "Đã đăng ký ca làm việc thành công." << endl;
-    } else {
-        cout << "Số ca đăng ký không hợp lệ. Chọn ít nhất 1 và tối đa 5 ca." << endl;
+// Hàm đăng ký ca làm việc cho nhân viên
+void NhanVien::dangKyCaLam() {
+    lichLamViec.clear(); // Khởi tạo lại chuỗi lịch làm việc
+
+    cout << "Nhập lịch làm việc (8 ký tự, từ trái qua phải: CN, T2, T3, T4, T5, T6, T7): ";
+    cin >> lichLamViec;
+
+    // Kiểm tra độ dài chuỗi
+    if (lichLamViec.length() != 8) {
+        cout << "Lịch làm việc không hợp lệ! Vui lòng nhập 8 ký tự." << endl;
+        return;
     }
+
+    // Kiểm tra các ký tự có phải là '0' hoặc '1' không
+    for (char c : lichLamViec) {
+        if (c != '0' && c != '1') {
+            cout << "Lịch làm việc không hợp lệ! Vui lòng nhập chỉ '0' hoặc '1'." << endl;
+            return; // Thoát nếu có ký tự không hợp lệ
+        }
+    }
+
+    this->lichLamViec = lichLamViec; // Cập nhật lịch làm việc
+    cout << "Đã đăng ký lịch làm việc thành công: " << lichLamViec << endl;
 }
 
-// Hiển thị thông tin của nhân viên
 void NhanVien::hienThiThongTin() const {
-    cout << "Nhân viên: " << getTenNguoiDung() << endl; // Sử dụng hàm getTenNguoiDung()
-    cout << "Số ca làm việc đã đăng ký: " << getSoCaDaLam() << endl;
+    cout << "Ten: " << ten << ", Mat khau: " << matKhau << ", Lich lam viec: " << lichLamViec << endl;
 }

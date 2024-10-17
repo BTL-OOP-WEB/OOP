@@ -81,3 +81,23 @@ void KhachHang::xuatHoaDon() const {
     }
     cout << "Cảm ơn bạn đã mua sắm tại cửa hàng!" << endl;
 }
+
+SanPham* KhachHang::timSanPhamTrongGioHang(const string& tenSanPham) {
+    for (SanPham* sanPham : gioHang) {
+        // Giả sử bạn đã có phương thức getTenSanPham() trong lớp SanPham
+        if (sanPham->getTenSanPham() == tenSanPham) {
+            return sanPham; // Trả về con trỏ đến sản phẩm
+        }
+    }
+    return nullptr; // Nếu không tìm thấy
+}
+
+SanPham* timSanPham(const string& tenSanPham, const vector<SanPham*>& dsSanPham) {
+    for (SanPham* sanPham : dsSanPham) {
+        // Giả sử bạn đã có phương thức getTenSanPham() trong lớp SanPham
+        if (sanPham->getTenSanPham() == tenSanPham) {
+            return sanPham; // Trả về con trỏ đến sản phẩm
+        }
+    }
+    return nullptr; // Nếu không tìm thấy
+}

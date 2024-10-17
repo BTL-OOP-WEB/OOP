@@ -18,7 +18,7 @@ public:
 
     void nhapSanPham(SanPham* sanPham, int soLuong);
     void xoaSanPham(SanPham* sanPham, int soLuong);
-    void dangKyCaLam(const vector<string>& ca); // Hàm đăng ký ca làm việc
+    void dangKyCaLam(); // Hàm đăng ký ca làm việc
     void hienThiThongTin() const override; // Implement hàm ảo từ User
 };
 
