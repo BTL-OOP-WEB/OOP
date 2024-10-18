@@ -1,6 +1,7 @@
 #ifndef SANPHAM_H
 #define SANPHAM_H
 
+#include <GiamDoc.h>
 #include <string>
 #include <vector>
 #include <iostream>
