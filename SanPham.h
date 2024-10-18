@@ -108,42 +108,42 @@ public:
     string getTenSanPham() const override;
 };
 
-// // Lớp con cho giấy
-// class Giay : public SanPham {
-// private:
-//     string loaiGiay;
+// Lớp con cho giấy
+class Giay : public SanPham {
+private:
+    string loaiGiay;
 
-// public:
-//     Giay(int soLuong, const string& ngaySanXuat, const string& hanSuDung, const string& loaiGiay, double giaTien);
-//     void inThongTin() const override;
-//     string getTenSanPham() const override;
-// };
+public:
+    Giay(int soLuong, const string& ngaySanXuat, const string& hanSuDung, const string& loaiGiay, double giaTien);
+    void inThongTin() const override;
+    string getTenSanPham() const override;
+};
 
-// // Lớp con cho chén bát
-// class ChenBat : public SanPham {
-// private:
-//     string loaiChenBat;
+// Lớp con cho chén bát
+class ChenBat : public SanPham {
+private:
+    string loaiChenBat;
 
-// public:
-//     ChenBat(int soLuong, const string& ngaySanXuat, const string& hanSuDung, const string& loaiChenBat, double giaTien);
-//     void inThongTin() const override;
-//     string getTenSanPham() const override;
-// };
+public:
+    ChenBat(int soLuong, const string& ngaySanXuat, const string& hanSuDung, const string& loaiChenBat, double giaTien);
+    void inThongTin() const override;
+    string getTenSanPham() const override;
+};
 
-// // Lớp con cho đồ đóng hộp
-// class DoDongHop : public SanPham {
-// private:
-//     string loaiDoDongHop;
+// Lớp con cho đồ đóng hộp
+class DoDongHop : public SanPham {
+private:
+    string loaiDoDongHop;
 
-// public:
-//     DoDongHop(int soLuong, const string& ngaySanXuat, const string& hanSuDung, const string& loaiDoDongHop, double giaTien);
-//     void inThongTin() const override;
-//     string getTenSanPham() const override;
-// };
+public:
+    DoDongHop(int soLuong, const string& ngaySanXuat, const string& hanSuDung, const string& loaiDoDongHop, double giaTien);
+    void inThongTin() const override;
+    string getTenSanPham() const override;
+};
 
-// // Các hàm khác
-// void hienThiThongTin(const vector<SanPham*>& dsSanPham);
-// void docDuLieuTuFile(const string& tenFile, vector<SanPham*>& dsSanPham);
-// void giaiPhongBoNho(vector<SanPham*>& dsSanPham);
+// Các hàm khác
+void hienThiThongTin(const vector<SanPham*>& dsSanPham);
+void docDuLieuTuFile(const string& tenFile, vector<SanPham*>& dsSanPham);
+void giaiPhongBoNho(vector<SanPham*>& dsSanPham);
 
 #endif // SANPHAM_H
