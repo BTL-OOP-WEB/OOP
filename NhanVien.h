@@ -1,9 +1,9 @@
 #ifndef NHANVIEN_H
 #define NHANVIEN_H
 
+#include <vector>
 #include "User.h"
 #include "SanPham.h"
-#include <vector>
 
 class NhanVien : public User {
 private:

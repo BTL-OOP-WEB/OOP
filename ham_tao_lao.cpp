@@ -77,6 +77,8 @@ void dangKy(const string& vaiTro) {
 
 void menuKhachHang(KhachHang& khachHang) {
     int luaChon;
+    vector<SanPham*> dsSanPham;
+    docDuLieuTuFile("input.txt", dsSanPham);
     do {
         cout << "1. Thêm sản phẩm vào giỏ hàng" << endl;
         cout << "2. Xóa sản phẩm khỏi giỏ hàng" << endl;
@@ -95,8 +97,8 @@ void menuKhachHang(KhachHang& khachHang) {
                 cout << "Nhập số lượng: ";
                 cin >> soLuong;
 
-                // Giả sử bạn có một hàm tìm kiếm sản phẩm theo tên
-                // SanPham* sanPham = timSanPham(tenSanPham); // Bạn cần cài đặt hàm này
+                
+                SanPham* sanPham = khachHang.timSanPham(tenSanPham, dsSanPham);
                 if (sanPham != nullptr) {
                     khachHang.themVaoGioHang(sanPham, soLuong);
                     cout << "Sản phẩm đã được thêm vào giỏ hàng." << endl;

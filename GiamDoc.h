@@ -1,9 +1,9 @@
 #ifndef GIAMDOC_H
 #define GIAMDOC_H
 
+#include <vector>
 #include "User.h"
 #include "NhanVien.h"
-#include <vector>
 
 class GiamDoc : public User {
 public:
