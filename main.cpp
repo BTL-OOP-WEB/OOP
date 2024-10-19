@@ -4,9 +4,9 @@
 #include <vector>
 #include "Khach_hang.h"
 #include "GiamDoc.h"
-#include "NhanVien.h"
 #include "SanPham.h"
-#include "User.h"
+#include "User.h"    
+#include "NhanVien.h"
 #include "Ham_tao_lao.h"
 
 using namespace std;

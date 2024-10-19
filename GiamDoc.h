@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "User.h"
+#include "SanPham.h" 
 #include "NhanVien.h"
 
 class GiamDoc : public User {

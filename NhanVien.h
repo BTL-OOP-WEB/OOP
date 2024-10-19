@@ -1,6 +1,8 @@
 #ifndef NHANVIEN_H
 #define NHANVIEN_H
 
+#include <iostream>
+#include <string>
 #include <vector>
 #include "User.h"
 #include "SanPham.h"

@@ -2,6 +2,7 @@
 #define SANPHAM_H
 
 #include "GiamDoc.h"
+#include "User.h"
 #include <string>
 #include <vector>
 #include <iostream>
