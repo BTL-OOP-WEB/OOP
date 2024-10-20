@@ -1,8 +1,9 @@
 #ifndef KHACHHANG_H
 #define KHACHHANG_H
 
-#include "User.h"
 #include <vector>
+#include <string>
+#include "User.h"
 #include "SanPham.h"
 
 using namespace std;

@@ -6,6 +6,8 @@
 #include "SanPham.h" 
 #include "NhanVien.h"
 
+class NhanVien;
+
 class GiamDoc : public User {
 public:
     GiamDoc(const string& ten, const string& matKhau);

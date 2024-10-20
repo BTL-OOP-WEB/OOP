@@ -1,4 +1,5 @@
 #include "NhanVien.h"
+#include "SanPham.h"
 #include <iostream>
 
 using namespace std;

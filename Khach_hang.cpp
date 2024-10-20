@@ -1,7 +1,12 @@
-#include "Khach_hang.h"
 #include <iostream>
+#include <vector>
+#include <string>
+#include "Khach_hang.h"
+#include "SanPham.h"
 
- KhachHang::KhachHang(const string& ten, const string& matKhau, const int& diemTichLuy) : User(ten, matKhau), diemTichLuy(diemTichLuy){}
+using namespace std;
+
+KhachHang::KhachHang(const string& ten, const string& matKhau, const int& diemTichLuy) : User(ten, matKhau), diemTichLuy(diemTichLuy){}
 
 void KhachHang::themVaoGioHang(SanPham* sanPham, int soLuong) {
     sanPham->themSanPham(soLuong);

@@ -7,6 +7,8 @@
 #include "User.h"
 #include "SanPham.h"
 
+class SanPham;
+
 class NhanVien : public User {
 private:
     string lichLamViec; // Lưu danh sách ca làm việc đã đăng ký
