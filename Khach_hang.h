@@ -29,7 +29,7 @@ public:
     // Khai báo hàm tìm sản phẩm trong giỏ hàng
     SanPham* timSanPhamTrongGioHang(const string& tenSanPham);
     // Khai báo hàm timSanPham
-    SanPham* timSanPham(const string& tenSanPham, const vector<SanPham*>& dsSanPham);
+    SanPham* timSanPham(const std::string& tenSanPham, const std::vector<SanPham*>& danhSachSanPham) const;
     virtual string getTenSanPham() const;
 };
 

@@ -1,5 +1,7 @@
 #include "SanPham.h"
 
+using namespace std;
+
 // Constructor lớp SanPham
 SanPham::SanPham(int soLuong, const string& ngaySanXuat, const string& hanSuDung, double giaTien) 
     : soLuong(soLuong), ngaySanXuat(ngaySanXuat), hanSuDung(hanSuDung), giaTien(giaTien) {}

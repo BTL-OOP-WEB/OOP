@@ -97,16 +97,17 @@ SanPham* KhachHang::timSanPhamTrongGioHang(const string& tenSanPham) {
     return nullptr; // Nếu không tìm thấy
 }
 
-SanPham* timSanPham(const string& tenSanPham, const vector<SanPham*>& dsSanPham) {
-    for (SanPham* sanPham : dsSanPham) {
-        // Giả sử bạn đã có phương thức getTenSanPham() trong lớp SanPham
-        if (sanPham->getTenSanPham() == tenSanPham) {
-            return sanPham; // Trả về con trỏ đến sản phẩm
-        }
-    }
-    return nullptr; // Nếu không tìm thấy
-}
-
 string KhachHang::getTenSanPham() const {
     return "Tên khách hàng: " + getTen(); // Hoặc bất kỳ tên nào mà bạn muốn trả về
+} 
+
+SanPham* KhachHang::timSanPham(const std::string& tenSanPham, const std::vector<SanPham*>& danhSachSanPham) const {
+    for (auto& sanPham : danhSachSanPham) {
+        if (sanPham->getTenSanPham() == tenSanPham) {
+            return sanPham;
+        }
+    }
+    return nullptr;
 }
+
+

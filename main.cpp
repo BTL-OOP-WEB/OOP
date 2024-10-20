@@ -53,7 +53,7 @@ int main() {
             cin >> luaChon;
             if (luaChon == 1)
                 dangNhap("GiamDoc");
-            else
+            else 
                 dangKy("GiamDoc");
             break;
         default:
