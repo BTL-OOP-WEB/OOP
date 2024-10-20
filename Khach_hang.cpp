@@ -53,38 +53,38 @@ void KhachHang::thanhToan() {
 
 void KhachHang::suDungDiem() {
     if (diemTichLuy > 0) {
-        cout << "Bạn có " << diemTichLuy << " điểm. Bạn có muốn sử dụng điểm để giảm giá không? (1: Có, 0: Không): ";
+        cout << "Ban co " << diemTichLuy << " diem. Ban co muon su dung diem de giam gia khong? (1: Co, 0: Khong): ";
         int luaChon;
         cin >> luaChon;
         
         if (luaChon == 1) {
             double giamGia = diemTichLuy * 1000; // Mỗi điểm trị giá 1000 VND
-            cout << "Bạn đã giảm: " << giamGia << " VND từ điểm tích lũy." << endl;
+            cout << "Ban đa giam: " << giamGia << " VND tu diem tich luy." << endl;
             diemTichLuy = 0; // Sau khi sử dụng, điểm sẽ về 0
         }
     } else {
-        cout << "Bạn không có điểm tích lũy để sử dụng." << endl;
+        cout << "Ban khong co diem tich luy de su dung." << endl;
     }
 }
 
 void KhachHang::hienThiGioHang() const {
-    cout << "Giỏ hàng của bạn:" << endl;
+    cout << "Gio hang cua ban:" << endl;
     for (auto& sp : gioHang) {
         sp->inThongTin();
     }
 }
 
 void KhachHang::hienThiThongTin() const {
-    cout << "Tên khách hàng: " << getTen() << endl;
-    cout << "Điểm tích lũy: " << diemTichLuy << endl;
+    cout << "Ten khach hang: " << getTen() << endl;
+    cout << "Diem tich luy: " << diemTichLuy << endl;
 }
 
 void KhachHang::xuatHoaDon() const {
-    cout << "Hóa đơn của bạn:" << endl;
+    cout << "Hoa don cua ban:" << endl;
     for (auto& sp : gioHang) {
         sp->inThongTin();
     }
-    cout << "Cảm ơn bạn đã mua sắm tại cửa hàng!" << endl;
+    cout << "Cam on ban da mua sam tai cua hang!" << endl;
 }
 
 SanPham* KhachHang::timSanPhamTrongGioHang(const string& tenSanPham) {
@@ -98,7 +98,7 @@ SanPham* KhachHang::timSanPhamTrongGioHang(const string& tenSanPham) {
 }
 
 string KhachHang::getTenSanPham() const {
-    return "Tên khách hàng: " + getTen(); // Hoặc bất kỳ tên nào mà bạn muốn trả về
+    return "Ten khach hang: " + getTen(); // Hoặc bất kỳ tên nào mà bạn muốn trả về
 } 
 
 SanPham* KhachHang::timSanPham(const std::string& tenSanPham, const std::vector<SanPham*>& danhSachSanPham) const {

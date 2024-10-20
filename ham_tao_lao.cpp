@@ -58,33 +58,41 @@ void dangNhap(const string& vaiTro) {
 
 void dangKy(const string& vaiTro) {
     string ten, matKhau, tenFile = vaiTro + ".txt";
-
+    
     cout << "Nhap ten dang ky: ";
     cin >> ten;
     cout << "Nhap mat khau: ";
     cin >> matKhau;
 
+    // Mở tệp để ghi thông tin
     ofstream file(tenFile, ios::app);
     if (!file) {
         cout << "Khong the mo file!" << endl;
         return;
     }
 
-    file << ten << " " << matKhau << endl;
+    // Thêm thông tin vào tệp
+    if (vaiTro == "KhachHang") {
+        file << ten << " " << matKhau << " 0" << endl; // 0 điểm tích lũy cho khách hàng
+    } else if (vaiTro == "NhanVien") {
+        file << ten << " " << matKhau << " 00000000" << endl; // chuỗi 00000000 cho nhân viên
+    }
+
     file.close();
     cout << "Dang ky thanh cong!" << endl;
 }
+
 
 void menuKhachHang(KhachHang& khachHang) {
     int luaChon;
     vector<SanPham*> dsSanPham;
     docDuLieuTuFile("input.txt", dsSanPham);
     do {
-        cout << "1. Thêm sản phẩm vào giỏ hàng" << endl;
-        cout << "2. Xóa sản phẩm khỏi giỏ hàng" << endl;
-        cout << "3. Hiển thị giỏ hàng" << endl;
-        cout << "4. Thanh toán" << endl;
-        cout << "5. Thoát" << endl;
+        cout << "1. Them san pham vao gio hang" << endl;
+        cout << "2. Xoa san pham khoi gio hang" << endl;
+        cout << "3. Hien thi gio hang" << endl;
+        cout << "4. Thanh toan" << endl;
+        cout << "5. Thoat" << endl;
         cin >> luaChon;
 
         switch (luaChon) {
@@ -92,18 +100,18 @@ void menuKhachHang(KhachHang& khachHang) {
                 // Thêm sản phẩm vào giỏ
                 string tenSanPham;
                 int soLuong;
-                cout << "Nhập tên sản phẩm: ";
+                cout << "Nhap ten san pham: ";
                 cin >> tenSanPham;
-                cout << "Nhập số lượng: ";
+                cout << "Nhap so luong: ";
                 cin >> soLuong;
 
                 
                 SanPham* sanPham = khachHang.timSanPham(tenSanPham, dsSanPham);
                 if (sanPham != nullptr) {
                     khachHang.themVaoGioHang(sanPham, soLuong);
-                    cout << "Sản phẩm đã được thêm vào giỏ hàng." << endl;
+                    cout << "San pham da duoc them vao gio hang." << endl;
                 } else {
-                    cout << "Sản phẩm không tồn tại!" << endl;
+                    cout << "San pham khong ton tai!" << endl;
                 }
                 break;
             }
@@ -111,18 +119,18 @@ void menuKhachHang(KhachHang& khachHang) {
                 // Xóa sản phẩm khỏi giỏ
                 string tenSanPham;
                 int soLuong;
-                cout << "Nhập tên sản phẩm cần xóa: ";
+                cout << "Nhap ten san pham can xoa: ";
                 cin >> tenSanPham;
-                cout << "Nhập số lượng cần xóa: ";
+                cout << "Nhap so luong can xoa: ";
                 cin >> soLuong;
 
                 // Giả sử bạn có một hàm tìm kiếm sản phẩm trong giỏ hàng
                 SanPham* sanPham = khachHang.timSanPhamTrongGioHang(tenSanPham); // Bạn cần cài đặt hàm này
                 if (sanPham != nullptr) {
                     khachHang.boSanPham(sanPham, soLuong);
-                    cout << "Sản phẩm đã được xóa khỏi giỏ hàng." << endl;
+                    cout << "San pham đa đuoc xoa khoi gio hang." << endl;
                 } else {
-                    cout << "Sản phẩm không có trong giỏ hàng!" << endl;
+                    cout << "San pham khong co trong gio hang!" << endl;
                 }
                 break;
             }
@@ -135,10 +143,10 @@ void menuKhachHang(KhachHang& khachHang) {
                 break;
             }
             case 5:
-                cout << "Thoát khỏi hệ thống." << endl;
+                cout << "Thoat khoi he thong." << endl;
                 break;
             default:
-                cout << "Lựa chọn không hợp lệ!" << endl;
+                cout << "Lua chon khong hop le!" << endl;
         }
     } while (luaChon != 5);
 }
