@@ -1,6 +1,7 @@
 #ifndef HAMTAOLAO_H
 #define HAMTAOLAO_H
 
+#include <conio.h>
 #include <iostream>
 #include <fstream>
 #include <string>

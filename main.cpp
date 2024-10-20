@@ -63,3 +63,9 @@ int main() {
 
     return 0;
 }
+
+
+
+// thiet ke giao dien
+// phan dang ky, sao cho giong that
+// ngay

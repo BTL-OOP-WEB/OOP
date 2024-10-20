@@ -1,10 +1,10 @@
 #include "ham_tao_lao.h"
 #include <iostream>
-
+#include <conio.h>
 #include <iostream>
 #include <fstream>
 #include <string>
-using namespace std;
+using namespace std;                                                       
 
 void dangNhap(const string& vaiTro) {
     string ten, matKhau, tenFile = vaiTro + ".txt"; // Tên file tương ứng với vai trò
@@ -54,6 +54,8 @@ void dangNhap(const string& vaiTro) {
     }
 
     file.close(); // Đóng file sau khi hoàn thành
+
+    //sai thi cho dang nhap lai hoac dang ky
 }
 
 void dangKy(const string& vaiTro) {
