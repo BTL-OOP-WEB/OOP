@@ -1,8 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include "Khach_hang.h"
-#include "SanPham.h"
+#include "declare/Khach_hang.h"
+#include "declare/SanPham.h"
 
 using namespace std;
 

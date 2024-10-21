@@ -3,8 +3,8 @@
 #include <sstream>
 #include <vector>
 #include <string>
-#include "NhanVien.h"
-#include "SanPham.h"
+#include "declare/NhanVien.h"
+#include "declare/SanPham.h"
 
 using namespace std;
 
