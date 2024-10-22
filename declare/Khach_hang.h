@@ -3,8 +3,8 @@
 
 #include <vector>
 #include <string>
-#include "User.h"
-#include "SanPham.h"
+#include "declare/User.h"
+#include "declare/SanPham.h"
 
 using namespace std;
 

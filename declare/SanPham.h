@@ -1,8 +1,8 @@
 #ifndef SANPHAM_H
 #define SANPHAM_H
 
-#include "GiamDoc.h"
-#include "User.h"
+#include "declare/GiamDoc.h"
+#include "declare/User.h"
 #include <string>
 #include <vector>
 #include <iostream>

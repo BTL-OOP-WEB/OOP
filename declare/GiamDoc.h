@@ -2,9 +2,9 @@
 #define GIAMDOC_H
 
 #include <vector>
-#include "User.h"
-#include "SanPham.h" 
-#include "NhanVien.h"
+#include "declare/User.h"
+#include "declare/SanPham.h" 
+#include "declare/NhanVien.h"
 
 class NhanVien;
 

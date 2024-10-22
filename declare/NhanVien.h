@@ -4,8 +4,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "User.h"
-#include "SanPham.h"
+#include "declare/User.h"
+#include "declare/SanPham.h"
 
 struct Date {
     int ngay;

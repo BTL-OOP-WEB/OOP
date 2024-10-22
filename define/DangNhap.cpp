@@ -36,10 +36,14 @@ void dangNhap(const string& vaiTro) {
                 KhachHang khachHang(ten, matKhau, diemTichLuy); // Khởi tạo KhachHang
                 menuKhachHang(khachHang); // Gọi hàm menu cho khách hàng
             } else if (vaiTro == "NhanVien") {
-                string lichLamViec; // Khai báo biến lichLamViec
-                iss >> lichLamViec; // Đọc lịch làm việc từ file
-                NhanVien nhanVien(ten, matKhau, lichLamViec); // Khởi tạo NhanVien với lichLamViec
-                menuNhanVien(nhanVien); // Gọi hàm menu cho nhân viên
+                string lichLamViec, ten, matKhau, hoTen, sdt;
+                Date ngaySinh; // Giả sử bạn có struct Date với các thuộc tính ngày, tháng, năm
+                // Đọc thông tin từ file
+                iss >> ten >> matKhau >> hoTen >> ngaySinh.ngay >> ngaySinh.thang >> ngaySinh.nam >> sdt >> lichLamViec;
+                // Khởi tạo NhanVien với các thuộc tính mới
+                NhanVien nhanVien(ten, matKhau, hoTen, ngaySinh, sdt, lichLamViec);
+                // Gọi hàm menu cho nhân viên
+                menuNhanVien(nhanVien);
             } else if (vaiTro == "GiamDoc") {
                 GiamDoc giamDoc(ten, matKhau); // Khởi tạo GiamDoc
                 menuGiamDoc(giamDoc); // Gọi hàm menu cho giám đốc

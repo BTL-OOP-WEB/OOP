@@ -6,11 +6,11 @@
 #include <fstream>
 #include <string>
 #include <vector>
-#include "Khach_hang.h"
-#include "GiamDoc.h"
-#include "SanPham.h"
-#include "NhanVien.h"
-#include "User.h"
+#include "declare/Khach_hang.h"
+#include "declare/GiamDoc.h"
+#include "declare/SanPham.h"
+#include "declare/NhanVien.h"
+#include "declare/User.h"
 
 using namespace std;
 
