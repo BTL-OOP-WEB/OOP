@@ -1,5 +1,5 @@
-#ifndef HAMTAOLAO_H
-#define HAMTAOLAO_H
+#ifndef DANGNHAP_H
+#define DANGNHAP_H
 
 #include <conio.h>
 #include <iostream>
@@ -20,4 +20,4 @@ void menuKhachHang(KhachHang& khachHang);
 void menuNhanVien(NhanVien& nhanVien);
 void menuGiamDoc(GiamDoc& giamDoc);
 
-#endif // HAMTAOLAO_H
+#endif // DANGNHAP_H
