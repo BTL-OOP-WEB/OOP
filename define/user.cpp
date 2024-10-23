@@ -1,4 +1,4 @@
-#include "User.h"
+#include "../declare/User.h"
 
 User::User(const string& ten, const string& matKhau) : ten(ten), matKhau(matKhau) {} 
 

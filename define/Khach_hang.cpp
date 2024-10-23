@@ -1,8 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include "Khach_hang.h"
-#include "SanPham.h"
+#include "../declare/Khach_hang.h"
+#include "../declare/SanPham.h"
 
 using namespace std;
 
@@ -11,7 +11,7 @@ KhachHang::KhachHang(const string& ten, const string& matKhau, const int& diemTi
 void KhachHang::themVaoGioHang(SanPham* sanPham, int soLuong) {
     sanPham->themSanPham(soLuong);
     gioHang.push_back(sanPham);
-    cout << "Đã thêm " << soLuong << " sản phẩm vào giỏ hàng." << endl;
+    cout << "Da them " << soLuong << " san pham vao gio hang." << endl;
 }
 
 void KhachHang::boSanPham(SanPham* sanPham, int soLuong) {
@@ -19,11 +19,11 @@ void KhachHang::boSanPham(SanPham* sanPham, int soLuong) {
         if (*it == sanPham) {
             sanPham->banSanPham(soLuong);
             gioHang.erase(it);
-            cout << "Đã xóa sản phẩm khỏi giỏ hàng." << endl;
+            cout << "Da xoa san pham khoi gio hang." << endl;
             return;
         }
     }
-    cout << "Không tìm thấy sản phẩm trong giỏ hàng." << endl;
+    cout << "Khong tim thay san pham trong gio hang." << endl;
 }
 
 void KhachHang::thanhToan() {
@@ -32,17 +32,17 @@ void KhachHang::thanhToan() {
         tongTien += sp->giaTien;
     }
 
-    cout << "Tổng tiền trước khi áp dụng giảm giá: " << tongTien << " VND" << endl;
+    cout << "Tong tien truoc khi ap dung giam gia: " << tongTien << " VND" << endl;
     
     // Hỏi khách hàng có muốn sử dụng điểm tích lũy để giảm giá không
     suDungDiem();
     
     // Sau khi trừ tiền giảm giá, hiển thị tổng tiền còn lại
-    cout << "Tổng tiền cần thanh toán: " << tongTien << " VND" << endl;
+    cout << "Tong tien can thanh toan: " << tongTien << " VND" << endl;
     
     // Tính điểm tích lũy mới sau khi thanh toán
     diemTichLuy += tongTien / 100000; // Cứ mỗi 100k sẽ được 1 điểm
-    cout << "Bạn đã tích thêm: " << tongTien / 100000 << " điểm" << endl;
+    cout << "Ban da tich them: " << tongTien / 100000 << " điem" << endl;
 
     // Xuất hóa đơn
     xuatHoaDon();

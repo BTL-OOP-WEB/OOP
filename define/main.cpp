@@ -2,11 +2,11 @@
 #include <fstream>
 #include <string>
 #include <vector>
-#include "GiamDoc.h"
-#include "SanPham.h"
-#include "User.h"    
-#include "NhanVien.h"
-#include "DangNhap.h"
+#include "../declare/GiamDoc.h"
+#include "../declare/SanPham.h"
+#include "../declare/User.h"    
+#include "../declare/NhanVien.h"
+#include "../declare/DangNhap.h"
 
 using namespace std;
 
@@ -18,7 +18,7 @@ void menuGiamDoc(GiamDoc& giamDoc);
 
 int main() {
     int luaChon;
-    cout << "Chọn vai tro: " << endl;
+    cout << "Chon vai tro: " << endl;
     cout << "1. Khach hang" << endl;
     cout << "2. Nhan vien" << endl;
     cout << "3. Giam doc" << endl;

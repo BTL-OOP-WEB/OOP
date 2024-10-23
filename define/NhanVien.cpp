@@ -3,8 +3,8 @@
 #include <sstream>
 #include <vector>
 #include <string>
-#include "NhanVien.h"
-#include "SanPham.h"
+#include "../declare/NhanVien.h"
+#include "../declare/SanPham.h"
 
 using namespace std;
 
@@ -129,7 +129,7 @@ void NhanVien::dangKyCaLam() {
     }
 
     // Ghi lại lịch làm việc vào file
-    ifstream fileIn("NhanVien.txt");
+    ifstream fileIn("../resources/NhanVien.txt");
     if (!fileIn) {
         cout << "Khong the mo file NhanVien.txt!" << endl;
         return;
@@ -173,7 +173,7 @@ void NhanVien::dangKyCaLam() {
         return;
     }
 
-    ofstream fileOut("NhanVien.txt");
+    ofstream fileOut("../resources/NhanVien.txt");
     if (!fileOut) {
         cout << "Khong the mo file NhanVien.txt de ghi!" << endl;
         return;

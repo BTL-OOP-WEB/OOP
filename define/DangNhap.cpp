@@ -1,4 +1,4 @@
-#include "DangNhap.h"
+#include "../declare/DangNhap.h"
 #include <iostream>
 #include <conio.h>
 #include <fstream>
@@ -6,7 +6,7 @@
 using namespace std;                                                       
 
 void dangNhap(const string& vaiTro) {
-    string ten, matKhau, tenFile = "resources/"+ vaiTro + ".txt"; // Tên file tương ứng với vai trò
+    string ten, matKhau, tenFile = "../resources/"+ vaiTro + ".txt"; // Tên file tương ứng với vai trò
     bool timThay = false;
 
     cout << "Nhap ten dang nhap: ";
@@ -62,7 +62,7 @@ void dangNhap(const string& vaiTro) {
 }
 
 void dangKy(const string& vaiTro) {
-    string ten, matKhau, tenFile = "resources/"+ vaiTro + ".txt";
+    string ten, matKhau, tenFile = "../resources/"+ vaiTro + ".txt";
     
     cout << "Nhap ten dang ky: ";
     cin >> ten;
@@ -91,7 +91,7 @@ void dangKy(const string& vaiTro) {
 void menuKhachHang(KhachHang& khachHang) {
     int luaChon;
     vector<SanPham*> dsSanPham;
-    docDuLieuTuFile("resources/input.txt", dsSanPham);
+    docDuLieuTuFile("../resources/input.txt", dsSanPham);
     do {
         cout << "1. Them san pham vao gio hang" << endl;
         cout << "2. Xoa san pham khoi gio hang" << endl;
