@@ -10,7 +10,7 @@ KhachHang::KhachHang(const string& ten, const string& matKhau, const int& diemTi
     : User(ten, matKhau), diemTichLuy(diemTichLuy), hoTen(hoTen), ngaySinh(ngaySinh), sdt(sdt) {}
 
 void KhachHang::themVaoGioHang(SanPham* sanPham, int soLuong) {
-    sanPham->themSanPhamvaodohang(soLuong);
+    sanPham->themSanPhamVaoDoHang(soLuong);
     gioHang.push_back(sanPham);
     cout << "Da them " << soLuong << " san pham vao gio hang." << endl;
 }
@@ -34,21 +34,16 @@ void KhachHang::thanhToan() {
     }
 
     cout << "Tong tien truoc khi ap dung giam gia: " << tongTien << " VND" << endl;
-    
-    // Hỏi khách hàng có muốn sử dụng điểm tích lũy để giảm giá không
+
     suDungDiem();
     
-    // Sau khi trừ tiền giảm giá, hiển thị tổng tiền còn lại
     cout << "Tong tien can thanh toan: " << tongTien << " VND" << endl;
     
-    // Tính điểm tích lũy mới sau khi thanh toán
-    diemTichLuy += tongTien / 100000; // Cứ mỗi 100k sẽ được 1 điểm
-    cout << "Ban da tich them: " << tongTien / 100000 << " điem" << endl;
+    diemTichLuy += tongTien / 100000;
+    cout << "Ban da tich them: " << tongTien / 100000 << " diem" << endl;
 
-    // Xuất hóa đơn
     xuatHoaDon();
 
-    // Làm trống giỏ hàng sau khi thanh toán
     gioHang.clear();
 }
 
@@ -57,11 +52,11 @@ void KhachHang::suDungDiem() {
         cout << "Ban co " << diemTichLuy << " diem. Ban co muon su dung diem de giam gia khong? (1: Co, 0: Khong): ";
         int luaChon;
         cin >> luaChon;
-        
+
         if (luaChon == 1) {
-            double giamGia = diemTichLuy * 1000; // Mỗi điểm trị giá 1000 VND
-            cout << "Ban đa giam: " << giamGia << " VND tu diem tich luy." << endl;
-            diemTichLuy = 0; // Sau khi sử dụng, điểm sẽ về 0
+            double giamGia = diemTichLuy * 1000;
+            cout << "Ban da giam: " << giamGia << " VND tu diem tich luy." << endl;
+            diemTichLuy = 0;
         }
     } else {
         cout << "Ban khong co diem tich luy de su dung." << endl;
@@ -90,17 +85,16 @@ void KhachHang::xuatHoaDon() const {
 
 SanPham* KhachHang::timSanPhamTrongGioHang(const string& tenSanPham) {
     for (SanPham* sanPham : gioHang) {
-        // Giả sử bạn đã có phương thức getTenSanPham() trong lớp SanPham
         if (sanPham->getTenSanPham() == tenSanPham) {
-            return sanPham; // Trả về con trỏ đến sản phẩm
+            return sanPham;
         }
     }
-    return nullptr; // Nếu không tìm thấy
+    return nullptr;
 }
 
 string KhachHang::getTenSanPham() const {
-    return "Ten khach hang: " + getTen(); // Hoặc bất kỳ tên nào mà bạn muốn trả về
-} 
+    return "Ten khach hang: " + getTen();
+}
 
 SanPham* KhachHang::timSanPham(const std::string& tenSanPham, const std::vector<SanPham*>& danhSachSanPham) const {
     for (auto& sanPham : danhSachSanPham) {
@@ -110,5 +104,3 @@ SanPham* KhachHang::timSanPham(const std::string& tenSanPham, const std::vector<
     }
     return nullptr;
 }
-
-

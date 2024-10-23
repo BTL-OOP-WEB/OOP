@@ -3,10 +3,10 @@
 #include <conio.h>
 #include <fstream>
 #include <string>
-using namespace std;                                                       
+using namespace std;
 
 void dangNhap(const string& vaiTro) {
-    string ten, matKhau, tenFile = "../resources/"+ vaiTro + ".txt"; // Tên file tương ứng với vai trò
+    string ten, matKhau, tenFile = "../resources/" + vaiTro + ".txt";
     bool timThay = false;
 
     cout << "Nhap ten dang nhap: ";
@@ -14,7 +14,7 @@ void dangNhap(const string& vaiTro) {
     cout << "Nhap mat khau: ";
     cin >> matKhau;
 
-    ifstream file(tenFile); // Mở file tương ứng với vai trò
+    ifstream file(tenFile);
     if (!file) {
         cout << "Khong the mo file!" << endl;
         return;
@@ -26,81 +26,78 @@ void dangNhap(const string& vaiTro) {
         string tenNguoiDung, mk;
         iss >> tenNguoiDung >> mk;
 
-        // So sánh tên và mật khẩu
         if (ten == tenNguoiDung && matKhau == mk) {
             if (vaiTro == "KhachHang") {
                 int diemTichLuy;
-                string hoTen, sdt, ngaySinhStr;
+                string hoTen, sdt;
                 Date ngaySinh;
-                iss >> diemTichLuy;                  
-                getline(iss >> ws, hoTen);           
-                getline(iss, ngaySinhStr, ' ');    
-                sscanf(ngaySinhStr.c_str(), "%d/%d/%d", &ngaySinh.ngay, &ngaySinh.thang, &ngaySinh.nam);
-                iss >> sdt;                    
+
+                iss >> diemTichLuy;
+                iss.ignore();
+                getline(iss, hoTen);
+                iss >> ngaySinh.ngay >> ngaySinh.thang >> ngaySinh.nam;
+                iss >> sdt;
                 KhachHang khachHang(ten, matKhau, diemTichLuy, hoTen, ngaySinh, sdt);
                 menuKhachHang(khachHang);
             } else if (vaiTro == "NhanVien") {
-                string lichLamViec, ten, matKhau, hoTen, sdt;
+                string lichLamViec, hoTen, sdt;
                 Date ngaySinh;
-                iss >> ten >> matKhau >> hoTen >> ngaySinh.ngay >> ngaySinh.thang >> ngaySinh.nam >> sdt >> lichLamViec;
+
+                iss >> hoTen >> ngaySinh.ngay >> ngaySinh.thang >> ngaySinh.nam >> sdt >> lichLamViec;
                 NhanVien nhanVien(ten, matKhau, hoTen, ngaySinh, sdt, lichLamViec);
                 menuNhanVien(nhanVien);
             } else if (vaiTro == "GiamDoc") {
-                GiamDoc giamDoc(ten, matKhau); 
+                GiamDoc giamDoc(ten, matKhau);
                 menuGiamDoc(giamDoc);
             }
+            timThay = true;
             break;
         }
     }
 
     if (!timThay) {
-        cout << "Sai ten dang nhap hoac mat khau!" << endl; // Thông báo lỗi
+        cout << "Sai ten dang nhap hoac mat khau!" << endl;
     }
 
-    file.close(); // Đóng file sau khi hoàn thành
-
-    //sai thi cho dang nhap lai hoac dang ky
+    file.close();
 }
 
 void dangKy(const string& vaiTro) {
-    string ten, matKhau, tenFile = "../resources/"+ vaiTro + ".txt";
-    
+    string ten, matKhau, tenFile = "../resources/" + vaiTro + ".txt";
+
     cout << "Nhap ten dang ky: ";
     cin >> ten;
     cout << "Nhap mat khau: ";
     cin >> matKhau;
 
-    // Mở tệp để ghi thông tin
     ofstream file(tenFile, ios::app);
     if (!file) {
         cout << "Khong the mo file!" << endl;
         return;
     }
 
-    // Thêm thông tin vào tệp
     if (vaiTro == "KhachHang") {
         string hoTen, sdt;
         Date ngaySinh;
 
         cout << "Nhập họ tên khách hàng: ";
         getline(cin >> ws, hoTen);
-        cout << "Nhập ngày sinh (dd/mm/yyyy): ";
+        cout << "Nhập ngày sinh (dd mm yyyy): ";
         cin >> ngaySinh.ngay >> ngaySinh.thang >> ngaySinh.nam;
         cout << "Nhập số điện thoại: ";
         cin >> sdt;
 
         file << ten << " " << matKhau << " 0 " << hoTen << " "
-            << ngaySinh.ngay << "/" << ngaySinh.thang << "/" << ngaySinh.nam << " "
-            << sdt << endl;
-    } 
-    else if (vaiTro == "NhanVien") {
+             << ngaySinh.ngay << " " << ngaySinh.thang << " " << ngaySinh.nam << " "
+             << sdt << endl;
+    } else if (vaiTro == "NhanVien") {
         string hoTen, sdt;
         Date ngaySinh;
-        string lichLamViec = "00000000"; // Chuỗi lịch làm việc mặc định
+        string lichLamViec = "00000000";
 
         cout << "Nhập họ tên nhân viên: ";
         getline(cin >> ws, hoTen);
-        cout << "Nhập ngày sinh (dd/mm/yyyy): ";
+        cout << "Nhập ngày sinh (dd mm yyyy): ";
         cin >> ngaySinh.ngay >> ngaySinh.thang >> ngaySinh.nam;
         cout << "Nhập số điện thoại: ";
         cin >> sdt;
@@ -108,13 +105,15 @@ void dangKy(const string& vaiTro) {
         NhanVien nhanVien(ten, matKhau, hoTen, ngaySinh, sdt, lichLamViec);
 
         file << ten << " " << matKhau << " " << lichLamViec << " " << hoTen << " "
-            << ngaySinh.ngay << "/" << ngaySinh.thang << "/" << ngaySinh.nam << " "
-            << sdt << endl;
+             << ngaySinh.ngay << " " << ngaySinh.thang << " " << ngaySinh.nam << " "
+             << sdt << endl;
     }
 
     file.close();
     cout << "Dang ky thanh cong!" << endl;
 }
+
+
 
 
 void menuKhachHang(KhachHang& khachHang) {

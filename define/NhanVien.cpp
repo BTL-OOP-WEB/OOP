@@ -8,11 +8,9 @@
 
 using namespace std;
 
-// Constructor mới có các tham số hoTen, ngaySinh, sdt và lichLamViec
 NhanVien::NhanVien(const string& ten, const string& matKhau, const string& hoTen, const Date& ngaySinh, const string& sdt, const string& lichLamViec)
     : User(ten, matKhau), hoTen(hoTen), ngaySinh(ngaySinh), sdt(sdt), lichLamViec(lichLamViec) {}
 
-// Hàm trả về số ca đã làm
 int NhanVien::getSoCaDaLam() const {
     int soCaDaLam = 0;
     for (char c : lichLamViec) {
@@ -23,41 +21,36 @@ int NhanVien::getSoCaDaLam() const {
     return soCaDaLam;
 }
 
-// Hàm lấy tên người dùng (hoTen)
 string NhanVien::getHoTen() const {
     return hoTen;
 }
 
-// Hàm lấy ngày sinh
 Date NhanVien::getNgaySinh() const {
     return ngaySinh;
 }
 
-// Hàm lấy số điện thoại
 string NhanVien::getSdt() const {
     return sdt;
 }
 
-// Hàm nhập thêm sản phẩm vào kho
-void NhanVien::nhapSanPham(SanPham* sanPham, int soLuong) {
+void NhanVien::nhapSanPham(vector<SanPham*>& khoHang, const string& loaiSanPham, int soLuong) { 
     bool daTonTai = false;
+
     for (auto& sp : khoHang) {
-        if (sp == sanPham) { 
-            sp->themSanPham(soLuong); 
+        if (sp->getTenSanPham() == loaiSanPham) { 
+            sp->themSanPhamVaoDoHang(soLuong);
             daTonTai = true;
             break;
         }
     }
 
     if (!daTonTai) {
-        sanPham->themSanPham(soLuong); 
-        khoHang.push_back(sanPham); 
+        
+        cout << "Sản phẩm mới cần được thêm vào kho!" << endl;
     }
 
-    cout << "Da nhap " << soLuong << " san pham vao kho." << endl;
+    cout << "Đã nhập " << soLuong << " sản phẩm vào kho." << endl;
 }
-
-// Hàm xóa sản phẩm khỏi kho
 void NhanVien::xoaSanPham(SanPham* sanPham, int soLuong) {
     int slHienTai = sanPham->getSoLuong(); 
     if (slHienTai >= soLuong) {
@@ -71,7 +64,6 @@ void NhanVien::xoaSanPham(SanPham* sanPham, int soLuong) {
     }
 }
 
-// Hàm đăng ký ca làm việc
 void NhanVien::dangKyCaLam() {
     lichLamViec = "0000000"; 
 
@@ -128,7 +120,6 @@ void NhanVien::dangKyCaLam() {
         }
     }
 
-    // Ghi lại lịch làm việc vào file
     ifstream fileIn("../resources/NhanVien.txt");
     if (!fileIn) {
         cout << "Khong the mo file NhanVien.txt!" << endl;
@@ -188,7 +179,6 @@ void NhanVien::dangKyCaLam() {
     cout << "Da dang ky lich lam viec thanh cong: " << lichLamViec << endl;
 }
 
-// Hàm hiển thị thông tin nhân viên
 void NhanVien::hienThiThongTin() const {
     cout << "Ho ten: " << hoTen << endl;
     cout << "Ngay sinh: " << ngaySinh.ngay << "/" << ngaySinh.thang << "/" << ngaySinh.nam << endl;
