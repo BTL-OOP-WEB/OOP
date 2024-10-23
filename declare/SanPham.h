@@ -25,7 +25,7 @@ public:
     virtual void inThongTin() const;
     virtual string getTenSanPham() const = 0;
 
-    void themSanPham(int soLuong);
+    void themSanPhamVaoDoHang(int soLuong);
     int getSoLuong() const;
     void setSoLuong(int soLuongMoi);
     bool banSanPham(int soLuong);

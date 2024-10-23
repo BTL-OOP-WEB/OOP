@@ -36,6 +36,7 @@ int main() {
                 dangKy("KhachHang");
             break;
         case 2:
+
             cout << "Ban muon: " << endl;
             cout << "1. Dang nhap" << endl;
             cout << "2. Dang ky" << endl;

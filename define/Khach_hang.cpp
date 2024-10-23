@@ -6,10 +6,11 @@
 
 using namespace std;
 
-KhachHang::KhachHang(const string& ten, const string& matKhau, const int& diemTichLuy) : User(ten, matKhau), diemTichLuy(diemTichLuy){}
+KhachHang::KhachHang(const string& ten, const string& matKhau, const int& diemTichLuy, const string& hoTen, const Date& ngaySinh, const string& sdt) 
+    : User(ten, matKhau), diemTichLuy(diemTichLuy), hoTen(hoTen), ngaySinh(ngaySinh), sdt(sdt) {}
 
 void KhachHang::themVaoGioHang(SanPham* sanPham, int soLuong) {
-    sanPham->themSanPham(soLuong);
+    sanPham->themSanPhamvaodohang(soLuong);
     gioHang.push_back(sanPham);
     cout << "Da them " << soLuong << " san pham vao gio hang." << endl;
 }

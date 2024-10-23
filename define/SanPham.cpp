@@ -15,7 +15,7 @@ void SanPham::inThongTin() const {
 }
 
 // Thêm sản phẩm
-void SanPham::themSanPham(int soLuong) {
+void SanPham::themSanPhamVaoDoHang(int soLuong) {
     this->soLuong += soLuong;
 }
 

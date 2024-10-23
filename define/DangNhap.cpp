@@ -28,27 +28,28 @@ void dangNhap(const string& vaiTro) {
 
         // So sánh tên và mật khẩu
         if (ten == tenNguoiDung && matKhau == mk) {
-            timThay = true; // Đánh dấu là tìm thấy
-
             if (vaiTro == "KhachHang") {
                 int diemTichLuy;
-                iss >> diemTichLuy; // Lấy điểm tích lũy
-                KhachHang khachHang(ten, matKhau, diemTichLuy); // Khởi tạo KhachHang
-                menuKhachHang(khachHang); // Gọi hàm menu cho khách hàng
+                string hoTen, sdt, ngaySinhStr;
+                Date ngaySinh;
+                iss >> diemTichLuy;                  
+                getline(iss >> ws, hoTen);           
+                getline(iss, ngaySinhStr, ' ');    
+                sscanf(ngaySinhStr.c_str(), "%d/%d/%d", &ngaySinh.ngay, &ngaySinh.thang, &ngaySinh.nam);
+                iss >> sdt;                    
+                KhachHang khachHang(ten, matKhau, diemTichLuy, hoTen, ngaySinh, sdt);
+                menuKhachHang(khachHang);
             } else if (vaiTro == "NhanVien") {
                 string lichLamViec, ten, matKhau, hoTen, sdt;
-                Date ngaySinh; // Giả sử bạn có struct Date với các thuộc tính ngày, tháng, năm
-                // Đọc thông tin từ file
+                Date ngaySinh;
                 iss >> ten >> matKhau >> hoTen >> ngaySinh.ngay >> ngaySinh.thang >> ngaySinh.nam >> sdt >> lichLamViec;
-                // Khởi tạo NhanVien với các thuộc tính mới
                 NhanVien nhanVien(ten, matKhau, hoTen, ngaySinh, sdt, lichLamViec);
-                // Gọi hàm menu cho nhân viên
                 menuNhanVien(nhanVien);
             } else if (vaiTro == "GiamDoc") {
-                GiamDoc giamDoc(ten, matKhau); // Khởi tạo GiamDoc
-                menuGiamDoc(giamDoc); // Gọi hàm menu cho giám đốc
+                GiamDoc giamDoc(ten, matKhau); 
+                menuGiamDoc(giamDoc);
             }
-            break; // Thoát khỏi vòng lặp khi đã tìm thấy
+            break;
         }
     }
 
@@ -78,9 +79,37 @@ void dangKy(const string& vaiTro) {
 
     // Thêm thông tin vào tệp
     if (vaiTro == "KhachHang") {
-        file << ten << " " << matKhau << " 0" << endl; // 0 điểm tích lũy cho khách hàng
-    } else if (vaiTro == "NhanVien") {
-        file << ten << " " << matKhau << " 00000000" << endl; // chuỗi 00000000 cho nhân viên
+        string hoTen, sdt;
+        Date ngaySinh;
+
+        cout << "Nhập họ tên khách hàng: ";
+        getline(cin >> ws, hoTen);
+        cout << "Nhập ngày sinh (dd/mm/yyyy): ";
+        cin >> ngaySinh.ngay >> ngaySinh.thang >> ngaySinh.nam;
+        cout << "Nhập số điện thoại: ";
+        cin >> sdt;
+
+        file << ten << " " << matKhau << " 0 " << hoTen << " "
+            << ngaySinh.ngay << "/" << ngaySinh.thang << "/" << ngaySinh.nam << " "
+            << sdt << endl;
+    } 
+    else if (vaiTro == "NhanVien") {
+        string hoTen, sdt;
+        Date ngaySinh;
+        string lichLamViec = "00000000"; // Chuỗi lịch làm việc mặc định
+
+        cout << "Nhập họ tên nhân viên: ";
+        getline(cin >> ws, hoTen);
+        cout << "Nhập ngày sinh (dd/mm/yyyy): ";
+        cin >> ngaySinh.ngay >> ngaySinh.thang >> ngaySinh.nam;
+        cout << "Nhập số điện thoại: ";
+        cin >> sdt;
+
+        NhanVien nhanVien(ten, matKhau, hoTen, ngaySinh, sdt, lichLamViec);
+
+        file << ten << " " << matKhau << " " << lichLamViec << " " << hoTen << " "
+            << ngaySinh.ngay << "/" << ngaySinh.thang << "/" << ngaySinh.nam << " "
+            << sdt << endl;
     }
 
     file.close();
