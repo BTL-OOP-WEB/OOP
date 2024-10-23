@@ -1,4 +1,4 @@
-#include "declare/GiamDoc.h"
+#include "GiamDoc.h"
 #include <iostream>
 
 GiamDoc::GiamDoc(const string& ten, const string& matKhau) : User(ten, matKhau) {};

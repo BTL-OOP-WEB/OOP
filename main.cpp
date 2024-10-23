@@ -2,12 +2,11 @@
 #include <fstream>
 #include <string>
 #include <vector>
-#include "declare/Khach_hang.h"
-#include "declare/GiamDoc.h"
-#include "declare/SanPham.h"
-#include "declare/User.h"    
-#include "declare/NhanVien.h"
-#include "declare/DangNhap.h"
+#include "GiamDoc.h"
+#include "SanPham.h"
+#include "User.h"    
+#include "NhanVien.h"
+#include "DangNhap.h"
 
 using namespace std;
 

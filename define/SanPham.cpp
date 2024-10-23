@@ -1,4 +1,4 @@
-#include "declare/SanPham.h"
+#include "SanPham.h"
 
 using namespace std;
 
