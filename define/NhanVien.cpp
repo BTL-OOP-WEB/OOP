@@ -3,6 +3,8 @@
 #include <sstream>
 #include <vector>
 #include <string>
+#include <fstream>
+#include <sstream>  
 #include "../declare/NhanVien.h"
 #include "../declare/SanPham.h"
 
@@ -10,6 +12,34 @@ using namespace std;
 
 NhanVien::NhanVien(const string& ten, const string& matKhau, const string& hoTen, const Date& ngaySinh, const string& sdt, const string& lichLamViec)
     : User(ten, matKhau), hoTen(hoTen), ngaySinh(ngaySinh), sdt(sdt), lichLamViec(lichLamViec) {}
+
+void NhanVien::docDanhSachNhanVien(std::vector<NhanVien*>& dsNhanVien) {
+    std::ifstream file("../resources/NhanVien.txt");
+    if (!file) {
+        std::cerr << "Khong the mo file NhanVien.txt" << std::endl;
+        return;
+    }
+    std::string ten, matKhau, lichLamViec, hoTen, sdt;
+    int ngay, thang, nam;
+
+    while (file >> ten >> matKhau >> lichLamViec) {
+        hoTen.clear();
+        char ch;
+        while (file.get(ch) && !isdigit(ch)) {
+            hoTen += ch;
+        }
+        file.putback(ch);
+        
+        file >> ngay >> thang >> nam >> sdt;
+
+        Date date(ngay, thang, nam);
+        NhanVien* nhanVien = new NhanVien(ten, matKhau, hoTen, date, sdt, lichLamViec);
+        dsNhanVien.push_back(nhanVien);
+        std::cout << "Nhan vien " << nhanVien->getTen() << " da duoc them vao danh sach." << std::endl;
+    }
+
+    file.close();
+}
 
 int NhanVien::getSoCaDaLam() const {
     int soCaDaLam = 0;
@@ -31,6 +61,10 @@ Date NhanVien::getNgaySinh() const {
 
 string NhanVien::getSdt() const {
     return sdt;
+}
+
+string NhanVien::getCaLam() const {
+    return lichLamViec;
 }
 
 void NhanVien::nhapSanPham(vector<SanPham*>& khoHang, const string& loaiSanPham, int soLuong) { 

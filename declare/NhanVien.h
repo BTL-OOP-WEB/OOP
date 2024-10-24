@@ -39,6 +39,9 @@ public:
     string getHoTen() const;
     Date getNgaySinh() const; 
     string getSdt() const; 
+    string getCaLam() const;
+
+    static void docDanhSachNhanVien(vector<NhanVien*>& dsNhanVien);
 };
 
 #endif

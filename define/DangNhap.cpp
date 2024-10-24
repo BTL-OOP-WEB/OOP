@@ -80,11 +80,11 @@ void dangKy(const string& vaiTro) {
         string hoTen, sdt;
         Date ngaySinh;
 
-        cout << "Nhập họ tên khách hàng: ";
+        cout << "Nhap ho tưn khach hang: ";
         getline(cin >> ws, hoTen);
-        cout << "Nhập ngày sinh (dd mm yyyy): ";
+        cout << "Nhap ngay sinh (dd mm yyyy): ";
         cin >> ngaySinh.ngay >> ngaySinh.thang >> ngaySinh.nam;
-        cout << "Nhập số điện thoại: ";
+        cout << "Nhap so dien thoai: ";
         cin >> sdt;
 
         file << ten << " " << matKhau << " 0 " << hoTen << " "
@@ -93,13 +93,13 @@ void dangKy(const string& vaiTro) {
     } else if (vaiTro == "NhanVien") {
         string hoTen, sdt;
         Date ngaySinh;
-        string lichLamViec = "00000000";
+        string lichLamViec = "0000000";
 
-        cout << "Nhập họ tên nhân viên: ";
+        cout << "Nhap ho ten nhan vien: ";
         getline(cin >> ws, hoTen);
-        cout << "Nhập ngày sinh (dd mm yyyy): ";
+        cout << "Nhap ngay sinh (dd mm yyyy): ";
         cin >> ngaySinh.ngay >> ngaySinh.thang >> ngaySinh.nam;
-        cout << "Nhập số điện thoại: ";
+        cout << "Nhap so dien thoai: ";
         cin >> sdt;
 
         NhanVien nhanVien(ten, matKhau, hoTen, ngaySinh, sdt, lichLamViec);
