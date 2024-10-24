@@ -223,27 +223,52 @@ void menuNhanVien(NhanVien& nhanVien) {
                     string loaiThit;
                     cout << "Nhap loai thit: ";
                     cin >> loaiThit;
-                    dsSanPham.push_back(new Thit(soLuong, ngaySanXuat, hanSuDung, loaiThit, giaTien));
+                    dsSanPham.push_back(new Thit(soLuong, loaiThit, giaTien));
                 } else if (loaiSanPham == "Ca") {
                     string loaiCa;
                     cout << "Nhap loai ca: ";
                     cin >> loaiCa;
-                    dsSanPham.push_back(new Ca(soLuong, ngaySanXuat, hanSuDung, loaiCa, giaTien));
+                    dsSanPham.push_back(new Ca(soLuong, loaiCa, giaTien));
                 } else if (loaiSanPham == "Keo") {
                     string loaiKeo;
                     cout << "Nhap loai keo: ";
                     cin >> loaiKeo;
-                    dsSanPham.push_back(new Keo(soLuong, ngaySanXuat, hanSuDung, loaiKeo, giaTien));
+                    dsSanPham.push_back(new Keo(soLuong, loaiKeo, giaTien));
                 } else if (loaiSanPham == "Nuoc") {
                     string loaiNuoc;
                     cout << "Nhap loai nuoc: ";
                     cin >> loaiNuoc;
-                    dsSanPham.push_back(new Nuoc(soLuong, ngaySanXuat, hanSuDung, loaiNuoc, giaTien));
+                    dsSanPham.push_back(new Nuoc(soLuong, loaiNuoc, giaTien));
                 } else if (loaiSanPham == "RauCu") {
                     string loaiRauCu;
                     cout << "Nhap loai rau cu: ";
                     cin >> loaiRauCu;
-                    dsSanPham.push_back(new RauCu(soLuong, ngaySanXuat, hanSuDung, loaiRauCu, giaTien));
+                    dsSanPham.push_back(new RauCu(soLuong, loaiRauCu, giaTien));
+                } else if (loaiSanPham == "GiaVi") {
+                    string loaiGiaVi;
+                    cout << "Nhap loai gia vị: ";
+                    cin >> loaiGiaVi;
+                    dsSanPham.push_back(new GiaVi(soLuong, loaiGiaVi, giaTien));    
+                } else if (loaiSanPham == "Banh") {
+                    string loaiBanh;
+                    cout << "Nhap loai Banh: ";
+                    cin >> loaiBanh;
+                    dsSanPham.push_back(new Banh(soLuong, loaiBanh, giaTien));
+                } else if (loaiSanPham == "Giay") {
+                    string loaiGiay;
+                    cout << "Nhap loai giay: ";
+                    cin >> loaiGiay;
+                    dsSanPham.push_back(new Giay(soLuong, loaiGiay, giaTien));
+                } else if (loaiSanPham == "ChenBat") {
+                    string loaiChenBat;
+                    cout << "Nhap loai rau cu: ";
+                    cin >> loaiChenBat;
+                    dsSanPham.push_back(new ChenBat(soLuong, loaiChenBat, giaTien));
+                } else if (loaiSanPham == "DoDongHop") {
+                    string loaiDoDongHop;
+                    cout << "Nhap loai do dong hop: ";
+                    cin >> loaiDoDongHop;
+                    dsSanPham.push_back(new DoDongHop(soLuong, loaiDoDongHop, giaTien));
                 } else {
                     cout << "Loai san pham khong hop le!" << endl;
                 }

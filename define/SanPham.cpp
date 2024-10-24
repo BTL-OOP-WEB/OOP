@@ -261,12 +261,34 @@ void ghiDuLieuVaoFile(const string& tenFile, const vector<SanPham*>& dsSanPham) 
     if (fileOut.is_open()) {
         for (const SanPham* sp : dsSanPham) {
             fileOut << sp->getTenSanPham() << " "
-                     << sp->getSoLuong() << " "
-                     << sp->loaiChiTiet << " "
-                     << sp->giaTien << endl;
+                    << sp->getSoLuong() << " ";
+
+            // Xác định loại chi tiết của sản phẩm và ghi vào file
+            if (const Thit* thit = dynamic_cast<const Thit*>(sp)) {
+                fileOut << thit->getTenSanPham() << " " << thit->giaTien << endl;
+            } else if (const Ca* ca = dynamic_cast<const Ca*>(sp)) {
+                fileOut << ca->getTenSanPham() << " " << ca->giaTien << endl;
+            } else if (const Keo* keo = dynamic_cast<const Keo*>(sp)) {
+                fileOut << keo->getTenSanPham() << " " << keo->giaTien << endl;
+            } else if (const Nuoc* nuoc = dynamic_cast<const Nuoc*>(sp)) {
+                fileOut << nuoc->getTenSanPham() << " " << nuoc->giaTien << endl;
+            } else if (const RauCu* rauCu = dynamic_cast<const RauCu*>(sp)) {
+                fileOut << rauCu->getTenSanPham() << " " << rauCu->giaTien << endl;
+            } else if (const GiaVi* giaVi = dynamic_cast<const GiaVi*>(sp)) {
+                fileOut << giaVi->getTenSanPham() << " " << giaVi->giaTien << endl;
+            } else if (const Banh* banh = dynamic_cast<const Banh*>(sp)) {
+                fileOut << banh->getTenSanPham() << " " << banh->giaTien << endl;
+            } else if (const Giay* giay = dynamic_cast<const Giay*>(sp)) {
+                fileOut << giay->getTenSanPham() << " " << giay->giaTien << endl;
+            } else if (const ChenBat* chenBat = dynamic_cast<const ChenBat*>(sp)) {
+                fileOut << chenBat->getTenSanPham() << " " << chenBat->giaTien << endl;
+            } else if (const DoDongHop* doDongHop = dynamic_cast<const DoDongHop*>(sp)) {
+                fileOut << doDongHop->getTenSanPham() << " " << doDongHop->giaTien << endl;
+            }
         }
         fileOut.close();
     } else {
         cout << "Khong the mo file de ghi!" << endl;
     }
 }
+

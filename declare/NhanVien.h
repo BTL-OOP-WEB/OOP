@@ -31,7 +31,7 @@ public:
     int getSoCaDaLam() const;
     string getTenNguoiDung() const; 
 
-    void nhapSanPham(SanPham* sanPham, int soLuong);
+    void nhapSanPham(vector<SanPham*>& khoHang, const string& loaiSanPham, int soLuong);
     void xoaSanPham(SanPham* sanPham, int soLuong);
     void dangKyCaLam(); 
     void hienThiThongTin() const override; 
