@@ -29,6 +29,7 @@ public:
     
     void suDungDiem();         
     void xuatHoaDon() const;   
+    void muaHang(const vector<SanPham*>& danhSachSanPham);
 
     SanPham* timSanPhamTrongGioHang(const string& tenSanPham);
     SanPham* timSanPham(const std::string& tenSanPham, const std::vector<SanPham*>& danhSachSanPham) const;

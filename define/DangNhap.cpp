@@ -121,7 +121,7 @@ void menuKhachHang(KhachHang& khachHang) {
     vector<SanPham*> dsSanPham;
     docDuLieuTuFile("../resources/input.txt", dsSanPham);
     do {
-        cout << "1. Them san pham vao gio hang" << endl;
+        cout << "1. Di mua hàng" << endl;
         cout << "2. Xoa san pham khoi gio hang" << endl;
         cout << "3. Hien thi gio hang" << endl;
         cout << "4. Thanh toan" << endl;

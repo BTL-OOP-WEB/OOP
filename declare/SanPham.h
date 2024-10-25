@@ -28,6 +28,8 @@ public:
     void setSoLuong(int soLuongMoi);
     bool banSanPham(int soLuong);
     string getTen() const;
+    string getLoaiSanPham() const;
+    int getGia() const;
     
 };
 
