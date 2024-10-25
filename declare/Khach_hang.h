@@ -34,6 +34,10 @@ public:
     SanPham* timSanPhamTrongGioHang(const string& tenSanPham);
     SanPham* timSanPham(const std::string& tenSanPham, const std::vector<SanPham*>& danhSachSanPham) const;
     virtual string getTenSanPham() const;
+
+
+private:
+    void xoaSanPhamRaKhoiFile(const string& tenSanPham);
 };
 
 #endif // KHACHHANG_H

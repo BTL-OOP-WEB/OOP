@@ -121,7 +121,7 @@ void menuKhachHang(KhachHang& khachHang) {
     vector<SanPham*> dsSanPham;
     docDuLieuTuFile("../resources/input.txt", dsSanPham);
     do {
-        cout << "1. Di mua hàng" << endl;
+        cout << "1. Di mua hang" << endl;
         cout << "2. Xoa san pham khoi gio hang" << endl;
         cout << "3. Hien thi gio hang" << endl;
         cout << "4. Thanh toan" << endl;
@@ -130,22 +130,7 @@ void menuKhachHang(KhachHang& khachHang) {
 
         switch (luaChon) {
             case 1: {
-                // Thêm sản phẩm vào giỏ
-                string tenSanPham;
-                int soLuong;
-                cout << "Nhap ten san pham: ";
-                cin >> tenSanPham;
-                cout << "Nhap so luong: ";
-                cin >> soLuong;
-
-                
-                SanPham* sanPham = khachHang.timSanPham(tenSanPham, dsSanPham);
-                if (sanPham != nullptr) {
-                    khachHang.themVaoGioHang(sanPham, soLuong);
-                    cout << "San pham da duoc them vao gio hang." << endl;
-                } else {
-                    cout << "San pham khong ton tai!" << endl;
-                }
+               khachHang.muaHang(dsSanPham);
                 break;
             }
             case 2: {

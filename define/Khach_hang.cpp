@@ -10,10 +10,45 @@ KhachHang::KhachHang(const string& ten, const string& matKhau, const int& diemTi
     : User(ten, matKhau), diemTichLuy(diemTichLuy), hoTen(hoTen), ngaySinh(ngaySinh), sdt(sdt) {}
 
 void KhachHang::themVaoGioHang(SanPham* sanPham, int soLuong) {
-    sanPham->themSanPhamVaoDoHang(soLuong);
-    gioHang.push_back(sanPham);
-    cout << "Da them " << soLuong << " san pham vao gio hang." << endl;
+    if (sanPham->getSoLuong() >= soLuong) {
+        sanPham->themSanPhamVaoDoHang(soLuong);
+        gioHang.push_back(sanPham);
+
+        // Cập nhật số lượng sản phẩm
+        sanPham->setSoLuong(sanPham->getSoLuong() - soLuong); // Sử dụng setter
+
+        cout << "Da them " << soLuong << " san pham vao gio hang." << endl;
+
+        if (sanPham->getSoLuong() == 0) {
+            xoaSanPhamRaKhoiFile(sanPham->getTenSanPham());
+        }
+    } else {
+        cout << "Khong du so luong san pham de them vao gio hang." << endl;
+    }
 }
+
+
+void KhachHang::xoaSanPhamRaKhoiFile(const string& tenSanPham) {
+    ifstream inputFile("SanPham.txt");
+    vector<string> lines;
+    string line;
+
+    while (getline(inputFile, line)) {
+        if (line.find(tenSanPham) == string::npos) {
+            lines.push_back(line);
+        }
+    }
+    inputFile.close();
+
+    ofstream outputFile("SanPham.txt");
+    for (const string& line : lines) {
+        outputFile << line << endl;
+    }
+    outputFile.close();
+
+    cout << "San pham '" << tenSanPham << "' da duoc xoa khoi file." << endl;
+}
+
 
 void KhachHang::boSanPham(SanPham* sanPham, int soLuong) {
     for (auto it = gioHang.begin(); it != gioHang.end(); ++it) {
@@ -121,129 +156,274 @@ void KhachHang::muaHang(const vector<SanPham*>& danhSachSanPham) {
         cout << "| 8. Quay Giay          |                 |" << endl;
         cout << "| 9. Quay Chen Bat      |                 |" << endl;
         cout << "| 10. Quay Do Dong Hop  |                 |" << endl;
-        cout << "|________________________|   |W|E|L|C|O|M|E| " << endl;
+        cout << "| 0. Quay lai          |                 |" << endl;
+        cout << "|_______________________|   |W|E|L|C|O|M|E| " << endl;
 
         cout << "Chon quay muon mua (1-10): ";
         cin >> luaChonQuay;
 
+        vector<SanPham*> sanPhamThit;
+        vector<SanPham*> sanPhamCa;
+        vector<SanPham*> sanPhamKeo;
+        vector<SanPham*> sanPhamNuoc;
+        vector<SanPham*> sanPhamRauCu;
+        vector<SanPham*> sanPhamGiaVi;
+        vector<SanPham*> sanPhamBanh;
+        vector<SanPham*> sanPhamGiay;
+        vector<SanPham*> sanPhamChenBat;
+        vector<SanPham*> sanPhamDoDongHop;
+        int index = 1;
+        int luaChonSanPham; 
+        int soLuong; 
+
         switch (luaChonQuay) {
             case 1: 
-                cout << "Ban da chon Quay Thit. Cac san pham co san:" << endl;
+                cout << "Ban da chon Quay Thit. Cac san pham co san:" << endl;      
                 for (const auto& sp : danhSachSanPham) {
                     if (sp->getLoaiSanPham() == "Thit") {
                         cout << "_____________________" << endl;
-                        cout << "| " << sp->getTenSanPham() << " - " << sp->getGia() << " VND |" << endl;
+                        cout << "| " << index << ". " << sp->getTenSanPham() << " - " << sp->getGia() << " VND |" << endl;
                         cout << "_____________________" << endl;
+                        sanPhamThit.push_back(sp);
+                        index++;
                     }
                 }
+
+                cout << "Nhap so thu tu san pham muon mua (0 de quay lai): ";
+                cin >> luaChonSanPham;
+
+                if (luaChonSanPham > 0 && luaChonSanPham <= sanPhamThit.size()) {
+                    cout << "Nhap so luong muon mua: ";
+                    cin >> soLuong;
+                    themVaoGioHang(sanPhamThit[luaChonSanPham - 1], soLuong);
+                    cout << "San pham da duoc them vao gio hang!" << endl;
+                } else if (luaChonSanPham != 0) {
+                    cout << "Lua chon khong hop le. Vui long chon lai!" << endl;
+                }
                 break;
-            case 2:
+            
+            case 2:              
                 cout << "Ban da chon Quay Ca. Cac san pham co san:" << endl;
                 for (const auto& sp : danhSachSanPham) {
                     if (sp->getLoaiSanPham() == "Ca") {
                         cout << "_____________________" << endl;
-                        cout << "| " << sp->getTenSanPham() << " - " << sp->getGia() << " VND |" << endl;
+                        cout << "| " << index << ". " << sp->getTenSanPham() << " - " << sp->getGia() << " VND |" << endl;
                         cout << "_____________________" << endl;
+                        sanPhamCa.push_back(sp);
+                        index++;
                     }
                 }
+
+                cout << "Nhap so thu tu san pham muon mua (0 de quay lai): ";
+                cin >> luaChonSanPham;
+
+                if (luaChonSanPham > 0 && luaChonSanPham <= sanPhamCa.size()) {
+                    cout << "Nhap so luong muon mua: ";
+                    cin >> soLuong;
+                    themVaoGioHang(sanPhamCa[luaChonSanPham - 1], soLuong);
+                    cout << "San pham da duoc them vao gio hang!" << endl;
+                } else if (luaChonSanPham != 0) {
+                    cout << "Lua chon khong hop le. Vui long chon lai!" << endl;
+                }
                 break;
-            case 3:
+        
+            case 3: 
                 cout << "Ban da chon Quay Keo. Cac san pham co san:" << endl;
                 for (const auto& sp : danhSachSanPham) {
                     if (sp->getLoaiSanPham() == "Keo") {
                         cout << "_____________________" << endl;
-                        cout << "| " << sp->getTenSanPham() << " - " << sp->getGia() << " VND |" << endl;
+                        cout << "| " << index << ". " << sp->getTenSanPham() << " - " << sp->getGia() << " VND |" << endl;
                         cout << "_____________________" << endl;
+                        sanPhamKeo.push_back(sp);
+                        index++;
                     }
                 }
+
+                cout << "Nhap so thu tu san pham muon mua (0 de quay lai): ";
+                cin >> luaChonSanPham;
+
+                if (luaChonSanPham > 0 && luaChonSanPham <= sanPhamKeo.size()) {
+                    cout << "Nhap so luong muon mua: ";
+                    cin >> soLuong;
+                    themVaoGioHang(sanPhamKeo[luaChonSanPham - 1], soLuong);
+                    cout << "San pham da duoc them vao gio hang!" << endl;
+                } else if (luaChonSanPham != 0) {
+                    cout << "Lua chon khong hop le. Vui long chon lai!" << endl;
+                }
                 break;
-            case 4:
+            case 4: 
                 cout << "Ban da chon Quay Nuoc. Cac san pham co san:" << endl;
                 for (const auto& sp : danhSachSanPham) {
                     if (sp->getLoaiSanPham() == "Nuoc") {
                         cout << "_____________________" << endl;
-                        cout << "| " << sp->getTenSanPham() << " - " << sp->getGia() << " VND |" << endl;
+                        cout << "| " << index << ". " << sp->getTenSanPham() << " - " << sp->getGia() << " VND |" << endl;
                         cout << "_____________________" << endl;
+                        sanPhamNuoc.push_back(sp);
+                        index++;
                     }
                 }
+
+                cout << "Nhap so thu tu san pham muon mua (0 de quay lai): ";
+                cin >> luaChonSanPham;
+
+                if (luaChonSanPham > 0 && luaChonSanPham <= sanPhamNuoc.size()) {
+                    cout << "Nhap so luong muon mua: ";
+                    cin >> soLuong;
+                    themVaoGioHang(sanPhamNuoc[luaChonSanPham - 1], soLuong);
+                    cout << "San pham da duoc them vao gio hang!" << endl;
+                } else if (luaChonSanPham != 0) {
+                    cout << "Lua chon khong hop le. Vui long chon lai!" << endl;
+                }
                 break;
-            case 5:
+
+            case 5: 
                 cout << "Ban da chon Quay Rau Cu. Cac san pham co san:" << endl;
                 for (const auto& sp : danhSachSanPham) {
-                    if (sp->getLoaiSanPham() == "Rau Cu") {
+                    if (sp->getLoaiSanPham() == "RauCu") {
                         cout << "_____________________" << endl;
-                        cout << "| " << sp->getTenSanPham() << " - " << sp->getGia() << " VND |" << endl;
+                        cout << "| " << index << ". " << sp->getTenSanPham() << " - " << sp->getGia() << " VND |" << endl;
                         cout << "_____________________" << endl;
+                        sanPhamRauCu.push_back(sp);
+                        index++;
                     }
                 }
+
+                cout << "Nhap so thu tu san pham muon mua (0 de quay lai): ";
+                cin >> luaChonSanPham;
+
+                if (luaChonSanPham > 0 && luaChonSanPham <= sanPhamRauCu.size()) {
+                    cout << "Nhap so luong muon mua: ";
+                    cin >> soLuong;
+                    themVaoGioHang(sanPhamRauCu[luaChonSanPham - 1], soLuong);
+                    cout << "San pham da duoc them vao gio hang!" << endl;
+                } else if (luaChonSanPham != 0) {
+                    cout << "Lua chon khong hop le. Vui long chon lai!" << endl;
+                }
                 break;
-            case 6:
+            case 6: 
                 cout << "Ban da chon Quay Gia Vi. Cac san pham co san:" << endl;
                 for (const auto& sp : danhSachSanPham) {
-                    if (sp->getLoaiSanPham() == "Gia Vi") {
+                    if (sp->getLoaiSanPham() == "GiaVi") {
                         cout << "_____________________" << endl;
-                        cout << "| " << sp->getTenSanPham() << " - " << sp->getGia() << " VND |" << endl;
+                        cout << "| " << index << ". " << sp->getTenSanPham() << " - " << sp->getGia() << " VND |" << endl;
                         cout << "_____________________" << endl;
+                        sanPhamGiaVi.push_back(sp);
+                        index++;
                     }
                 }
+
+                cout << "Nhap so thu tu san pham muon mua (0 de quay lai): ";
+                cin >> luaChonSanPham;
+
+                if (luaChonSanPham > 0 && luaChonSanPham <= sanPhamGiaVi.size()) {
+                    cout << "Nhap so luong muon mua: ";
+                    cin >> soLuong;
+                    themVaoGioHang(sanPhamGiaVi[luaChonSanPham - 1], soLuong);
+                    cout << "San pham da duoc them vao gio hang!" << endl;
+                } else if (luaChonSanPham != 0) {
+                    cout << "Lua chon khong hop le. Vui long chon lai!" << endl;
+                }
                 break;
-            case 7:
+            case 7: 
                 cout << "Ban da chon Quay Banh. Cac san pham co san:" << endl;
                 for (const auto& sp : danhSachSanPham) {
                     if (sp->getLoaiSanPham() == "Banh") {
                         cout << "_____________________" << endl;
-                        cout << "| " << sp->getTenSanPham() << " - " << sp->getGia() << " VND |" << endl;
+                        cout << "| " << index << ". " << sp->getTenSanPham() << " - " << sp->getGia() << " VND |" << endl;
                         cout << "_____________________" << endl;
+                        sanPhamBanh.push_back(sp);
+                        index++;
                     }
                 }
+
+                cout << "Nhap so thu tu san pham muon mua (0 de quay lai): ";
+                cin >> luaChonSanPham;
+
+                if (luaChonSanPham > 0 && luaChonSanPham <= sanPhamBanh.size()) {
+                    cout << "Nhap so luong muon mua: ";
+                    cin >> soLuong;
+                    themVaoGioHang(sanPhamBanh[luaChonSanPham - 1], soLuong);
+                    cout << "San pham da duoc them vao gio hang!" << endl;
+                } else if (luaChonSanPham != 0) {
+                    cout << "Lua chon khong hop le. Vui long chon lai!" << endl;
+                }
                 break;
-            case 8:
+            case 8: 
                 cout << "Ban da chon Quay Giay. Cac san pham co san:" << endl;
                 for (const auto& sp : danhSachSanPham) {
                     if (sp->getLoaiSanPham() == "Giay") {
                         cout << "_____________________" << endl;
-                        cout << "| " << sp->getTenSanPham() << " - " << sp->getGia() << " VND |" << endl;
+                        cout << "| " << index << ". " << sp->getTenSanPham() << " - " << sp->getGia() << " VND |" << endl;
                         cout << "_____________________" << endl;
+                        sanPhamGiay.push_back(sp);
+                        index++;
                     }
                 }
+
+                cout << "Nhap so thu tu san pham muon mua (0 de quay lai): ";
+                cin >> luaChonSanPham;
+
+                if (luaChonSanPham > 0 && luaChonSanPham <= sanPhamGiay.size()) {
+                    cout << "Nhap so luong muon mua: ";
+                    cin >> soLuong;
+                    themVaoGioHang(sanPhamGiay[luaChonSanPham - 1], soLuong);
+                    cout << "San pham da duoc them vao gio hang!" << endl;
+                } else if (luaChonSanPham != 0) {
+                    cout << "Lua chon khong hop le. Vui long chon lai!" << endl;
+                }
                 break;
-            case 9:
+            case 9: 
                 cout << "Ban da chon Quay Chen Bat. Cac san pham co san:" << endl;
                 for (const auto& sp : danhSachSanPham) {
-                    if (sp->getLoaiSanPham() == "Chen Bat") {
+                    if (sp->getLoaiSanPham() == "ChenBat") {
                         cout << "_____________________" << endl;
-                        cout << "| " << sp->getTenSanPham() << " - " << sp->getGia() << " VND |" << endl;
+                        cout << "| " << index << ". " << sp->getTenSanPham() << " - " << sp->getGia() << " VND |" << endl;
                         cout << "_____________________" << endl;
+                        sanPhamChenBat.push_back(sp);
+                        index++;
                     }
                 }
+
+                cout << "Nhap so thu tu san pham muon mua (0 de quay lai): ";
+                cin >> luaChonSanPham;
+
+                if (luaChonSanPham > 0 && luaChonSanPham <= sanPhamChenBat.size()) {
+                    cout << "Nhap so luong muon mua: ";
+                    cin >> soLuong;
+                    themVaoGioHang(sanPhamChenBat[luaChonSanPham - 1], soLuong);
+                    cout << "San pham da duoc them vao gio hang!" << endl;
+                } else if (luaChonSanPham != 0) {
+                    cout << "Lua chon khong hop le. Vui long chon lai!" << endl;
+                }
                 break;
-            case 10:
+            case 10: 
                 cout << "Ban da chon Quay Do Dong Hop. Cac san pham co san:" << endl;
                 for (const auto& sp : danhSachSanPham) {
-                    if (sp->getLoaiSanPham() == "Do Dong Hop") {
+                    if (sp->getLoaiSanPham() == "DoDongHop") {
                         cout << "_____________________" << endl;
-                        cout << "| " << sp->getTenSanPham() << " - " << sp->getGia() << " VND |" << endl;
+                        cout << "| " << index << ". " << sp->getTenSanPham() << " - " << sp->getGia() << " VND |" << endl;
                         cout << "_____________________" << endl;
+                        sanPhamDoDongHop.push_back(sp);
+                        index++;
                     }
+                }
+
+                cout << "Nhap so thu tu san pham muon mua (0 de quay lai): ";
+                cin >> luaChonSanPham;
+
+                if (luaChonSanPham > 0 && luaChonSanPham <= sanPhamDoDongHop.size()) {
+                    cout << "Nhap so luong muon mua: ";
+                    cin >> soLuong;
+                    themVaoGioHang(sanPhamDoDongHop[luaChonSanPham - 1], soLuong);
+                    cout << "San pham da duoc them vao gio hang!" << endl;
+                } else if (luaChonSanPham != 0) {
+                    cout << "Lua chon khong hop le. Vui long chon lai!" << endl;
                 }
                 break;
             default:
                 cout << "Lua chon khong hop le! Vui long chon lai." << endl;
                 continue;
-        }
-
-        string tenSanPham;
-        int soLuong;
-        cout << "Nhap ten san pham ban muon mua: ";
-        cin >> tenSanPham;
-        cout << "Nhap so luong: ";
-        cin >> soLuong;
-
-        SanPham* spChon = timSanPham(tenSanPham, danhSachSanPham);
-        if (spChon) {
-            themVaoGioHang(spChon, soLuong);
-            cout << "San pham da duoc them vao gio hang!" << endl;
-        } else {
-            cout << "San pham khong ton tai!" << endl;
-        }
+    
+}
+}while (luaChonQuay != 0);
 }

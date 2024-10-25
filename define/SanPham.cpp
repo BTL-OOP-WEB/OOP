@@ -31,6 +31,36 @@ bool SanPham::banSanPham(int soLuong) {
     }
 }
 
+string SanPham::getLoaiSanPham() const {
+    if (dynamic_cast<const Thit*>(this)) {
+        return "Thit";
+    } else if (dynamic_cast<const Ca*>(this)) {
+        return "Ca";
+    } else if (dynamic_cast<const Keo*>(this)) {
+        return "Keo";
+    } else if (dynamic_cast<const Nuoc*>(this)) {
+        return "Nuoc";
+    } else if (dynamic_cast<const RauCu*>(this)) {
+        return "RauCu";
+    } else if (dynamic_cast<const GiaVi*>(this)) {
+        return "GiaVi";
+    } else if (dynamic_cast<const Banh*>(this)) {
+        return "Banh";
+    } else if (dynamic_cast<const Giay*>(this)) {
+        return "Giay";
+    } else if (dynamic_cast<const ChenBat*>(this)) {
+        return "ChenBat";
+    } else if (dynamic_cast<const DoDongHop*>(this)) {
+        return "DoDongHop";
+    } else {
+        return "Khong Xac Dinh"; 
+    }
+}
+
+int SanPham::getGia() const {
+    return giaTien;
+}
+
 string SanPham::getTenSanPham() const {
     return "San pham chung";
 }
