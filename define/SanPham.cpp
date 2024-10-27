@@ -322,3 +322,6 @@ void ghiDuLieuVaoFile(const string& tenFile, const vector<SanPham*>& dsSanPham) 
     }
 }
 
+SanPham* SanPham::taoSanPham(const SanPham& sanPham) {
+    return new SanPham(sanPham); 
+}

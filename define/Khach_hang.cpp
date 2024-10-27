@@ -11,10 +11,25 @@ KhachHang::KhachHang(const string& ten, const string& matKhau, const int& diemTi
     : User(ten, matKhau), diemTichLuy(diemTichLuy), hoTen(hoTen), ngaySinh(ngaySinh), sdt(sdt) {}
 
 void KhachHang::themVaoGioHang(SanPham* sanPham, int soLuong) {
-    sanPham->themSanPhamVaoDoHang(soLuong); 
-    gioHang.push_back(sanPham);               
-    cout << "Da them " << soLuong << " san pham vao gio hang." << endl;
+    bool sanPhamTonTai = false;
+
+    for (auto& sp : gioHang) {
+        if (sp->getTenSanPham() == sanPham->getTenSanPham()) {
+            sp->themSanPhamVaoDoHang(soLuong);
+            sanPhamTonTai = true;
+            break;
+        }
+    }
+
+    if (!sanPhamTonTai) {
+        SanPham* spMoi = SanPham::taoSanPham(*sanPham);
+        spMoi->setSoLuong(soLuong);
+        gioHang.push_back(spMoi);
+    }
+
+    cout << "Đã thêm " << soLuong << " sản phẩm vào giỏ hàng." << endl;
 }
+
 
 void KhachHang::xoaSanPhamRaKhoiFile(const string& tenSanPham) {
     ifstream inputFile("SanPham.txt");
@@ -151,16 +166,24 @@ void KhachHang::hienThiGioHang() {
                 cin >> spIndex;
                 
                 if (spIndex > 0 && spIndex <= gioHang.size()) {
-                    capNhatSanPhamTrongFile(gioHang[spIndex - 1], gioHang[spIndex - 1]->getSoLuong());
-                    gioHang.erase(gioHang.begin() + spIndex - 1);
-                    cout << "San pham da duoc bo khoi gio hang." << endl;
+                    SanPham* sp = gioHang[spIndex - 1];
+                    int soLuongHienTai = sp->getSoLuong();
+                    
+                    if (soLuongHienTai > 1) {
+                        sp->setSoLuong(soLuongHienTai - 1);
+                        cout << "So luong san pham da giam xuong " << soLuongHienTai - 1 << "." << endl;
+                    } else {
+                        gioHang.erase(gioHang.begin() + spIndex - 1);
+                        cout << "San pham da duoc xoa khoi gio hang do so luong = 0." << endl;
+                    }
+                    
                     cout << "===============================" << endl;
                     cout << "          Gio hang cua ban     " << endl;
                     cout << "===============================" << endl;
                     
-                    int indes = 1;
+                    int idx = 1;
                     for (auto& sp : gioHang) {
-                        cout << "San pham " << indes++ << ":" << endl;
+                        cout << "San pham " << idx++ << ":" << endl;
                         sp->inThongTin();
                         cout << "-------------------------------" << endl;
                     }
@@ -173,8 +196,7 @@ void KhachHang::hienThiGioHang() {
                 tiepTuc = false;
                 break;
             default:
-                cout << "Lua chon khong hop le. Vui long chon lai." << endl;
-                break;
+                cout << "Lua chon khong hop le." << endl;
         }
     }
 }
@@ -275,7 +297,8 @@ void KhachHang::muaHang(const vector<SanPham*>& danhSachSanPham) {
                     cout << "Lua chon khong hop le. Vui long chon lai!" << endl;
                 }
                 break;
-            
+
+
             case 2:              
                 cout << "Ban da chon Quay Ca. Cac san pham co san:" << endl;
                 for (const auto& sp : danhSachSanPham) {

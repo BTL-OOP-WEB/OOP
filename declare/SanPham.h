@@ -30,6 +30,7 @@ public:
     string getTen() const;
     string getLoaiSanPham() const;
     int getGia() const;
+    static SanPham* taoSanPham(const SanPham& sanPham);
     
 };
 
