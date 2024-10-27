@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <iomanip>
 #include "../declare/GiamDoc.h"
 #include "../declare/SanPham.h"
 #include "../declare/User.h"    

@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <iomanip>
 #include "User.h"
 #include "SanPham.h"
 #include "NhanVien.h"
@@ -22,9 +23,10 @@ public:
 
     void themVaoGioHang(SanPham* sanPham, int soLuong);
     void boSanPham(SanPham* sanPham, int soLuong);
+    void capNhatSanPhamTrongFile(const string& tenSanPham, int soLuongMoi);
     
     void thanhToan();          
-    void hienThiGioHang() const;
+    void hienThiGioHang() ;
     void hienThiThongTin() const override; 
     
     void suDungDiem();         

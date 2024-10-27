@@ -122,10 +122,9 @@ void menuKhachHang(KhachHang& khachHang) {
     docDuLieuTuFile("../resources/input.txt", dsSanPham);
     do {
         cout << "1. Di mua hang" << endl;
-        cout << "2. Xoa san pham khoi gio hang" << endl;
-        cout << "3. Hien thi gio hang" << endl;
-        cout << "4. Thanh toan" << endl;
-        cout << "5. Thoat" << endl;
+        cout << "2. Hien thi gio hang" << endl;
+        cout << "3. Thanh toan" << endl;
+        cout << "4. Thoat" << endl;
         cin >> luaChon;
 
         switch (luaChon) {
@@ -134,33 +133,14 @@ void menuKhachHang(KhachHang& khachHang) {
                 break;
             }
             case 2: {
-                // Xóa sản phẩm khỏi giỏ
-                string tenSanPham;
-                int soLuong;
-                cout << "Nhap ten san pham can xoa: ";
-                cin >> tenSanPham;
-                cout << "Nhap so luong can xoa: ";
-                cin >> soLuong;
-
-                // Giả sử bạn có một hàm tìm kiếm sản phẩm trong giỏ hàng
-                SanPham* sanPham = khachHang.timSanPhamTrongGioHang(tenSanPham); // Bạn cần cài đặt hàm này
-                if (sanPham != nullptr) {
-                    khachHang.boSanPham(sanPham, soLuong);
-                    cout << "San pham đa đuoc xoa khoi gio hang." << endl;
-                } else {
-                    cout << "San pham khong co trong gio hang!" << endl;
-                }
-                break;
-            }
-            case 3: {
                 khachHang.hienThiGioHang();
                 break;
             }
-            case 4: {
+            case 3: {
                 khachHang.thanhToan();
                 break;
             }
-            case 5:
+            case 4:
                 cout << "Thoat khoi he thong." << endl;
                 break;
             default:
