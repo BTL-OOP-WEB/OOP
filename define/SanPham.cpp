@@ -2,6 +2,7 @@
 #include "../declare/SanPham.h"
 #include "../declare/GiamDoc.h"
 #include "../declare/User.h"
+#include "../declare/Date.h"
 #include <iostream>
 #include <conio.h>
 #include <fstream>

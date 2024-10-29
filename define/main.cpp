@@ -8,6 +8,7 @@
 #include "../declare/User.h"    
 #include "../declare/NhanVien.h"
 #include "../declare/DangNhap.h"
+#include "../declare/Date.h"
 
 using namespace std;
 

@@ -6,14 +6,7 @@
 #include <vector>
 #include "User.h"
 #include "SanPham.h"
-
-struct Date {
-    int ngay;
-    int thang;
-    int nam;
-
-    Date(int d = 1, int m = 1, int y = 2000) : ngay(d), thang(m), nam(y) {}
-};
+#include "Date.h"
 
 class SanPham;
 

@@ -1,4 +1,5 @@
 #include "../declare/DangNhap.h"
+#include "../declare/Date.h"
 #include <iostream>
 #include <conio.h>
 #include <fstream>
@@ -32,19 +33,20 @@ void dangNhap(const string& vaiTro) {
                 int diemTichLuy;
                 string hoTen, sdt;
                 Date ngaySinh;
-
                 iss >> diemTichLuy;
                 iss.ignore();
                 getline(iss, hoTen);
-                iss >> ngaySinh.ngay >> ngaySinh.thang >> ngaySinh.nam;
+                int d, m, y;
+                iss >> d >> m >> y; 
+                ngaySinh = Date(d, m, y);
                 iss >> sdt;
                 KhachHang khachHang(ten, matKhau, diemTichLuy, hoTen, ngaySinh, sdt);
                 menuKhachHang(khachHang);
             } else if (vaiTro == "NhanVien") {
-                string lichLamViec, hoTen, sdt;
-                Date ngaySinh;
-
-                iss >> hoTen >> ngaySinh.ngay >> ngaySinh.thang >> ngaySinh.nam >> sdt >> lichLamViec;
+                string hoTen, sdt, lichLamViec;
+                int d, m, y;
+                iss >> hoTen >> d >> m >> y >> sdt >> lichLamViec;
+                Date ngaySinh(d, m, y);
                 NhanVien nhanVien(ten, matKhau, hoTen, ngaySinh, sdt, lichLamViec);
                 menuNhanVien(nhanVien);
             } else if (vaiTro == "GiamDoc") {
@@ -79,36 +81,35 @@ void dangKy(const string& vaiTro) {
 
     if (vaiTro == "KhachHang") {
         string hoTen, sdt;
-        Date ngaySinh;
-
-        cout << "Nhap ho tưn khach hang: ";
+        int d, m, y;
+        cout << "Nhap ho ten khach hang: ";
         getline(cin >> ws, hoTen);
         cout << "Nhap ngay sinh (dd mm yyyy): ";
-        cin >> ngaySinh.ngay >> ngaySinh.thang >> ngaySinh.nam;
+        cin >> d >> m >> y; 
         cout << "Nhap so dien thoai: ";
         cin >> sdt;
-
+        Date ngaySinh(d, m, y);
         file << ten << " " << matKhau << " 0 " << hoTen << " "
-             << ngaySinh.ngay << " " << ngaySinh.thang << " " << ngaySinh.nam << " "
-             << sdt << endl;
+            << ngaySinh.getNgay() << " " << ngaySinh.getThang() << " " << ngaySinh.getNam() << " "
+            << sdt << endl;
     } else if (vaiTro == "NhanVien") {
         string hoTen, sdt;
-        Date ngaySinh;
+        int d, m, y; 
         string lichLamViec = "0000000";
 
         cout << "Nhap ho ten nhan vien: ";
         getline(cin >> ws, hoTen);
         cout << "Nhap ngay sinh (dd mm yyyy): ";
-        cin >> ngaySinh.ngay >> ngaySinh.thang >> ngaySinh.nam;
+        cin >> d >> m >> y; 
         cout << "Nhap so dien thoai: ";
         cin >> sdt;
-
+        Date ngaySinh(d, m, y);
         NhanVien nhanVien(ten, matKhau, hoTen, ngaySinh, sdt, lichLamViec);
-
         file << ten << " " << matKhau << " " << lichLamViec << " " << hoTen << " "
-             << ngaySinh.ngay << " " << ngaySinh.thang << " " << ngaySinh.nam << " "
-             << sdt << endl;
+            << ngaySinh.getNgay() << " " << ngaySinh.getThang() << " " << ngaySinh.getNam() << " "
+            << sdt << endl;
     }
+
 
     file.close();
     cout << "Dang ky thanh cong!" << endl;
@@ -278,9 +279,9 @@ void menuNhanVien(NhanVien& nhanVien) {
 void menuGiamDoc(GiamDoc& giamDoc) {
     int luaChon;
     do {
-        cout << "1. Diem danh nhan vien\n";
-        cout << "2. Xuat luong nhan vien\n";
-        cout << "3. Xuat danh sach nhan vien\n";  // Thêm tùy chọn xuất danh sách nhân viên
+        cout << "1. Xuat thong tin nhan vien\n";
+        cout << "2. Xuat thong tin san pham\n";
+        cout << "3. Xuat thong tin khach hang\n";
         cout << "4. Thoat\n";
         cout << "Nhap lua chon: ";
         cin >> luaChon;
@@ -288,18 +289,15 @@ void menuGiamDoc(GiamDoc& giamDoc) {
 
         switch (luaChon) {
             case 1: {
-                vector<NhanVien*> dsNhanVien;  // Giả sử bạn đã có danh sách nhân viên
-                giamDoc.diemDanhNhanVien(dsNhanVien);
+                giamDoc.xuatThongTinNhanVien();
                 break;
             }
             case 2: {
-                NhanVien* nhanVien = nullptr;  // Giả sử bạn đã có con trỏ nhân viên
-                giamDoc.xuatLuongNhanVien(nhanVien);
+                giamDoc.xuatThongTinSanPham();
                 break;
             }
             case 3: {
-                vector<NhanVien*> dsNhanVien;  // Giả sử bạn đã có danh sách nhân viên
-                giamDoc.xuatDanhSachNhanVien(dsNhanVien);  // Gọi hàm xuất danh sách nhân viên
+                giamDoc.xuatThongTinKhachHang(); 
                 break;
             }
             case 4:

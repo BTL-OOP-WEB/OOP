@@ -1,4 +1,5 @@
 #include "../declare/User.h"
+#include "../declare/Date.h"
 
 User::User(const string& ten, const string& matKhau) : ten(ten), matKhau(matKhau) {} 
 

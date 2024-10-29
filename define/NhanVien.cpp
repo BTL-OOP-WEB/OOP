@@ -7,6 +7,7 @@
 #include <sstream>  
 #include "../declare/NhanVien.h"
 #include "../declare/SanPham.h"
+#include "../declare/Date.h"
 
 using namespace std;
 
@@ -215,7 +216,8 @@ void NhanVien::dangKyCaLam() {
 
 void NhanVien::hienThiThongTin() const {
     cout << "Ho ten: " << hoTen << endl;
-    cout << "Ngay sinh: " << ngaySinh.ngay << "/" << ngaySinh.thang << "/" << ngaySinh.nam << endl;
+    cout << "Ngay sinh: " << ngaySinh.getNgay() << "/" << ngaySinh.getThang() << "/" << ngaySinh.getNam() << endl;
     cout << "So dien thoai: " << sdt << endl;
     cout << "Lich lam viec: " << lichLamViec << endl;
 }
+

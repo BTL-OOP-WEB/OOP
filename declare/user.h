@@ -4,6 +4,7 @@
 #include <string>
 #include <cstdlib>
 #include <thread>
+#include "Date.h"
 
 inline void clearScreen() {
 #ifdef _WIN32

@@ -1,65 +1,175 @@
 #include "../declare/GiamDoc.h"
+#include "../declare/SanPham.h"
+#include "../declare/Khach_hang.h"
+#include "../declare/NhanVien.h"
+#include "../declare/Date.h"
 #include <iostream>
+#include <iomanip>
+#include <fstream>
 
 GiamDoc::GiamDoc(const string& ten, const string& matKhau) : User(ten, matKhau) {};
 
-void GiamDoc::diemDanhNhanVien(const std::vector<NhanVien*>& dsNhanVien) {
-    std::vector<NhanVien*> temp; 
-    NhanVien::docDanhSachNhanVien(temp);
-
-    if (temp.empty()) {
-        std::cout << "Danh sach nhan vien trong!" << std::endl;
-    } else {
-        std::cout << "Danh sach nhan vien khong trong!" << std::endl;
-    }
-    
-    std::cout << "So luong nhan vien trong danh sach: " << temp.size() << std::endl;
-
-    std::cout << "Danh sach nhan vien diem danh:\n";
-    for (const auto& nhanVien : temp) {
-        std::cout << "Ten nhan vien: " << nhanVien->getHoTen() << std::endl;
-
-        std::string caLam = nhanVien->getCaLam();
-        std::string ngayTrongTuan[] = {"Chu Nhat", "Thu Hai", "Thu Ba", "Thu Tu", "Thu Nam", "Thu Sau", "Thu Bay"};
-
-        for (int i = 0; i < 7; ++i) {
-            char ca = caLam[i];
-            std::cout << ngayTrongTuan[i] << ": ";
-            
-            if (ca == '0') {
-                std::cout << "Khong lam viec";
-            } else if (ca == '1') {
-                std::cout << "Lam ca sang";
-            } else if (ca == '2') {
-                std::cout << "Lam ca chieu";
-            } else {
-                std::cout << "Thong tin ca lam khong hop le";
-            }
-            std::cout << std::endl;
-        }
-        std::cout << std::endl;
-    }
-}
-
-
-    void GiamDoc::xuatLuongNhanVien(NhanVien* nhanVien) {
-        int soCa = nhanVien->getSoCaDaLam(); // Lấy số ca đã làm
-        int luong = soCa * 100000; // 1 ca là 100k
-        cout << "Luong cua nhan vien " << nhanVien->getTen() << " la: " << luong << " VND" << endl;
-    }
-
 void GiamDoc::hienThiThongTin() const {
-    cout << "Giam doc: " << getTen() << endl; // Sử dụng phương thức getTenNguoiDung()
+    cout << "Thông tin Giám đốc: ..." << endl;
 }
 
-void GiamDoc::xuatDanhSachNhanVien(const vector<NhanVien*>& dsNhanVien) {
-    cout << "Danh sach nhan vien:\n";
-    for (size_t i = 0; i < dsNhanVien.size(); ++i) {
-        cout << "Nhan vien " << (i + 1) << ":\n";
-        cout << "Ho ten: " << dsNhanVien[i]->getHoTen() << endl;
-        cout << "Ngay sinh: " << dsNhanVien[i]->getNgaySinh().ngay << "/" 
-             << dsNhanVien[i]->getNgaySinh().thang << "/" << dsNhanVien[i]->getNgaySinh().nam << endl;
-        cout << "So dien thoai: " << dsNhanVien[i]->getSdt() << endl;
-        cout << "--------------------------------\n";
+void GiamDoc::xuatThongTinNhanVien() {
+    vector<NhanVien*> dsNhanVien;
+    ifstream inFile("../resources/NhanVien.txt");
+
+    if (inFile.is_open()) {
+        string ten, matKhau, hoTen, sdt;
+        int d, m, y;
+        string lichLamViec;
+
+        while (inFile >> ten >> matKhau >> hoTen >> d >> m >> y >> sdt >> lichLamViec) {
+            Date ngaySinh(d, m, y); 
+            dsNhanVien.push_back(new NhanVien(ten, matKhau, hoTen, ngaySinh, sdt, lichLamViec));
+        }
+        inFile.close();
+    
+    } else {
+        cout << "Không thể mở file NhanVien.txt!" << endl;
     }
+
+    cout << left << setw(20) << "Ho Ten"
+        << setw(10) << "Ngay"
+        << setw(10) << "Thang"
+        << setw(10) << "Nam"
+        << setw(15) << "So Dien Thoai" << endl;
+
+    cout << setfill('-') << setw(65) << "-" << setfill(' ') << endl;
+
+    for (const auto& nv : dsNhanVien) {
+        cout << left << setw(20) << nv->getHoTen()
+            << setw(10) << nv->getNgaySinh().getNgay()
+            << setw(10) << nv->getNgaySinh().getThang() 
+            << setw(10) << nv->getNgaySinh().getNam() 
+            << setw(15) << nv->getSdt() << endl;
+    }
+    for (auto nv : dsNhanVien) {
+        delete nv;
+    }
+    dsNhanVien.clear();
+}
+
+void GiamDoc::xuatThongTinSanPham() {
+    vector<SanPham*> dsSanPham; 
+
+    ifstream file("../resources/input.txt");
+    if (!file) {
+        cout << "Khong the mo file input.txt!" << endl;
+        return; 
+    }
+    string line;
+    while (getline(file, line)) {
+        stringstream ss(line);
+        string loaiSanPham, tenSanPham;
+        int soLuong;
+        double gia;
+
+        ss >> loaiSanPham >> soLuong >> tenSanPham >> gia;
+
+        SanPham* sanPham = nullptr; 
+        if (loaiSanPham == "Thit") {
+            sanPham = new Thit(soLuong, tenSanPham, gia);
+        } else if (loaiSanPham == "Ca") {
+            sanPham = new Ca(soLuong, tenSanPham, gia);
+        } else if (loaiSanPham == "Keo") {
+            sanPham = new Keo(soLuong, tenSanPham, gia);
+        } else if (loaiSanPham == "Nuoc") {
+            sanPham = new Nuoc(soLuong, tenSanPham, gia);
+        } else if (loaiSanPham == "RauCu") {
+            sanPham = new RauCu(soLuong, tenSanPham, gia);
+        } else if (loaiSanPham == "GiaVi") {
+            sanPham = new GiaVi(soLuong, tenSanPham, gia);
+        } else if (loaiSanPham == "Banh") {
+            sanPham = new Banh(soLuong, tenSanPham, gia);
+        } else if (loaiSanPham == "Giay") {
+            sanPham = new Giay(soLuong, tenSanPham, gia);
+        } else if (loaiSanPham == "ChenBat") {
+            sanPham = new ChenBat(soLuong, tenSanPham, gia);
+        } else if (loaiSanPham == "DoDongHop") {
+            sanPham = new DoDongHop(soLuong, tenSanPham, gia);
+        } else {
+            cout << "Loai san pham khong hop le: " << loaiSanPham << endl;
+            continue; 
+        }
+
+        dsSanPham.push_back(sanPham); 
+    }
+
+    file.close();
+
+    cout << left << setw(15) << "Loai San Pham" 
+         << setw(10) << "So Luong" 
+         << setw(20) << "Ten San Pham" 
+         << setw(15) << "Gia" << endl;
+
+    cout << setfill('-') << setw(60) << "-" << setfill(' ') << endl;
+
+    for (const auto& sp : dsSanPham) {
+        cout << left << setw(15) << sp->getLoaiSanPham() 
+             << setw(10) << sp->getSoLuong() 
+             << setw(20) << sp->getTenSanPham() 
+             << setw(15) << sp->giaTien << endl; 
+    }
+    cout << endl;
+
+    for (auto sp : dsSanPham) {
+        delete sp; 
+    }
+}
+
+
+
+void GiamDoc::xuatThongTinKhachHang() {
+    vector<KhachHang> dsKhachHang; 
+
+    ifstream file("../resources/KhachHang.txt");
+    if (!file) {
+        cout << "Khong the mo file KhachHang.txt!" << endl;
+        return; 
+    }
+
+    string line;
+    while (getline(file, line)) {
+        stringstream ss(line);
+        string tenDangNhap, matKhau;
+        int diemTichLuy;
+        string hoTen;
+        Date ngaySinh;
+        string sdt;
+
+        ss >> tenDangNhap >> matKhau >> diemTichLuy;
+        ss.ignore();
+        getline(ss, hoTen);
+        
+        int ngay, thang, nam;
+        ss >> ngay >> thang >> nam >> sdt;
+        ngaySinh.setNgay(ngay);
+        ngaySinh.setThang(thang);
+        ngaySinh.setNam(nam);
+
+        KhachHang kh(tenDangNhap, matKhau, diemTichLuy, hoTen, ngaySinh, sdt);
+        dsKhachHang.push_back(kh);
+    }
+
+    file.close();
+    cout << left << setw(20) << "Ho Ten"
+         << setw(10) << "Diem TL"
+         << setw(10) << "Ngay Sinh"
+         << setw(15) << "So Dien Thoai" << endl;
+         
+    cout << setfill('-') << setw(60) << "-" << setfill(' ') << endl;
+
+    for (const auto& kh : dsKhachHang) {
+        cout << left << setw(20) << kh.getHoTen()
+            << setw(10) << kh.getDiemTichLuy()
+            << setw(2) << kh.getNgaySinh().getNgay() << "/"
+            << setw(2) << kh.getNgaySinh().getThang() << "/"
+            << setw(6) << kh.getNgaySinh().getNam()
+            << setw(15) << kh.getSdt() << endl;
+    }
+    cout << endl;
 }

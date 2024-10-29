@@ -4,6 +4,7 @@
 #include <iomanip>
 #include "../declare/Khach_hang.h"
 #include "../declare/SanPham.h"
+#include "../declare/Date.h"
 
 using namespace std;
 

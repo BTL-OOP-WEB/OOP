@@ -7,8 +7,11 @@
 #include "User.h"
 #include "SanPham.h"
 #include "NhanVien.h"
+#include "Date.h"
 
 using namespace std;
+
+class SanPham;
 
 class KhachHang : public User {
 private:
@@ -37,6 +40,10 @@ public:
     SanPham* timSanPham(const std::string& tenSanPham, const std::vector<SanPham*>& danhSachSanPham) const;
     virtual string getTenSanPham() const;
 
+    string getHoTen() const { return hoTen; }
+    int getDiemTichLuy() const { return diemTichLuy; }
+    Date getNgaySinh() const { return ngaySinh; }
+    string getSdt() const { return sdt; }
 
 private:
     void xoaSanPhamRaKhoiFile(const string& tenSanPham);
