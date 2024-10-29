@@ -277,30 +277,35 @@ void menuGiamDoc(GiamDoc& giamDoc) {
     do {
         cout << "1. Diem danh nhan vien\n";
         cout << "2. Xuat luong nhan vien\n";
-        cout << "3. Thoat\n";
+        cout << "3. Xuat danh sach nhan vien\n";  // Thêm tùy chọn xuất danh sách nhân viên
+        cout << "4. Thoat\n";
         cout << "Nhap lua chon: ";
         cin >> luaChon;
 
         switch (luaChon) {
             case 1: {
-                // Thực hiện điểm danh nhân viên, bạn cần chuẩn bị danh sách nhân viên trước
                 vector<NhanVien*> dsNhanVien;  // Giả sử bạn đã có danh sách nhân viên
-                giamDoc.diemDanhNhanVien(dsNhanVien);  // Gọi hàm điểm danh
+                giamDoc.diemDanhNhanVien(dsNhanVien);
                 break;
             }
             case 2: {
-                // Xu ly xuat luong cho nhan vien
                 NhanVien* nhanVien = nullptr;  // Giả sử bạn đã có con trỏ nhân viên
-                giamDoc.xuatLuongNhanVien(nhanVien);  // Gọi hàm xuất lương
+                giamDoc.xuatLuongNhanVien(nhanVien);
                 break;
             }
-            case 3:
+            case 3: {
+                vector<NhanVien*> dsNhanVien;  // Giả sử bạn đã có danh sách nhân viên
+                giamDoc.xuatDanhSachNhanVien(dsNhanVien);  // Gọi hàm xuất danh sách nhân viên
+                break;
+            }
+            case 4:
                 cout << "Thoat menu giam doc\n";
                 break;
             default:
                 cout << "Lua chon khong hop le, vui long chon lai!\n";
                 break;
         }
-    } while (luaChon != 3);
+    } while (luaChon != 4);
 }
+
 

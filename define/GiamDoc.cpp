@@ -51,3 +51,15 @@ void GiamDoc::diemDanhNhanVien(const std::vector<NhanVien*>& dsNhanVien) {
 void GiamDoc::hienThiThongTin() const {
     cout << "Giam doc: " << getTen() << endl; // Sử dụng phương thức getTenNguoiDung()
 }
+
+void GiamDoc::xuatDanhSachNhanVien(const vector<NhanVien*>& dsNhanVien) {
+    cout << "Danh sach nhan vien:\n";
+    for (size_t i = 0; i < dsNhanVien.size(); ++i) {
+        cout << "Nhan vien " << (i + 1) << ":\n";
+        cout << "Ho ten: " << dsNhanVien[i]->getHoTen() << endl;
+        cout << "Ngay sinh: " << dsNhanVien[i]->getNgaySinh().ngay << "/" 
+             << dsNhanVien[i]->getNgaySinh().thang << "/" << dsNhanVien[i]->getNgaySinh().nam << endl;
+        cout << "So dien thoai: " << dsNhanVien[i]->getSdt() << endl;
+        cout << "--------------------------------\n";
+    }
+}

@@ -13,8 +13,9 @@ public:
     GiamDoc(const string& ten, const string& matKhau);
 
     void diemDanhNhanVien(const vector<NhanVien*>& dsNhanVien);
-    void xuatLuongNhanVien(NhanVien* nhanVien); // 1 ca là 100k
-    void hienThiThongTin() const override; // Implement hàm ảo từ User
+    void xuatLuongNhanVien(NhanVien* nhanVien); 
+    void hienThiThongTin() const override; 
+    void xuatDanhSachNhanVien(const vector<NhanVien*>& dsNhanVien);
 };
 
 #endif // GIAMDOC_H
