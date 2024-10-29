@@ -322,6 +322,42 @@ void ghiDuLieuVaoFile(const string& tenFile, const vector<SanPham*>& dsSanPham) 
     }
 }
 
-SanPham* SanPham::taoSanPham(const SanPham& sanPham) {
-    return new SanPham(sanPham); 
+SanPham* Thit::taoSanPham() const {
+    return new Thit(*this);
+}
+
+SanPham* Ca::taoSanPham() const {
+    return new Ca(*this);
+}
+
+SanPham* Keo::taoSanPham() const {
+    return new Keo(*this);
+}
+
+SanPham* Nuoc::taoSanPham() const {
+    return new Nuoc(*this);
+}
+
+SanPham* RauCu::taoSanPham() const {
+    return new RauCu(*this);
+}
+
+SanPham* GiaVi::taoSanPham() const {
+    return new GiaVi(*this);
+}
+
+SanPham* Banh::taoSanPham() const {
+    return new Banh(*this);
+}
+
+SanPham* Giay::taoSanPham() const {
+    return new Giay(*this);
+}
+
+SanPham* ChenBat::taoSanPham() const {
+    return new ChenBat(*this);
+}
+
+SanPham* DoDongHop::taoSanPham() const {
+    return new DoDongHop(*this);
 }

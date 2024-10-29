@@ -22,14 +22,13 @@ void KhachHang::themVaoGioHang(SanPham* sanPham, int soLuong) {
     }
 
     if (!sanPhamTonTai) {
-        SanPham* spMoi = SanPham::taoSanPham(*sanPham);
+        SanPham* spMoi = sanPham->taoSanPham(); // Gọi hàm taoSanPham từ lớp con
         spMoi->setSoLuong(soLuong);
         gioHang.push_back(spMoi);
     }
 
     cout << "Đã thêm " << soLuong << " sản phẩm vào giỏ hàng." << endl;
 }
-
 
 void KhachHang::xoaSanPhamRaKhoiFile(const string& tenSanPham) {
     ifstream inputFile("SanPham.txt");

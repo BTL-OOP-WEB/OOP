@@ -42,11 +42,11 @@ void GiamDoc::diemDanhNhanVien(const std::vector<NhanVien*>& dsNhanVien) {
 }
 
 
-void GiamDoc::xuatLuongNhanVien(NhanVien* nhanVien) {
-    int soCa = nhanVien->getSoCaDaLam(); // Lấy số ca đã làm
-    int luong = soCa * 100000; // 1 ca là 100k
-    cout << "Luong cua nhan vien " << nhanVien->getTen() << " la: " << luong << " VND" << endl;
-}
+    void GiamDoc::xuatLuongNhanVien(NhanVien* nhanVien) {
+        int soCa = nhanVien->getSoCaDaLam(); // Lấy số ca đã làm
+        int luong = soCa * 100000; // 1 ca là 100k
+        cout << "Luong cua nhan vien " << nhanVien->getTen() << " la: " << luong << " VND" << endl;
+    }
 
 void GiamDoc::hienThiThongTin() const {
     cout << "Giam doc: " << getTen() << endl; // Sử dụng phương thức getTenNguoiDung()

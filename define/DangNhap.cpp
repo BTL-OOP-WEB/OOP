@@ -172,14 +172,10 @@ void menuNhanVien(NhanVien& nhanVien) {
                 string ngaySanXuat, hanSuDung, loaiSanPham;
                 double giaTien;
 
-                cout << "Nhap loai san pham (Thit/Ca/Keo/Nuoc/RauCu): ";
+                cout << "Nhap loai san pham (Thit/Ca/Keo/Nuoc/RauCu/GiaVi/Banh/Giay/ChenBat/DoDongHop): ";
                 cin >> loaiSanPham;
                 cout << "Nhap so luong: ";
                 cin >> soLuong;
-                cout << "Nhap ngay san xuat: ";
-                cin >> ngaySanXuat;
-                cout << "Nhap han su dung: ";
-                cin >> hanSuDung;
                 cout << "Nhap gia tien: ";
                 cin >> giaTien;
 
