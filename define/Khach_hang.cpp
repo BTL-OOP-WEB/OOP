@@ -27,7 +27,7 @@ void KhachHang::themVaoGioHang(SanPham* sanPham, int soLuong) {
         gioHang.push_back(spMoi);
     }
 
-    cout << "Đã thêm " << soLuong << " sản phẩm vào giỏ hàng." << endl;
+    cout << "Da them " << soLuong << " san pham vao gio hang." << endl;
 }
 
 void KhachHang::xoaSanPhamRaKhoiFile(const string& tenSanPham) {
@@ -256,6 +256,7 @@ void KhachHang::muaHang(const vector<SanPham*>& danhSachSanPham) {
 
         cout << "Chon quay muon mua (1-10): ";
         cin >> luaChonQuay;
+        clearScreen();
 
         vector<SanPham*> sanPhamThit;
         vector<SanPham*> sanPhamCa;

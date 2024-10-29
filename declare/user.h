@@ -2,6 +2,14 @@
 #define USER_H
 
 #include <string>
+#include <cstdlib>
+#include <thread>
+
+inline void clearScreen() {
+#ifdef _WIN32
+    system("cls");
+#endif
+}
 
 using namespace std;
 

@@ -13,6 +13,7 @@ void dangNhap(const string& vaiTro) {
     cin >> ten;
     cout << "Nhap mat khau: ";
     cin >> matKhau;
+    clearScreen();
 
     ifstream file(tenFile);
     if (!file) {
@@ -126,6 +127,7 @@ void menuKhachHang(KhachHang& khachHang) {
         cout << "3. Thanh toan" << endl;
         cout << "4. Thoat" << endl;
         cin >> luaChon;
+        clearScreen();
 
         switch (luaChon) {
             case 1: {
@@ -164,6 +166,7 @@ void menuNhanVien(NhanVien& nhanVien) {
         cout << "0. Thoat" << endl;
         cout << "Nhap lua chon cua ban: ";
         cin >> luaChon;
+        clearScreen();
 
         switch (luaChon) {
             case 1: {
@@ -281,6 +284,7 @@ void menuGiamDoc(GiamDoc& giamDoc) {
         cout << "4. Thoat\n";
         cout << "Nhap lua chon: ";
         cin >> luaChon;
+        clearScreen();
 
         switch (luaChon) {
             case 1: {

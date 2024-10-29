@@ -24,6 +24,7 @@ int main() {
     cout << "2. Nhan vien" << endl;
     cout << "3. Giam doc" << endl;
     cin >> luaChon;
+    clearScreen();
 
     switch (luaChon) {
         case 1:
@@ -31,6 +32,7 @@ int main() {
             cout << "1. Dang nhap" << endl;
             cout << "2. Dang ky" << endl;
             cin >> luaChon;
+            clearScreen();
             if (luaChon == 1)
                 dangNhap("KhachHang");
             else
@@ -42,6 +44,7 @@ int main() {
             cout << "1. Dang nhap" << endl;
             cout << "2. Dang ky" << endl;
             cin >> luaChon;
+            clearScreen();
             if (luaChon == 1)
                 dangNhap("NhanVien");
             else
@@ -52,6 +55,7 @@ int main() {
             cout << "1. Dang nhap" << endl;
             cout << "2. Dang ky" << endl;
             cin >> luaChon;
+            clearScreen();
             if (luaChon == 1)
                 dangNhap("GiamDoc");
             else 
