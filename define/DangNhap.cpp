@@ -367,15 +367,6 @@ void menuGiamDoc(GiamDoc& giamDoc) {
         cin >> luaChon;
         clearScreen();
 
-
-        cout << "1. Xuat thong tin nhan vien\n";
-        cout << "2. Xuat thong tin san pham\n";
-        cout << "3. Xuat thong tin khach hang\n";
-        cout << "4. Thoat\n";
-        cout << "Nhap lua chon: ";
-        cin >> luaChon;
-        clearScreen();
-
         switch (luaChon) {
             case 1: {
                 giamDoc.xuatThongTinNhanVien();
