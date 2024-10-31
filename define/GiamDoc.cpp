@@ -18,40 +18,57 @@ void GiamDoc::xuatThongTinNhanVien() {
     ifstream inFile("../resources/NhanVien.txt");
 
     if (inFile.is_open()) {
-        string ten, matKhau, hoTen, sdt;
-        int d, m, y;
-        string lichLamViec;
+        string line;
 
-        while (inFile >> ten >> matKhau >> hoTen >> d >> m >> y >> sdt >> lichLamViec) {
-            Date ngaySinh(d, m, y); 
+        while (getline(inFile, line)) {
+            stringstream ss(line);
+            string ten, matKhau, lichLamViec, hoTen, temp, sdt;
+            int d, m, y;
+
+            ss >> ten >> matKhau >> lichLamViec;
+
+            hoTen.clear();
+            while (ss >> temp) {
+                if (isdigit(temp[0])) {
+                    ss.putback(temp[0]);
+                    break;
+                }
+                if (!hoTen.empty()) hoTen += " ";
+                hoTen += temp;
+            }
+
+            ss >> d >> m >> y >> sdt;
+            Date ngaySinh(d, m, y);
             dsNhanVien.push_back(new NhanVien(ten, matKhau, hoTen, ngaySinh, sdt, lichLamViec));
         }
         inFile.close();
-    
     } else {
         cout << "Không thể mở file NhanVien.txt!" << endl;
     }
 
     cout << left << setw(20) << "Ho Ten"
-        << setw(10) << "Ngay"
-        << setw(10) << "Thang"
-        << setw(10) << "Nam"
-        << setw(15) << "So Dien Thoai" << endl;
+         << setw(10) << "Ngay"
+         << setw(10) << "Thang"
+         << setw(10) << "Nam"
+         << setw(15) << "So Dien Thoai" << endl;
 
     cout << setfill('-') << setw(65) << "-" << setfill(' ') << endl;
 
     for (const auto& nv : dsNhanVien) {
         cout << left << setw(20) << nv->getHoTen()
-            << setw(10) << nv->getNgaySinh().getNgay()
-            << setw(10) << nv->getNgaySinh().getThang() 
-            << setw(10) << nv->getNgaySinh().getNam() 
-            << setw(15) << nv->getSdt() << endl;
+             << setw(10) << nv->getNgaySinh().getNgay()
+             << setw(10) << nv->getNgaySinh().getThang()
+             << setw(10) << nv->getNgaySinh().getNam()
+             << setw(15) << nv->getSdt() << endl;
     }
+    
     for (auto nv : dsNhanVien) {
         delete nv;
     }
     dsNhanVien.clear();
 }
+
+
 
 void GiamDoc::xuatThongTinSanPham() {
     vector<SanPham*> dsSanPham; 
@@ -135,41 +152,44 @@ void GiamDoc::xuatThongTinKhachHang() {
     string line;
     while (getline(file, line)) {
         stringstream ss(line);
-        string tenDangNhap, matKhau;
-        int diemTichLuy;
-        string hoTen;
-        Date ngaySinh;
-        string sdt;
+        string tenDangNhap, matKhau, hoTen, temp, sdt;
+        int diemTichLuy, ngay, thang, nam;
 
         ss >> tenDangNhap >> matKhau >> diemTichLuy;
-        ss.ignore();
-        getline(ss, hoTen);
-        
-        int ngay, thang, nam;
+
+        hoTen.clear();
+        while (ss >> temp) {
+            if (isdigit(temp[0])) {
+                ss.putback(temp[0]);
+                break;
+            }
+            if (!hoTen.empty()) hoTen += " ";
+            hoTen += temp;
+        }
+
         ss >> ngay >> thang >> nam >> sdt;
-        ngaySinh.setNgay(ngay);
-        ngaySinh.setThang(thang);
-        ngaySinh.setNam(nam);
+        Date ngaySinh(ngay, thang, nam);
 
         KhachHang kh(tenDangNhap, matKhau, diemTichLuy, hoTen, ngaySinh, sdt);
         dsKhachHang.push_back(kh);
     }
 
     file.close();
+    
     cout << left << setw(20) << "Ho Ten"
          << setw(10) << "Diem TL"
          << setw(10) << "Ngay Sinh"
          << setw(15) << "So Dien Thoai" << endl;
-         
+
     cout << setfill('-') << setw(60) << "-" << setfill(' ') << endl;
 
     for (const auto& kh : dsKhachHang) {
         cout << left << setw(20) << kh.getHoTen()
-            << setw(10) << kh.getDiemTichLuy()
-            << setw(2) << kh.getNgaySinh().getNgay() << "/"
-            << setw(2) << kh.getNgaySinh().getThang() << "/"
-            << setw(6) << kh.getNgaySinh().getNam()
-            << setw(15) << kh.getSdt() << endl;
+             << setw(10) << kh.getDiemTichLuy()
+             << setw(2) << kh.getNgaySinh().getNgay() << "/"
+             << setw(2) << kh.getNgaySinh().getThang() << "/"
+             << setw(6) << kh.getNgaySinh().getNam()
+             << setw(15) << kh.getSdt() << endl;
     }
     cout << endl;
 }

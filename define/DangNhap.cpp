@@ -4,62 +4,83 @@
 #include <conio.h>
 #include <fstream>
 #include <string>
+#include <regex>
 using namespace std;
 
 void dangNhap(const string& vaiTro) {
     string ten, matKhau, tenFile = "../resources/" + vaiTro + ".txt";
     bool timThay = false;
-
-    cout << "Nhap ten dang nhap: ";
-    cin >> ten;
-    cout << "Nhap mat khau: ";
-    cin >> matKhau;
-    clearScreen();
+    int soLanThu = 0; 
 
     ifstream file(tenFile);
     if (!file) {
         cout << "Khong the mo file!" << endl;
         return;
     }
+    
+    while (soLanThu < 2) {
+        cout << "                \033[38;5;33m[DANG NHAP]\033[0m" << endl;
+        cout << "-------------------------------------------" << endl;
+        cout << "| \033[38;5;214m~\033[0m Nhap ten dang nhap:                   |"<< endl;
+        cout << "| \033[38;5;214m~\033[0m Nhap mat khau:                        |"<< endl;
+        cout << "-------------------------------------------" << endl;
+        if (soLanThu>0)  cout << "Tai khoan hoac mat khau sai! Vui long thu lai.\n";
+        cout.flush();
+        setCursorPosition(24, 2); 
+        cin >> ten;
+        cout.flush();
+        setCursorPosition(19, 3);
+        cin >> matKhau;
 
-    string dong;
-    while (getline(file, dong)) {
-        istringstream iss(dong);
-        string tenNguoiDung, mk;
-        iss >> tenNguoiDung >> mk;
+        clearScreen();
 
-        if (ten == tenNguoiDung && matKhau == mk) {
-            if (vaiTro == "KhachHang") {
-                int diemTichLuy;
-                string hoTen, sdt;
-                Date ngaySinh;
-                iss >> diemTichLuy;
-                iss.ignore();
-                getline(iss, hoTen);
-                int d, m, y;
-                iss >> d >> m >> y; 
-                ngaySinh = Date(d, m, y);
-                iss >> sdt;
-                KhachHang khachHang(ten, matKhau, diemTichLuy, hoTen, ngaySinh, sdt);
-                menuKhachHang(khachHang);
-            } else if (vaiTro == "NhanVien") {
-                string hoTen, sdt, lichLamViec;
-                int d, m, y;
-                iss >> hoTen >> d >> m >> y >> sdt >> lichLamViec;
-                Date ngaySinh(d, m, y);
-                NhanVien nhanVien(ten, matKhau, hoTen, ngaySinh, sdt, lichLamViec);
-                menuNhanVien(nhanVien);
-            } else if (vaiTro == "GiamDoc") {
-                GiamDoc giamDoc(ten, matKhau);
-                menuGiamDoc(giamDoc);
+        string dong;
+        while (getline(file, dong)) {
+            istringstream iss(dong);
+            string tenNguoiDung, mk;
+            iss >> tenNguoiDung >> mk;
+
+            if (ten == tenNguoiDung && matKhau == mk) {
+                if (vaiTro == "KhachHang") {
+                    int diemTichLuy;
+                    string hoTen, sdt;
+                    Date ngaySinh;
+                    iss >> diemTichLuy;
+                    iss.ignore();
+                    getline(iss, hoTen);
+                    int d, m, y;
+                    iss >> d >> m >> y; 
+                    ngaySinh = Date(d, m, y);
+                    iss >> sdt;
+                    KhachHang khachHang(ten, matKhau, diemTichLuy, hoTen, ngaySinh, sdt);
+                    menuKhachHang(khachHang);
+                } else if (vaiTro == "NhanVien") {
+                    string hoTen, sdt, lichLamViec;
+                    int d, m, y;
+                    iss >> hoTen >> d >> m >> y >> sdt >> lichLamViec;
+                    Date ngaySinh(d, m, y);
+                    NhanVien nhanVien(ten, matKhau, hoTen, ngaySinh, sdt, lichLamViec);
+                    menuNhanVien(nhanVien);
+                } else if (vaiTro == "GiamDoc") {
+                    GiamDoc giamDoc(ten, matKhau);
+                    menuGiamDoc(giamDoc);
+                }
+                timThay = true;
+                break;
             }
-            timThay = true;
+        }
+
+        if (timThay) {
             break;
+        } else {
+            soLanThu++;
+            file.clear();
+            file.seekg(0);
         }
     }
 
     if (!timThay) {
-        cout << "Sai ten dang nhap hoac mat khau!" << endl;
+        cout << "Nhap sai 2 lan. Dang xuat!\n";
     }
 
     file.close();
@@ -67,11 +88,61 @@ void dangNhap(const string& vaiTro) {
 
 void dangKy(const string& vaiTro) {
     string ten, matKhau, tenFile = "../resources/" + vaiTro + ".txt";
+    int in=0;
+    while (true) {
+        clearScreen();
+        cout << "                \033[38;5;33m[DANG KY]\033[0m" << endl;
+        cout << "-------------------------------------------" << endl;
+        cout << "| \033[38;5;214m~\033[0m Nhap ten dang nhap:                   |"<< endl;
+        cout << "| \033[38;5;214m~\033[0m Nhap mat khau:                        |"<< endl;
+        cout << "-------------------------------------------" << endl;
+        if (in==1) cout << "\033[38;5;196mTen khong duoc vuot qua 15 ky tu va khong duoc it hon 6 ky tu. Vui long nhap lai.\033[0m";
+        else if (in==2) cout << "\033[38;5;196mTen da ton tai. Vui long nhap ten khac.\033[0m";
+        else if (in==3) cout << "\033[38;5;196mMat khau phai dai hon 10 ky tu va it hon 20 ky tu. Vui long nhap lai.\033[0m";
+        else if (in==3) cout << "\033[38;5;196mMat khau phai co it nhat 1 chu hoa, 1 chu so va 1 ky tu dac biet. Vui long nhap lai.\033[0m";
+        cout.flush();
+        setCursorPosition(24, 2); 
+        cin >> ten;
+        cout.flush();
+        setCursorPosition(19, 3);
+        cin >> matKhau;
 
-    cout << "Nhap ten dang ky: ";
-    cin >> ten;
-    cout << "Nhap mat khau: ";
-    cin >> matKhau;
+        if (ten.length() > 15 || ten.length() < 6) {
+            in=1;
+            continue;
+        }
+
+        ifstream file(tenFile);
+        bool tenTrung = false;
+        string line;
+        while (getline(file, line)) {
+            if (line.find(ten) == 0) {  
+                tenTrung = true;
+                break;
+            }
+        }
+        file.close();
+
+        if (tenTrung) {
+            in=2;
+            continue;
+        }
+
+        bool coChuHoa = regex_search(matKhau, regex("[A-Z]"));
+        bool coChuSo = regex_search(matKhau, regex("[0-9]"));
+        bool coKyTuDacBiet = regex_search(matKhau, regex("[^A-Za-z0-9]"));
+        bool doDaiHopLe = matKhau.length() > 10 && matKhau.length() < 20;
+
+        if (!doDaiHopLe) {
+            in=3;
+            continue;
+        }
+        if (!coChuHoa || !coChuSo || !coKyTuDacBiet) {
+            in=4;
+            continue;
+        }
+        break;
+    }
 
     ofstream file(tenFile, ios::app);
     if (!file) {
@@ -108,8 +179,9 @@ void dangKy(const string& vaiTro) {
         file << ten << " " << matKhau << " " << lichLamViec << " " << hoTen << " "
             << ngaySinh.getNgay() << " " << ngaySinh.getThang() << " " << ngaySinh.getNam() << " "
             << sdt << endl;
+    } else {
+        file << ten << " " << matKhau;
     }
-
 
     file.close();
     cout << "Dang ky thanh cong!" << endl;
@@ -123,10 +195,15 @@ void menuKhachHang(KhachHang& khachHang) {
     vector<SanPham*> dsSanPham;
     docDuLieuTuFile("../resources/input.txt", dsSanPham);
     do {
-        cout << "1. Di mua hang" << endl;
-        cout << "2. Hien thi gio hang" << endl;
-        cout << "3. Thanh toan" << endl;
-        cout << "4. Thoat" << endl;
+        cout << "---------\033[38;5;49m[MENU KHACH HANG]\033[0m---------" << endl;
+        cout << "|           Ban muon:             |"<< endl;
+        cout << "|         \033[38;5;214m~\033[0m 1. Mua hang           |"<< endl;
+        cout << "|     \033[38;5;214m~\033[0m 2. Hien thi gio hang      |" << endl;
+        cout << "|       \033[38;5;214m~\033[0m 3. Thanh toan           |"<< endl;
+        cout << "|          \033[38;5;214m~\033[0m 4. Thoat             |"<< endl;
+        cout << "-----------------------------------" << endl;
+        cout.flush();
+        setCursorPosition(22, 1); 
         cin >> luaChon;
         clearScreen();
 
@@ -154,24 +231,26 @@ void menuKhachHang(KhachHang& khachHang) {
 
 
 void menuNhanVien(NhanVien& nhanVien) {
-    vector<SanPham*> dsSanPham; // Danh sách sản phẩm
+    vector<SanPham*> dsSanPham; 
     int luaChon;
-    vector<string> ca;  // Khai báo vector<string> ca để lưu các ca làm việc
+    vector<string> ca;  
     int soCa;
 
     do {
-        cout << "===== Menu Nhan Vien =====" << endl;
-        cout << "1. Nhap san pham" << endl;
-        cout << "2. Xoa san pham" << endl;
-        cout << "3. Dang ky ca lam" << endl;
-        cout << "0. Thoat" << endl;
-        cout << "Nhap lua chon cua ban: ";
+        cout << "----------\033[38;5;49m[MENU NHAN VIEN]\033[0m---------" << endl;
+        cout << "|           Ban muon:             |"<< endl;
+        cout << "|       \033[38;5;214m~\033[0m 1. Nhap san pham        |"<< endl;
+        cout << "|       \033[38;5;214m~\033[0m 2. Xoa san pham         |" << endl;
+        cout << "|      \033[38;5;214m~\033[0m 3. Dang ky ca lam        |"<< endl;
+        cout << "|          \033[38;5;214m~\033[0m 4. Thoat             |"<< endl;
+        cout << "-----------------------------------" << endl;
+        cout.flush();
+        setCursorPosition(22, 1); 
         cin >> luaChon;
         clearScreen();
 
         switch (luaChon) {
             case 1: {
-                // Nhập sản phẩm
                 int soLuong;
                 string ngaySanXuat, hanSuDung, loaiSanPham;
                 double giaTien;
@@ -183,7 +262,6 @@ void menuNhanVien(NhanVien& nhanVien) {
                 cout << "Nhap gia tien: ";
                 cin >> giaTien;
 
-                // Thêm sản phẩm vào danh sách
                 if (loaiSanPham == "Thit") {
                     string loaiThit;
                     cout << "Nhap loai thit: ";
@@ -242,13 +320,12 @@ void menuNhanVien(NhanVien& nhanVien) {
                 break;
             }
             case 2: {
-                // Xóa sản phẩm
                 int index;
                 cout << "Nhap chi so san pham can xoa (0 - " << dsSanPham.size() - 1 << "): ";
                 cin >> index;
 
                 if (index >= 0 && index < dsSanPham.size()) {
-                    delete dsSanPham[index]; // Giải phóng bộ nhớ
+                    delete dsSanPham[index]; 
                     dsSanPham.erase(dsSanPham.begin() + index);
                     cout << "San pham da duoc xoa thanh cong!" << endl;
                 } else {
@@ -257,7 +334,7 @@ void menuNhanVien(NhanVien& nhanVien) {
                 break;
             }
             case 3: {
-                nhanVien.dangKyCaLam();  // Gọi hàm dangKyCaLam
+                nhanVien.dangKyCaLam();  
                 break;
             }
             case 0:
@@ -270,7 +347,6 @@ void menuNhanVien(NhanVien& nhanVien) {
 
     } while (luaChon != 0);
 
-    // Giải phóng bộ nhớ cho danh sách sản phẩm
     for (SanPham* sp : dsSanPham) {
         delete sp;
     }
@@ -279,6 +355,19 @@ void menuNhanVien(NhanVien& nhanVien) {
 void menuGiamDoc(GiamDoc& giamDoc) {
     int luaChon;
     do {
+        cout << "------------\033[38;5;49m[MENU GIAM DOC]\033[0m------------" << endl;
+        cout << "|              Ban muon:              |"<< endl;
+        cout << "|    \033[38;5;214m~\033[0m 1. Xuat thong tin nhan vien    |"<< endl;
+        cout << "|    \033[38;5;214m~\033[0m 2. Xuat thong tin san pham     |" << endl;
+        cout << "|    \033[38;5;214m~\033[0m 3. Xuat thong tin khach hang   |"<< endl;
+        cout << "|            \033[38;5;214m~\033[0m 4. Thoat               |"<< endl;
+        cout << "---------------------------------------" << endl;
+        cout.flush();
+        setCursorPosition(25, 1); 
+        cin >> luaChon;
+        clearScreen();
+
+
         cout << "1. Xuat thong tin nhan vien\n";
         cout << "2. Xuat thong tin san pham\n";
         cout << "3. Xuat thong tin khach hang\n";

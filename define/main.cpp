@@ -19,31 +19,43 @@ void menuNhanVien(NhanVien& nhanVien);
 void menuGiamDoc(GiamDoc& giamDoc);
 
 int main() {
+    clearScreen();
     int luaChon;
-    cout << "Chon vai tro: " << endl;
-    cout << "1. Khach hang" << endl;
-    cout << "2. Nhan vien" << endl;
-    cout << "3. Giam doc" << endl;
+    cout << "-------\033[38;5;49m[WELCOME BREAD3T SHOP]\033[0m-------" << endl;
+    cout << "|         Chon vai tro:            |"<< endl;
+    cout << "|        \033[38;5;214m~\033[0m 1. Khach hang           |"<< endl;
+    cout << "|        \033[38;5;214m~\033[0m 2. Nhan vien            |" << endl;
+    cout << "|        \033[38;5;214m~\033[0m 3. Giam doc             |" << endl;
+    cout << "------------------------------------" << endl;
+    cout.flush();
+    setCursorPosition(24, 1); 
     cin >> luaChon;
     clearScreen();
 
     switch (luaChon) {
         case 1:
-            cout << "Ban muon: " << endl;
-            cout << "1. Dang nhap" << endl;
-            cout << "2. Dang ky" << endl;
+            cout << "---------\033[38;5;49m[CHON PHUONG THUC]\033[0m---------" << endl;
+            cout << "|         Ban muon:                |"<< endl;
+            cout << "|        \033[38;5;214m~\033[0m 1. Dang nhap            |"<< endl;
+            cout << "|        \033[38;5;214m~\033[0m 2. Dang ky              |" << endl;
+            cout << "------------------------------------" << endl;
+            cout.flush();
+            setCursorPosition(20, 1); 
             cin >> luaChon;
             clearScreen();
             if (luaChon == 1)
                 dangNhap("KhachHang");
-            else
+            else if (luaChon == 2)
                 dangKy("KhachHang");
             break;
         case 2:
-
-            cout << "Ban muon: " << endl;
-            cout << "1. Dang nhap" << endl;
-            cout << "2. Dang ky" << endl;
+            cout << "---------\033[38;5;49m[CHON PHUONG THUC]\033[0m---------" << endl;
+            cout << "|         Ban muon:                |"<< endl;
+            cout << "|        \033[38;5;214m~\033[0m 1. Dang nhap            |"<< endl;
+            cout << "|        \033[38;5;214m~\033[0m 2. Dang ky              |" << endl;
+            cout << "------------------------------------" << endl;
+            cout.flush();
+            setCursorPosition(20, 1); 
             cin >> luaChon;
             clearScreen();
             if (luaChon == 1)
@@ -52,9 +64,13 @@ int main() {
                 dangKy("NhanVien");
             break;
         case 3:
-            cout << "Ban muon: " << endl;
-            cout << "1. Dang nhap" << endl;
-            cout << "2. Dang ky" << endl;
+            cout << "---------\033[38;5;49m[CHON PHUONG THUC]\033[0m---------" << endl;
+            cout << "|         Ban muon:                |"<< endl;
+            cout << "|        \033[38;5;214m~\033[0m 1. Dang nhap            |"<< endl;
+            cout << "|        \033[38;5;214m~\033[0m 2. Dang ky              |" << endl;
+            cout << "------------------------------------" << endl;
+            cout.flush();
+            setCursorPosition(20, 1); 
             cin >> luaChon;
             clearScreen();
             if (luaChon == 1)

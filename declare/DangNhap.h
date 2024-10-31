@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <regex>
 #include <vector>
 #include "Khach_hang.h"
 #include "GiamDoc.h"

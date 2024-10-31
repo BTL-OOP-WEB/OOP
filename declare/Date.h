@@ -3,6 +3,8 @@
 #define DATE_H
 
 #include <string>
+#include <conio.h> 
+#include <windows.h>
 
 class Date {
 private:
@@ -22,5 +24,8 @@ public:
     void setThang(int m) { thang = m; }
     void setNam(int y) { nam = y; }
 };
+
+
+void setCursorPosition(int x, int y);
 
 #endif 
