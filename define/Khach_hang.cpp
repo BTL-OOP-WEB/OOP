@@ -87,8 +87,6 @@ void KhachHang::thanhToan() {
 
     xuatHoaDon();
     gioHang.clear();
-    cout << "Da thanh toan thanh cong. Cam on ban da mua sam!" << endl;
-    cout << "=====================================================" << endl;
 }
 
 void KhachHang::capNhatSanPhamTrongFile(const string& tenSanPham, int soLuongMoi) {
@@ -139,7 +137,7 @@ void KhachHang::suDungDiem() {
 
 void KhachHang::hienThiGioHang() {
     cout << "===============================" << endl;
-    cout << "          Gio hang cua ban     " << endl;
+    cout << "       Gio hang cua ban     " << endl;
     cout << "===============================" << endl;
     
     int index = 1;
@@ -206,13 +204,40 @@ void KhachHang::hienThiThongTin() const {
     cout << "Diem tich luy: " << diemTichLuy << endl;
 }
 
+// void KhachHang::xuatHoaDon() const {
+//     cout << "Hoa don cua ban:" << endl;
+//     for (auto& sp : gioHang) {
+//         sp->inThongTin();
+//     }
+//     cout << "Cam on ban da mua sam tai cua hang!" << endl;
+// }
+
 void KhachHang::xuatHoaDon() const {
-    cout << "Hoa don cua ban:" << endl;
-    for (auto& sp : gioHang) {
-        sp->inThongTin();
+    cout << "----------------------------------------\n";
+    cout << "           CỬA HÀNG LỘC PHÁT           \n";
+    cout << "----------------------------------------\n";
+    cout << "Lorem Ipsum\n";
+    cout << "112233 Lorem Street, Lorem, Dolor, AMET\n";
+    cout << "----------------------------------------\n";
+    double totalAmount = 0.0;
+
+    for (SanPham* sanPham : gioHang) {
+        cout << sanPham->getSoLuong() << "x " << sanPham->getTenSanPham()
+             << setw(25 - sanPham->getTenSanPham().length()) << right << "$ "
+             << sanPham->getGia() * sanPham->getSoLuong() << "\n";
+        totalAmount += sanPham->getGia() * sanPham->getSoLuong();
     }
-    cout << "Cam on ban da mua sam tai cua hang!" << endl;
+
+    cout << "----------------------------------------\n";
+    cout << "TOTAL AMOUNT" << setw(20) << "$ " << totalAmount << "\n";
+    double cash = 100.00; // Example cash given
+    cout << "CASH" << setw(28) << "$ " << cash << "\n";
+    cout << "CHANGE" << setw(26) << "$ " << cash - totalAmount << "\n";
+    cout << "----------------------------------------\n";
+    cout << "| | | | | | | | | | | | | | | | | | | |\n"; // Simulated barcode
+    cout << "----------------------------------------\n";
 }
+
 
 SanPham* KhachHang::timSanPhamTrongGioHang(const string& tenSanPham) {
     for (SanPham* sanPham : gioHang) {
@@ -241,21 +266,23 @@ void KhachHang::muaHang(const vector<SanPham*>& danhSachSanPham) {
     int luaChonQuay;
 
     do {
-        cout << " _________________________________________ " << endl;
-        cout << "| 1. Quay Thit          |                 |" << endl;
-        cout << "| 2. Quay Ca            |                 |" << endl;
-        cout << "| 3. Quay Keo           |                 |" << endl;
-        cout << "| 4. Quay Nuoc          |                 |" << endl;
-        cout << "| 5. Quay Rau Cu        |                 |" << endl;
-        cout << "| 6. Quay Gia Vi        |                 |" << endl;
-        cout << "| 7. Quay Banh          |                 |" << endl;
-        cout << "| 8. Quay Giay          |                 |" << endl;
-        cout << "| 9. Quay Chen Bat      |                 |" << endl;
-        cout << "| 10. Quay Do Dong Hop  |                 |" << endl;
-        cout << "| 0. Quay lai          |                 |" << endl;
-        cout << "|_______________________|   |W|E|L|C|O|M|E| " << endl;
+        cout << " __________________________________________________ " << endl;
+        cout << "| \033[38;5;214m~\033[0m 1. Quay Thit                  |                 |" << endl;
+        cout << "| \033[38;5;214m~\033[0m 2. Quay Ca                    |                 |" << endl;
+        cout << "| \033[38;5;214m~\033[0m 3. Quay Keo                   |                 |" << endl;
+        cout << "| \033[38;5;214m~\033[0m 4. Quay Nuoc                  |                 |" << endl;
+        cout << "| \033[38;5;214m~\033[0m 5. Quay Rau Cu                |                 |" << endl;
+        cout << "| \033[38;5;214m~\033[0m 6. Quay Gia Vi                |                 |" << endl;
+        cout << "| \033[38;5;214m~\033[0m 7. Quay Banh                  |                 |" << endl;
+        cout << "| \033[38;5;214m~\033[0m 8. Quay Giay                  |                 |" << endl;
+        cout << "| \033[38;5;214m~\033[0m 9. Quay Chen Bat              |                 |" << endl;
+        cout << "| \033[38;5;214m~\033[0m 10. Quay Do Dong Hop          |                 |" << endl;
+        cout << "| \033[38;5;214m~\033[0m 0. Quay lai                   |                 |" << endl;
+        cout << "| \033[38;5;214m~\033[0m Chon quay muon mua (1-10):    |                 |" << endl;
+        cout << "|________________________________|   |W|E|L|C|O|M|E| " << endl;
 
-        cout << "Chon quay muon mua (1-10): ";
+        cout.flush();
+        setCursorPosition(31, 11); 
         cin >> luaChonQuay;
         clearScreen();
 
@@ -278,9 +305,9 @@ void KhachHang::muaHang(const vector<SanPham*>& danhSachSanPham) {
                 cout << "Ban da chon Quay Thit. Cac san pham co san:" << endl;      
                 for (const auto& sp : danhSachSanPham) {
                     if (sp->getLoaiSanPham() == "Thit") {
-                        cout << "_____________________" << endl;
-                        cout << "| " << index << ". " << sp->getTenSanPham() << " - " << sp->getGia() << " VND |" << endl;
-                        cout << "_____________________" << endl;
+                        cout << "_______________________" << endl;
+                        cout << "| \033[38;5;214m~\033[0m " << index << ". " << sp->getTenSanPham() << " - " << sp->getGia() << " VND |" << endl;
+                        cout << "_______________________" << endl;
                         sanPhamThit.push_back(sp);
                         index++;
                     }
@@ -304,9 +331,9 @@ void KhachHang::muaHang(const vector<SanPham*>& danhSachSanPham) {
                 cout << "Ban da chon Quay Ca. Cac san pham co san:" << endl;
                 for (const auto& sp : danhSachSanPham) {
                     if (sp->getLoaiSanPham() == "Ca") {
-                        cout << "_____________________" << endl;
-                        cout << "| " << index << ". " << sp->getTenSanPham() << " - " << sp->getGia() << " VND |" << endl;
-                        cout << "_____________________" << endl;
+                        cout << "_________________________" << endl;
+                        cout << "| \033[38;5;214m~\033[0m " << index << ". " << sp->getTenSanPham() << " - " << sp->getGia() << " VND |" << endl;
+                        cout << "_________________________" << endl;
                         sanPhamCa.push_back(sp);
                         index++;
                     }
@@ -329,9 +356,9 @@ void KhachHang::muaHang(const vector<SanPham*>& danhSachSanPham) {
                 cout << "Ban da chon Quay Keo. Cac san pham co san:" << endl;
                 for (const auto& sp : danhSachSanPham) {
                     if (sp->getLoaiSanPham() == "Keo") {
-                        cout << "_____________________" << endl;
-                        cout << "| " << index << ". " << sp->getTenSanPham() << " - " << sp->getGia() << " VND |" << endl;
-                        cout << "_____________________" << endl;
+                        cout << "_________________________" << endl;
+                        cout << "| \033[38;5;214m~\033[0m " << index << ". " << sp->getTenSanPham() << " - " << sp->getGia() << " VND |" << endl;
+                        cout << "_________________________" << endl;
                         sanPhamKeo.push_back(sp);
                         index++;
                     }
@@ -353,9 +380,9 @@ void KhachHang::muaHang(const vector<SanPham*>& danhSachSanPham) {
                 cout << "Ban da chon Quay Nuoc. Cac san pham co san:" << endl;
                 for (const auto& sp : danhSachSanPham) {
                     if (sp->getLoaiSanPham() == "Nuoc") {
-                        cout << "_____________________" << endl;
-                        cout << "| " << index << ". " << sp->getTenSanPham() << " - " << sp->getGia() << " VND |" << endl;
-                        cout << "_____________________" << endl;
+                        cout << "_________________________" << endl;
+                        cout << "| \033[38;5;214m~\033[0m " << index << ". " << sp->getTenSanPham() << " - " << sp->getGia() << " VND |" << endl;
+                        cout << "_________________________" << endl;
                         sanPhamNuoc.push_back(sp);
                         index++;
                     }
@@ -378,9 +405,9 @@ void KhachHang::muaHang(const vector<SanPham*>& danhSachSanPham) {
                 cout << "Ban da chon Quay Rau Cu. Cac san pham co san:" << endl;
                 for (const auto& sp : danhSachSanPham) {
                     if (sp->getLoaiSanPham() == "RauCu") {
-                        cout << "_____________________" << endl;
-                        cout << "| " << index << ". " << sp->getTenSanPham() << " - " << sp->getGia() << " VND |" << endl;
-                        cout << "_____________________" << endl;
+                        cout << "_________________________" << endl;
+                        cout << "| \033[38;5;214m~\033[0m " << index << ". " << sp->getTenSanPham() << " - " << sp->getGia() << " VND |" << endl;
+                        cout << "_________________________" << endl;
                         sanPhamRauCu.push_back(sp);
                         index++;
                     }
@@ -402,9 +429,9 @@ void KhachHang::muaHang(const vector<SanPham*>& danhSachSanPham) {
                 cout << "Ban da chon Quay Gia Vi. Cac san pham co san:" << endl;
                 for (const auto& sp : danhSachSanPham) {
                     if (sp->getLoaiSanPham() == "GiaVi") {
-                        cout << "_____________________" << endl;
-                        cout << "| " << index << ". " << sp->getTenSanPham() << " - " << sp->getGia() << " VND |" << endl;
-                        cout << "_____________________" << endl;
+                        cout << "_________________________" << endl;
+                        cout << "| \033[38;5;214m~\033[0m " << index << ". " << sp->getTenSanPham() << " - " << sp->getGia() << " VND |" << endl;
+                        cout << "_________________________" << endl;
                         sanPhamGiaVi.push_back(sp);
                         index++;
                     }
@@ -426,9 +453,9 @@ void KhachHang::muaHang(const vector<SanPham*>& danhSachSanPham) {
                 cout << "Ban da chon Quay Banh. Cac san pham co san:" << endl;
                 for (const auto& sp : danhSachSanPham) {
                     if (sp->getLoaiSanPham() == "Banh") {
-                        cout << "_____________________" << endl;
-                        cout << "| " << index << ". " << sp->getTenSanPham() << " - " << sp->getGia() << " VND |" << endl;
-                        cout << "_____________________" << endl;
+                        cout << "_________________________" << endl;
+                        cout << "| \033[38;5;214m~\033[0m " << index << ". " << sp->getTenSanPham() << " - " << sp->getGia() << " VND |" << endl;
+                        cout << "_________________________" << endl;
                         sanPhamBanh.push_back(sp);
                         index++;
                     }
@@ -450,9 +477,9 @@ void KhachHang::muaHang(const vector<SanPham*>& danhSachSanPham) {
                 cout << "Ban da chon Quay Giay. Cac san pham co san:" << endl;
                 for (const auto& sp : danhSachSanPham) {
                     if (sp->getLoaiSanPham() == "Giay") {
-                        cout << "_____________________" << endl;
-                        cout << "| " << index << ". " << sp->getTenSanPham() << " - " << sp->getGia() << " VND |" << endl;
-                        cout << "_____________________" << endl;
+                        cout << "_________________________" << endl;
+                        cout << "| \033[38;5;214m~\033[0m " << index << ". " << sp->getTenSanPham() << " - " << sp->getGia() << " VND |" << endl;
+                        cout << "_________________________" << endl;
                         sanPhamGiay.push_back(sp);
                         index++;
                     }
@@ -474,9 +501,9 @@ void KhachHang::muaHang(const vector<SanPham*>& danhSachSanPham) {
                 cout << "Ban da chon Quay Chen Bat. Cac san pham co san:" << endl;
                 for (const auto& sp : danhSachSanPham) {
                     if (sp->getLoaiSanPham() == "ChenBat") {
-                        cout << "_____________________" << endl;
-                        cout << "| " << index << ". " << sp->getTenSanPham() << " - " << sp->getGia() << " VND |" << endl;
-                        cout << "_____________________" << endl;
+                        cout << "_________________________" << endl;
+                        cout << "| \033[38;5;214m~\033[0m " << index << ". " << sp->getTenSanPham() << " - " << sp->getGia() << " VND |" << endl;
+                        cout << "_________________________" << endl;
                         sanPhamChenBat.push_back(sp);
                         index++;
                     }
@@ -498,9 +525,9 @@ void KhachHang::muaHang(const vector<SanPham*>& danhSachSanPham) {
                 cout << "Ban da chon Quay Do Dong Hop. Cac san pham co san:" << endl;
                 for (const auto& sp : danhSachSanPham) {
                     if (sp->getLoaiSanPham() == "DoDongHop") {
-                        cout << "_____________________" << endl;
-                        cout << "| " << index << ". " << sp->getTenSanPham() << " - " << sp->getGia() << " VND |" << endl;
-                        cout << "_____________________" << endl;
+                        cout << "_________________________" << endl;
+                        cout << "| \033[38;5;214m~\033[0m " << index << ". " << sp->getTenSanPham() << " - " << sp->getGia() << " VND |" << endl;
+                        cout << "_________________________" << endl;
                         sanPhamDoDongHop.push_back(sp);
                         index++;
                     }
@@ -518,6 +545,7 @@ void KhachHang::muaHang(const vector<SanPham*>& danhSachSanPham) {
                     cout << "Lua chon khong hop le. Vui long chon lai!" << endl;
                 }
                 break;
+            case 0: continue;
             default:
                 cout << "Lua chon khong hop le! Vui long chon lai." << endl;
                 continue;

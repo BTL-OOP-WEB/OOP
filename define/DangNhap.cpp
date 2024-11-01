@@ -221,10 +221,10 @@ void menuKhachHang(KhachHang& khachHang) {
                 break;
             }
             case 4:
-                cout << "Thoat khoi he thong." << endl;
+                luaChon=5;
                 break;
             default:
-                cout << "Lua chon khong hop le!" << endl;
+                cout << "Thoat khoi he thong." << endl;
         }
     } while (luaChon != 5);
 }
@@ -337,12 +337,11 @@ void menuNhanVien(NhanVien& nhanVien) {
                 nhanVien.dangKyCaLam();  
                 break;
             }
-            case 0:
-                cout << "Thoat chuong trinh!" << endl;
+            case 4:
+                luaChon=5;
                 break;
             default:
-                cout << "Lua chon khong hop le!" << endl;
-                break;
+                cout << "Thoat khoi he thong." << endl;
         }
 
     } while (luaChon != 0);
@@ -381,11 +380,10 @@ void menuGiamDoc(GiamDoc& giamDoc) {
                 break;
             }
             case 4:
-                cout << "Thoat menu giam doc\n";
+                luaChon=5;
                 break;
             default:
-                cout << "Lua chon khong hop le, vui long chon lai!\n";
-                break;
+                cout << "Thoat khoi he thong." << endl;
         }
     } while (luaChon != 4);
 }
