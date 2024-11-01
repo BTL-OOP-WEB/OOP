@@ -1,5 +1,5 @@
-Thit 10 Bo 150000
-Ca 20 CaHoi 200000
+Thit 10 0 0
+Ca 20 CaHoi 20000
 Keo 50 Socola 5000
 Nuoc 100 CocaCola 12000
 RauCu 30 CaiXanh 8000

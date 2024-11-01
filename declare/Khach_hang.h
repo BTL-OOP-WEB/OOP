@@ -32,8 +32,7 @@ public:
     void hienThiGioHang() ;
     void hienThiThongTin() const override; 
     
-    void suDungDiem();         
-    void xuatHoaDon() const;   
+    void suDungDiem();          
     void muaHang(const vector<SanPham*>& danhSachSanPham);
 
     SanPham* timSanPhamTrongGioHang(const string& tenSanPham);

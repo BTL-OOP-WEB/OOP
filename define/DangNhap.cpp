@@ -218,7 +218,7 @@ void menuKhachHang(KhachHang& khachHang) {
             }
             case 3: {
                 khachHang.thanhToan();
-                break;
+                return;
             }
             case 4:
                 luaChon=5;

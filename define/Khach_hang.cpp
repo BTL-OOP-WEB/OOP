@@ -32,7 +32,7 @@ void KhachHang::themVaoGioHang(SanPham* sanPham, int soLuong) {
 }
 
 void KhachHang::xoaSanPhamRaKhoiFile(const string& tenSanPham) {
-    ifstream inputFile("SanPham.txt");
+    ifstream inputFile("../resources/input.txt");
     vector<string> lines;
     string line;
 
@@ -43,25 +43,23 @@ void KhachHang::xoaSanPhamRaKhoiFile(const string& tenSanPham) {
     }
     inputFile.close();
 
-    ofstream outputFile("SanPham.txt");
+    ofstream outputFile("../resources/input.txt");
     for (const string& line : lines) {
         outputFile << line << endl;
     }
     outputFile.close();
 
-    cout << "San pham '" << tenSanPham << "' da duoc xoa khoi file." << endl;
 }
 
 
 void KhachHang::thanhToan() {
+    
     double tongTien = 0.0;
     cout << "================= Hoa Don Thanh Toan =================" << endl;
-    cout << setw(25) << left << "San Pham" << setw(15) << "So Luong" << setw(15) << "Gia Tien" << endl;
-    cout << "------------------------------------------------------" << endl;
-
     for (auto& sp : gioHang) {
         sp->inThongTin();
         tongTien += sp->giaTien;
+        cout << endl;
     }
 
     cout << "------------------------------------------------------" << endl;
@@ -72,25 +70,42 @@ void KhachHang::thanhToan() {
     int diemThem = tongTien / 100000;
     diemTichLuy += diemThem;
     cout << "Ban da tich them: " << diemThem << " diem" << endl;
-    cout << "------------------------------------------------------" << endl;
+
+    cout << "----------------------------------------\n";
+    cout << "              BREAD3T SHOP            \n";
+    cout << "----------------------------------------\n";
+    cout << "   Tri Tram Tinh\n";
+    cout << "   From CNTT K64 with luv \n";
+    cout << "----------------------------------------\n";
+    double totalAmount = 0.0;
+
+    for (SanPham* sanPham : gioHang) {
+        cout << sanPham->getSoLuong() << "x " << sanPham->getTenSanPham()
+             << setw(25 - sanPham->getTenSanPham().length()) << right << "$ "
+             << sanPham->getGia() * sanPham->getSoLuong() << "\n";
+        totalAmount += sanPham->getGia() * sanPham->getSoLuong();
+    }
+
+    cout << "----------------------------------------\n";
+    cout << "Tong tien" << setw(20) << "$ " << totalAmount << "\n";
+    cout << "----------------------------------------\n";
 
     for (auto& sp : gioHang) {
         if (sp->getSoLuong() > 0) {
             sp->setSoLuong(sp->getSoLuong() - 1);
-            if (sp->getSoLuong() == 0) {
-                xoaSanPhamRaKhoiFile(sp->getTenSanPham());
-            } else {
+            // if (sp->getSoLuong() == 0) {
+            //     xoaSanPhamRaKhoiFile(sp->getTenSanPham());
+            // } else {
                 capNhatSanPhamTrongFile(sp->getTenSanPham(), sp->getSoLuong());
-            }
+            // }
         }
     }
-
-    xuatHoaDon();
     gioHang.clear();
+    return ;
 }
 
 void KhachHang::capNhatSanPhamTrongFile(const string& tenSanPham, int soLuongMoi) {
-    ifstream inputFile("SanPham.txt");
+    ifstream inputFile("../resources/input.txt");
     vector<string> lines;
     string line;
 
@@ -109,13 +124,12 @@ void KhachHang::capNhatSanPhamTrongFile(const string& tenSanPham, int soLuongMoi
     }
     inputFile.close();
 
-    ofstream outputFile("SanPham.txt");
+    ofstream outputFile("../resources/input.txt");
     for (const string& line : lines) {
         outputFile << line << endl;
     }
     outputFile.close();
 
-    cout << "San pham '" << tenSanPham << "' da duoc cap nhat trong file." << endl;
 }
 
 
@@ -126,7 +140,7 @@ void KhachHang::suDungDiem() {
         cin >> luaChon;
 
         if (luaChon == 1) {
-            double giamGia = diemTichLuy * 1000;
+            double giamGia = diemTichLuy * 10;
             cout << "Ban da giam: " << giamGia << " VND tu diem tich luy." << endl;
             diemTichLuy = 0;
         }
@@ -156,6 +170,7 @@ void KhachHang::hienThiGioHang() {
         
         int luaChon;
         cin >> luaChon;
+        clearScreen();
 
         switch (luaChon) {
             case 1: {
@@ -204,39 +219,7 @@ void KhachHang::hienThiThongTin() const {
     cout << "Diem tich luy: " << diemTichLuy << endl;
 }
 
-// void KhachHang::xuatHoaDon() const {
-//     cout << "Hoa don cua ban:" << endl;
-//     for (auto& sp : gioHang) {
-//         sp->inThongTin();
-//     }
-//     cout << "Cam on ban da mua sam tai cua hang!" << endl;
-// }
 
-void KhachHang::xuatHoaDon() const {
-    cout << "----------------------------------------\n";
-    cout << "           CỬA HÀNG LỘC PHÁT           \n";
-    cout << "----------------------------------------\n";
-    cout << "Lorem Ipsum\n";
-    cout << "112233 Lorem Street, Lorem, Dolor, AMET\n";
-    cout << "----------------------------------------\n";
-    double totalAmount = 0.0;
-
-    for (SanPham* sanPham : gioHang) {
-        cout << sanPham->getSoLuong() << "x " << sanPham->getTenSanPham()
-             << setw(25 - sanPham->getTenSanPham().length()) << right << "$ "
-             << sanPham->getGia() * sanPham->getSoLuong() << "\n";
-        totalAmount += sanPham->getGia() * sanPham->getSoLuong();
-    }
-
-    cout << "----------------------------------------\n";
-    cout << "TOTAL AMOUNT" << setw(20) << "$ " << totalAmount << "\n";
-    double cash = 100.00; // Example cash given
-    cout << "CASH" << setw(28) << "$ " << cash << "\n";
-    cout << "CHANGE" << setw(26) << "$ " << cash - totalAmount << "\n";
-    cout << "----------------------------------------\n";
-    cout << "| | | | | | | | | | | | | | | | | | | |\n"; // Simulated barcode
-    cout << "----------------------------------------\n";
-}
 
 
 SanPham* KhachHang::timSanPhamTrongGioHang(const string& tenSanPham) {
