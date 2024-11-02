@@ -6,5 +6,5 @@ Banh 40 BanhMi 25000
 Giay 25 GiayViet 30000
 ChenBat 12 ChenSu 45000
 DoDongHop 60 CaHop 50000
-Ca 20 CaRo 20000
-Thit 18 Bo 20000
+Ca 18 CaRo 20000
+Thit 65 Bo 20000

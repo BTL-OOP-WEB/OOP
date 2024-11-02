@@ -25,6 +25,7 @@ public:
     KhachHang(const string& ten, const string& matKhau, const int& diemTichLuy, const string& hoTen, const Date& ngaySinh, const string& sdt);
 
     void themVaoGioHang(SanPham* sanPham, int soLuong);
+    bool neuGioHangRong() const;
     void boSanPham(SanPham* sanPham, int soLuong);
     void capNhatSanPhamTrongFile(const string& tenSanPham, int soLuongMoi);
     
@@ -32,7 +33,7 @@ public:
     void hienThiGioHang() ;
     void hienThiThongTin() const override; 
     
-    void suDungDiem(double &tongTien);          
+    void suDungDiem(double &tongTien, string tenUser);          
     void muaHang(const vector<SanPham*>& danhSachSanPham);
 
     SanPham* timSanPhamTrongGioHang(const string& tenSanPham);

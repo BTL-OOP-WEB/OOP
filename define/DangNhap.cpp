@@ -160,8 +160,8 @@ void dangKy(const string& vaiTro) {
         cout << "Nhap so dien thoai: ";
         cin >> sdt;
         Date ngaySinh(d, m, y);
-        file << ten << " " << matKhau << " 0 " << hoTen << " "
-            << ngaySinh.getNgay() << " " << ngaySinh.getThang() << " " << ngaySinh.getNam() << " "
+        file << ten << " " << matKhau << " 0 " << " "
+            << ngaySinh.getNgay() << " " << ngaySinh.getThang() << " " << ngaySinh.getNam() << " " << hoTen
             << sdt << endl;
     } else if (vaiTro == "NhanVien") {
         string hoTen, sdt;
@@ -187,13 +187,11 @@ void dangKy(const string& vaiTro) {
     cout << "Dang ky thanh cong!" << endl;
 }
 
-
-
-
 void menuKhachHang(KhachHang& khachHang) {
     int luaChon;
     vector<SanPham*> dsSanPham;
     docDuLieuTuFile("../resources/input.txt", dsSanPham);
+    int koThanhToan=0;
     do {
         cout << "---------\033[38;5;49m[MENU KHACH HANG]\033[0m---------" << endl;
         cout << "|           Ban muon:             |"<< endl;
@@ -202,6 +200,7 @@ void menuKhachHang(KhachHang& khachHang) {
         cout << "|       \033[38;5;214m~\033[0m 3. Thanh toan           |"<< endl;
         cout << "|          \033[38;5;214m~\033[0m 4. Thoat             |"<< endl;
         cout << "-----------------------------------" << endl;
+        if (koThanhToan == 1) cout << "Gio hang cua ban hien tai rong. Khong the thanh toan." << endl;
         cout.flush();
         setCursorPosition(22, 1); 
         cin >> luaChon;
@@ -209,7 +208,7 @@ void menuKhachHang(KhachHang& khachHang) {
 
         switch (luaChon) {
             case 1: {
-               khachHang.muaHang(dsSanPham);
+                khachHang.muaHang(dsSanPham);
                 break;
             }
             case 2: {
@@ -217,7 +216,12 @@ void menuKhachHang(KhachHang& khachHang) {
                 break;
             }
             case 3: {
-                khachHang.thanhToan(dsSanPham);
+                if (khachHang.neuGioHangRong()){ 
+                    koThanhToan = 1; 
+                    break;
+                } else {
+                    khachHang.thanhToan(dsSanPham); 
+                }
                 return;
             }
             case 4:
@@ -228,7 +232,6 @@ void menuKhachHang(KhachHang& khachHang) {
         }
     } while (luaChon != 5);
 }
-
 
 void menuNhanVien(NhanVien& nhanVien) {
     vector<SanPham*> dsSanPham; 
