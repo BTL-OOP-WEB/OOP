@@ -155,19 +155,8 @@ void GiamDoc::xuatThongTinKhachHang() {
         string tenDangNhap, matKhau, hoTen, temp, sdt;
         int diemTichLuy, ngay, thang, nam;
 
-        ss >> tenDangNhap >> matKhau >> diemTichLuy;
-
-        hoTen.clear();
-        while (ss >> temp) {
-            if (isdigit(temp[0])) {
-                ss.putback(temp[0]);
-                break;
-            }
-            if (!hoTen.empty()) hoTen += " ";
-            hoTen += temp;
-        }
-
-        ss >> ngay >> thang >> nam >> sdt;
+        ss >> tenDangNhap >> matKhau >> diemTichLuy >> ngay >> thang >> nam >> sdt;
+        getline(ss, hoTen);
         Date ngaySinh(ngay, thang, nam);
 
         KhachHang kh(tenDangNhap, matKhau, diemTichLuy, hoTen, ngaySinh, sdt);
