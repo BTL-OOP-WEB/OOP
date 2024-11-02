@@ -1,5 +1,0 @@
-buivang nhanvien001 1201201 Phan Cong Tri 3 1 2005 0369064623
-phanvanh nvpassword 0000011 Phan Cong Tri 3 1 2005 0369064623
-levani staffpass 0000001 Phan Cong Tri 3 1 2005 0369064623
-phancongtri 0301 0000000 Phan Cong Tri 3 1 2005 0369064623
-a a 0000000 Phan Cong Tri 3 1 2005 0369064623
