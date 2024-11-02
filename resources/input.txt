@@ -1,5 +1,3 @@
-Thit 10 0 0
-Ca 20 CaHoi 20000
 Keo 50 Socola 5000
 Nuoc 100 CocaCola 12000
 RauCu 30 CaiXanh 8000
@@ -8,3 +6,5 @@ Banh 40 BanhMi 25000
 Giay 25 GiayViet 30000
 ChenBat 12 ChenSu 45000
 DoDongHop 60 CaHop 50000
+Ca 20 CaRo 20000
+Thit 18 Bo 20000

@@ -23,7 +23,7 @@ void KhachHang::themVaoGioHang(SanPham* sanPham, int soLuong) {
     }
 
     if (!sanPhamTonTai) {
-        SanPham* spMoi = sanPham->taoSanPham(); // Gọi hàm taoSanPham từ lớp con
+        SanPham* spMoi = sanPham->taoSanPham(); 
         spMoi->setSoLuong(soLuong);
         gioHang.push_back(spMoi);
     }
@@ -52,8 +52,7 @@ void KhachHang::xoaSanPhamRaKhoiFile(const string& tenSanPham) {
 }
 
 
-void KhachHang::thanhToan() {
-    
+void KhachHang::thanhToan(const vector<SanPham*>& dsSanPham) {
     double tongTien = 0.0;
     cout << "================= Hoa Don Thanh Toan =================" << endl;
     for (auto& sp : gioHang) {
@@ -64,12 +63,37 @@ void KhachHang::thanhToan() {
 
     cout << "------------------------------------------------------" << endl;
     cout << "Tong tien truoc khi ap dung giam gia: " << tongTien << " VND" << endl;
-    suDungDiem();
+    suDungDiem(tongTien);
     cout << "Tong tien can thanh toan: " << tongTien << " VND" << endl;
 
     int diemThem = tongTien / 100000;
     diemTichLuy += diemThem;
-    cout << "Ban da tich them: " << diemThem << " diem" << endl;
+
+    fstream file("../resources/KhachHang.txt", ios::in | ios::out);
+    string line;
+    stringstream ss;
+    bool found = false;
+
+    while (getline(file, line)) {
+        if (line.find(ten) == 0) {
+            found = true;
+            ss.str("");
+            ss << ten << " " << matKhau << " " << diemTichLuy << " " << hoTen << " "
+            << ngaySinh.getNgay() << " " << ngaySinh.getThang() << " " << ngaySinh.getNam() << " " << sdt;
+            
+            file.seekp(static_cast<streamoff>(file.tellg()) - static_cast<streamoff>(line.size()) - 1);
+            file << ss.str() << endl;
+            break;
+        }
+    }
+
+    file.close();
+
+    if (!found) {
+        cout << "Khong tim thay thong tin khach hang." << endl;
+    }
+
+    clearScreen();
 
     cout << "----------------------------------------\n";
     cout << "              BREAD3T SHOP            \n";
@@ -91,13 +115,17 @@ void KhachHang::thanhToan() {
     cout << "----------------------------------------\n";
 
     for (auto& sp : gioHang) {
-        if (sp->getSoLuong() > 0) {
-            sp->setSoLuong(sp->getSoLuong() - 1);
-            // if (sp->getSoLuong() == 0) {
-            //     xoaSanPhamRaKhoiFile(sp->getTenSanPham());
-            // } else {
-                capNhatSanPhamTrongFile(sp->getTenSanPham(), sp->getSoLuong());
-            // }
+        for (auto& sanPham : dsSanPham) {
+            if (sp->getTenSanPham() == sanPham->getTenSanPham()) {
+                int soLuongConLai = sanPham->getSoLuong() - sp->getSoLuong();
+                
+                if (sp->getSoLuong() < sanPham->getSoLuong()) {
+                    capNhatSanPhamTrongFile(sanPham->getTenSanPham(), soLuongConLai);
+                } else if (sp->getSoLuong() == sanPham->getSoLuong()) {
+                    xoaSanPhamRaKhoiFile(sanPham->getTenSanPham());
+                }
+                break;
+            }
         }
     }
     gioHang.clear();
@@ -110,13 +138,16 @@ void KhachHang::capNhatSanPhamTrongFile(const string& tenSanPham, int soLuongMoi
     string line;
 
     while (getline(inputFile, line)) {
-        if (line.find(tenSanPham) != string::npos) {
-            istringstream ss(line);
-            string ten, loai;
-            double gia;
-            ss >> ten >> loai >> gia;
+        istringstream ss(line);
+        string loai, ten;
+        int soLuong;
+        double gia;
+
+        ss >> loai >> soLuong >> ten >> gia;
+
+        if (ten == tenSanPham) {
             ostringstream updatedLine;
-            updatedLine << ten << " " << loai << " " << gia << " " << soLuongMoi;
+            updatedLine << loai << " " << soLuongMoi << " " << ten << " " << gia;
             lines.push_back(updatedLine.str());
         } else {
             lines.push_back(line);
@@ -129,20 +160,37 @@ void KhachHang::capNhatSanPhamTrongFile(const string& tenSanPham, int soLuongMoi
         outputFile << line << endl;
     }
     outputFile.close();
-
 }
 
-
-void KhachHang::suDungDiem() {
+void KhachHang::suDungDiem(double &tongTien) {
     if (diemTichLuy > 0) {
         cout << "Ban co " << diemTichLuy << " diem. Ban co muon su dung diem de giam gia khong? (1: Co, 0: Khong): ";
         int luaChon;
         cin >> luaChon;
-
         if (luaChon == 1) {
-            double giamGia = diemTichLuy * 10;
-            cout << "Ban da giam: " << giamGia << " VND tu diem tich luy." << endl;
-            diemTichLuy = 0;
+            double giamGia = std::min<double>(diemTichLuy * 10, static_cast<double>(tongTien));
+            tongTien -= giamGia;
+            diemTichLuy -= static_cast<int>(giamGia / 10);  
+            fstream file("../resources/KhachHang.txt", ios::in | ios::out);
+            string line;
+            stringstream ss;
+            bool found = false;
+            while (getline(file, line)) {
+                if (line.find(ten) == 0) {
+                    found = true;
+                    ss.str("");
+                    ss << ten << " " << matKhau << " " << diemTichLuy << " " << hoTen << " " 
+                       << ngaySinh.getNgay() << " " << ngaySinh.getThang() << " " 
+                       << ngaySinh.getNam() << " " << sdt;
+                    file.seekp(static_cast<std::streamoff>(file.tellg()) - static_cast<std::streamoff>(line.size()) - 1);
+                    file << ss.str() << endl;
+                    break;
+                }
+            }
+            file.close();
+            if (!found) {
+                cout << "Khong tim thay thong tin khach hang." << endl;
+            }
         }
     } else {
         cout << "Ban khong co diem tich luy de su dung." << endl;
@@ -265,7 +313,7 @@ void KhachHang::muaHang(const vector<SanPham*>& danhSachSanPham) {
         cout << "|________________________________|   |W|E|L|C|O|M|E| " << endl;
 
         cout.flush();
-        setCursorPosition(31, 11); 
+        setCursorPosition(31, 10); 
         cin >> luaChonQuay;
         clearScreen();
 

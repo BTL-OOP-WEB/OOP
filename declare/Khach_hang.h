@@ -28,11 +28,11 @@ public:
     void boSanPham(SanPham* sanPham, int soLuong);
     void capNhatSanPhamTrongFile(const string& tenSanPham, int soLuongMoi);
     
-    void thanhToan();          
+    void thanhToan(const vector<SanPham*>& dsSanPham);          
     void hienThiGioHang() ;
     void hienThiThongTin() const override; 
     
-    void suDungDiem();          
+    void suDungDiem(double &tongTien);          
     void muaHang(const vector<SanPham*>& danhSachSanPham);
 
     SanPham* timSanPhamTrongGioHang(const string& tenSanPham);
