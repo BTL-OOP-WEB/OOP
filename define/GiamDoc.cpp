@@ -25,19 +25,9 @@ void GiamDoc::xuatThongTinNhanVien() {
             string ten, matKhau, lichLamViec, hoTen, temp, sdt;
             int d, m, y;
 
-            ss >> ten >> matKhau >> lichLamViec;
+            ss >> ten >> matKhau >> lichLamViec >> d >> m >> y >> sdt;
 
-            hoTen.clear();
-            while (ss >> temp) {
-                if (isdigit(temp[0])) {
-                    ss.putback(temp[0]);
-                    break;
-                }
-                if (!hoTen.empty()) hoTen += " ";
-                hoTen += temp;
-            }
-
-            ss >> d >> m >> y >> sdt;
+            getline(ss,hoTen);
             Date ngaySinh(d, m, y);
             dsNhanVien.push_back(new NhanVien(ten, matKhau, hoTen, ngaySinh, sdt, lichLamViec));
         }

@@ -6,6 +6,7 @@
 #include <vector>
 #include "User.h"
 #include "SanPham.h"
+#include "Khach_hang.h"
 #include "Date.h"
 
 class SanPham;
@@ -24,10 +25,12 @@ public:
     int getSoCaDaLam() const;
     string getTenNguoiDung() const; 
 
-    void nhapSanPham(vector<SanPham*>& khoHang, const string& loaiSanPham, int soLuong);
-    void xoaSanPham(SanPham* sanPham, int soLuong);
-    void dangKyCaLam(); 
+    void nhapSanPham(vector<SanPham*>& dsSanPham);
+    void xoaSanPham(vector<SanPham*>& dsSanPham);
+    void dangKyCaLam(string Tens); 
     void hienThiThongTin() const override; 
+    void capNhatSanPhamTrongFile(const string& tenSanPham, int soLuongMoi);
+    void xoaSanPhamRaKhoiFile(const string& tenSanPham);
 
     string getHoTen() const;
     Date getNgaySinh() const; 

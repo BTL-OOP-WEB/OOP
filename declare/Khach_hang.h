@@ -44,9 +44,8 @@ public:
     int getDiemTichLuy() const { return diemTichLuy; }
     Date getNgaySinh() const { return ngaySinh; }
     string getSdt() const { return sdt; }
-
-private:
     void xoaSanPhamRaKhoiFile(const string& tenSanPham);
+
 };
 
 #endif // KHACHHANG_H

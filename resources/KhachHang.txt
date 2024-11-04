@@ -1,4 +1,4 @@
 nguyenvana 123456 5 12 5 1990 0123456789 Nguyen Van A
 tranthib abcdef 56 1 1 1985 0987654321 Tran Thi B
 lehoangc mypassword 560 30 9 1992 0912345678 Le Hoang C
-a a 52000 30 9 1992 0912345677 Nguyen Van a
+a a 49600 30 9 1992 0912345677 Nguyen Van a

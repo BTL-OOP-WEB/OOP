@@ -5,6 +5,7 @@
 #include <iomanip>
 #include "../declare/GiamDoc.h"
 #include "../declare/SanPham.h"
+#include "../declare/Khach_hang.h"
 #include "../declare/User.h"    
 #include "../declare/NhanVien.h"
 #include "../declare/DangNhap.h"

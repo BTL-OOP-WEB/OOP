@@ -139,9 +139,9 @@ void KhachHang::suDungDiem(double &tongTien, string tenUser) {
         cin >> luaChon;
 
         if (luaChon == 1) {
-            double giamGia = std::min<double>(diemTichLuy * 10, static_cast<double>(tongTien));
+            double giamGia = std::min<double>(diemTichLuy * 100, static_cast<double>(tongTien));
             tongTien -= giamGia;
-            diemTichLuy -= static_cast<int>(giamGia / 10);  
+            diemTichLuy -= static_cast<int>(giamGia / 100);  
         }
     } else {
         cout << "Ban khong co diem tich luy de su dung." << endl;
