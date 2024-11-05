@@ -21,6 +21,7 @@ public:
 
     void hienThiThongTin() const override;
 
+    void xuatLichLamViec(const vector<NhanVien*>& dsNhanVien) const;
     void xuatThongTinNhanVien();
     void xuatThongTinSanPham();
     void xuatThongTinKhachHang();

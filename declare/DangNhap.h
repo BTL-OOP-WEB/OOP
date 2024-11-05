@@ -16,6 +16,9 @@
 
 using namespace std;
 
+string nhapMatKhau();
+void quenMatKhau(const string& vaiTro);
+void doiMatKhau(const string& vaiTro, const string& tenNguoiDung);
 void dangNhap(const string& vaiTro);
 void dangKy(const string& vaiTro);
 void menuKhachHang(KhachHang& khachHang);

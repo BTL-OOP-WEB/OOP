@@ -92,6 +92,11 @@ void NhanVien::xoaSanPhamRaKhoiFile(const string& tenSanPham) {
     outputFile.close();
 
 }
+
+string NhanVien::getLichLamViec() const {
+    return lichLamViec;
+}
+
 void NhanVien::capNhatSanPhamTrongFile(const string& tenSanPham, int soLuongMoi) {
     ifstream inputFile("../resources/input.txt");
     vector<string> lines;
@@ -631,7 +636,7 @@ void NhanVien::dangKyCaLam(string Tens) {
             cout << "1. Ca sang" << endl;
             cout << "2. Ca chieu" << endl;
             cout << "3. Khong lam" << endl;
-            cout << "4. Quay lai chon ngay khac" << endl;
+            cout << "4. Quay lai ngay truoc do" << endl;
             cout << "Lua chon cua ban (1-4): ";
 
             int luaChon;
@@ -659,7 +664,6 @@ void NhanVien::dangKyCaLam(string Tens) {
                 case 4:
                     if (ngay > 0) {
                         ngay--; 
-                        cout << "Quay lai chon ngay truoc." << endl;
                     } else {
                         cout << "Ban dang o ngay dau tien, khong the quay lai." << endl;
                     }
@@ -671,63 +675,36 @@ void NhanVien::dangKyCaLam(string Tens) {
         }
     }
 
-    ifstream fileIn("../resources/NhanVien.txt");
-    if (!fileIn) {
-        cout << "Khong the mo file NhanVien.txt!" << endl;
-        return;
-    }
-
+    ifstream inputFile("../resources/NhanVien.txt");
     vector<string> lines;
     string line;
-    bool found = false;
 
-    while (getline(fileIn, line)) {
-        if (line.find(this->getTen()) != string::npos) {
-            vector<string> tokens;
-            stringstream ss(line);
-            string token;
+    while (getline(inputFile, line)) {
+        istringstream ss(line);
+        string ten, matKhau, lichcu, hoTen, sdt;
+        int ngay, thang, nam;
+        double gia;
 
-            while (ss >> token) {
-                tokens.push_back(token);
-            }
+        ss >> ten >> matKhau >> lichcu >> ngay >> thang >> nam >> sdt;
+        getline(ss, hoTen);
+        Date ngaySinh(ngay, thang, nam);
 
-            if (!tokens.empty()) {
-                tokens.back() = lichLamViec;
-                found = true;
-            }
-
-            line = "";
-            for (size_t i = 0; i < tokens.size(); ++i) {
-                line += tokens[i];
-                if (i != tokens.size() - 1) {
-                    line += " ";
-                }
-            }
+        if (ten == Tens) {
+            ostringstream updatedLine;
+            updatedLine << ten << " " << matKhau << " " << lichLamViec << " " << ngaySinh.getNgay() << " " << ngaySinh.getThang() << " " << ngaySinh.getNam() << " " << sdt << " " << hoTen;
+            lines.push_back(updatedLine.str());
+        } else {
+            lines.push_back(line);
         }
-
-        lines.push_back(line);
     }
+    inputFile.close();
 
-    fileIn.close();
-
-    if (!found) {
-        cout << "Khong tim thay nhan vien voi ten dang nhap nay." << endl;
-        return;
+    ofstream outputFile("../resources/NhanVien.txt");
+    for (const string& line : lines) {
+        outputFile << line << endl;
     }
+    outputFile.close();
 
-    ofstream fileOut("../resources/NhanVien.txt");
-    if (!fileOut) {
-        cout << "Khong the mo file NhanVien.txt de ghi!" << endl;
-        return;
-    }
-
-    for (const string& updatedLine : lines) {
-        fileOut << updatedLine << endl;
-    }
-
-    fileOut.close();
-
-    cout << "Da dang ky lich lam viec thanh cong: " << lichLamViec << endl;
 }
 
 void NhanVien::hienThiThongTin() const {

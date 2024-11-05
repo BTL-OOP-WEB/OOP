@@ -7,6 +7,178 @@
 #include <regex>
 using namespace std;
 
+string nhapMatKhau() {
+    string matKhau;
+    char kyTu;
+
+    while (true) {
+        kyTu = _getch();
+
+        if (kyTu == '\r') {
+            break;
+        } else if (kyTu == '\b' && !matKhau.empty()) { 
+            cout << "\b \b"; 
+            matKhau.pop_back();
+        } else if (kyTu != '\b') {
+            cout << '*'; 
+            matKhau.push_back(kyTu);
+        }
+    }
+    cout << endl;
+    return matKhau;
+}
+
+void doiMatKhau(const string& vaiTro, const string& tenNguoiDung) {
+    string tenFile = "../resources/" + vaiTro + ".txt";
+    string dong;
+    bool timThay = false;
+
+    ifstream fileIn(tenFile);
+    if (!fileIn) {
+        cout << "Khong the mo file!" << endl;
+        return;
+    }
+
+    vector<string> noiDungFile;
+    while (getline(fileIn, dong)) {
+        istringstream iss(dong);
+        string ten, mk, hoTen, sdt, lichLamViec;
+        int diem, d, m, y;
+        
+        iss >> ten >> mk;
+
+        if (ten == tenNguoiDung) {
+            timThay = true;
+            string matKhauMoi;
+
+            while (true) {
+                cout << " \033[38;5;214m~\033[0m Nhap mat khau moi: ";
+                matKhauMoi = nhapMatKhau();
+                bool coChuHoa = regex_search(matKhauMoi, regex("[A-Z]"));
+                bool coChuSo = regex_search(matKhauMoi, regex("[0-9]"));
+                bool coKyTuDacBiet = regex_search(matKhauMoi, regex("[^A-Za-z0-9]"));
+                bool doDaiHopLe = matKhauMoi.length() > 10 && matKhauMoi.length() < 20;
+
+                if (!doDaiHopLe || !coChuHoa || !coChuSo || !coKyTuDacBiet) {
+                    cout << "\033[38;5;196mMat khau khong hop le. Vui long thu lai.\033[0m" << endl;
+                } else {
+                    break;
+                }
+            }
+
+            if (vaiTro == "KhachHang") {
+                iss >> diem >> d >> m >> y >> sdt;
+                getline(iss, hoTen);
+                dong = ten + " " + matKhauMoi + " " + to_string(diem) + " " + to_string(d) + " " + to_string(m) + " " + to_string(y) + " " + sdt + hoTen;
+            } else if (vaiTro == "NhanVien") {
+                iss >> lichLamViec >> d >> m >> y >> sdt;
+                getline(iss, hoTen);
+                dong = ten + " " + matKhauMoi + " " + lichLamViec + " " + to_string(d) + " " + to_string(m) + " " + to_string(y) + " " + sdt + hoTen;
+            } else if (vaiTro == "GiamDoc") {
+                dong = ten + " " + matKhauMoi;
+            }
+        }
+        noiDungFile.push_back(dong);
+    }
+    fileIn.close();
+
+    if (timThay) {
+        ofstream fileOut(tenFile);
+        for (const string& line : noiDungFile) {
+            fileOut << line << endl;
+        }
+        fileOut.close();
+    } else {
+        cout << "Khong tim thay tai khoan." << endl;
+    }
+    clearScreen();
+}
+
+
+void quenMatKhau(const string& vaiTro) {
+    string tenFile = "../resources/" + vaiTro + ".txt";
+    string tenNguoiDung, dong;
+    bool timThay = false;
+
+    while (true) {
+        cout << "\033[38;5;214m~\033[0m Nhap ten dang nhap de dat lai mat khau: ";
+        cin >> tenNguoiDung;
+        ifstream fileIn(tenFile);
+        if (!fileIn) {
+            cout << "Khong the mo file!" << endl;
+            return;
+        }
+
+        vector<string> noiDungFile;
+        while (getline(fileIn, dong)) {
+            istringstream iss(dong);
+            string ten, mk, hoTen, sdt, lichLamViec;
+            int diem, d, m, y;
+            
+            iss >> ten >> mk;
+
+            if (ten == tenNguoiDung) {
+                timThay = true;
+                string matKhauMoi;
+
+                while (true) {
+                    cout << "\033[38;5;214m~\033[0m Nhap mat khau moi: ";
+                    matKhauMoi = nhapMatKhau();
+                    bool coChuHoa = regex_search(matKhauMoi, regex("[A-Z]"));
+                    bool coChuSo = regex_search(matKhauMoi, regex("[0-9]"));
+                    bool coKyTuDacBiet = regex_search(matKhauMoi, regex("[^A-Za-z0-9]"));
+                    bool doDaiHopLe = matKhauMoi.length() > 10 && matKhauMoi.length() < 20;
+
+                    if (!doDaiHopLe || !coChuHoa || !coChuSo || !coKyTuDacBiet) {
+                        cout << "\033[38;5;196mMat khau khong hop le. Vui long thu lai.\033[0m" << endl;
+                    } else {
+                        break;
+                    }
+                }
+
+                if (vaiTro == "KhachHang") {
+                    iss >> diem >> d >> m >> y >> sdt;
+                    getline(iss, hoTen);
+                    dong = ten + " " + matKhauMoi + " " + to_string(diem) + " " + to_string(d) + " " + to_string(m) + " " + to_string(y) + " " + sdt + hoTen;
+                } else if (vaiTro == "NhanVien") {
+                    iss >> lichLamViec >> d >> m >> y >> sdt;
+                    getline(iss, hoTen);
+                    dong = ten + " " + matKhauMoi + " " + lichLamViec + " " + to_string(d) + " " + to_string(m) + " " + to_string(y) + " " + sdt + hoTen;
+                } else if (vaiTro == "GiamDoc") {
+                    dong = ten + " " + matKhauMoi;
+                }
+            }
+            noiDungFile.push_back(dong);
+        }
+        fileIn.close();
+
+        if (timThay) {
+            ofstream fileOut(tenFile);
+            for (const string& line : noiDungFile) {
+                fileOut << line << endl;
+            }
+            fileOut.close();
+            break;
+        } else {
+            int luaChon;
+            cout << "Khong tim thay tai khoan.\n";
+            cout << "\033[38;5;214m~\033[0m 1. Thu lai\n\033[38;5;214m~\033[0m 2. Thoat\n";
+            cout << "Nhap lua chon: ";
+            cin >> luaChon;
+
+            switch (luaChon) {
+                case 1:
+                    continue;
+                case 2:
+                    return;
+                default:
+                    cout << "Lua chon khong hop le. Vui long nhap lai." << endl;
+                    break;
+            }
+        }
+    }
+}
+
 void dangNhap(const string& vaiTro) {
     string ten, matKhau, tenFile = "../resources/" + vaiTro + ".txt";
     bool timThay = false;
@@ -24,15 +196,12 @@ void dangNhap(const string& vaiTro) {
         cout << "| \033[38;5;214m~\033[0m Nhap ten dang nhap:                   |"<< endl;
         cout << "| \033[38;5;214m~\033[0m Nhap mat khau:                        |"<< endl;
         cout << "-------------------------------------------" << endl;
-        if (soLanThu>0)  cout << "Tai khoan hoac mat khau sai! Vui long thu lai.\n";
         cout.flush();
         setCursorPosition(24, 2); 
         cin >> ten;
         cout.flush();
         setCursorPosition(19, 3);
-        cin >> matKhau;
-
-        clearScreen();
+        matKhau = nhapMatKhau();
 
         string dong;
         while (getline(file, dong)) {
@@ -66,22 +235,38 @@ void dangNhap(const string& vaiTro) {
                     menuGiamDoc(giamDoc);
                 }
                 timThay = true;
+                soLanThu = 3;
                 break;
             }
         }
 
-        if (timThay) {
-            break;
-        } else {
-            soLanThu++;
-            file.clear();
-            file.seekg(0);
-        }
-    }
+        if (soLanThu < 3) {
+                int luaChon;
+                cout << "\nNhap sai tai khoan hoac mat khau.\n";
+                cout << "\033[38;5;214m~\033[0m 1. Thu lai(ban con " << 3-soLanThu <<" lan thu)\n\033[38;5;214m~\033[0m 2. Quen mat khau\n\033[38;5;214m~\033[0m 3. Thoat\n";
+                cout << "Nhap lua chon: ";
+                cin >> luaChon;
 
-    if (!timThay) {
-        cout << "Nhap sai 2 lan. Dang xuat!\n";
-    }
+                switch (luaChon) {
+                    case 1:
+                        file.clear();
+                        file.seekg(0);
+                        soLanThu++;
+                        continue;
+                    case 2:
+                        quenMatKhau(vaiTro);
+                        file.close();
+                        return;
+                    case 3:
+                        file.close();
+                        return;
+                    default:
+                        cout << "Lua chon khong hop le. Vui long thu lai.\n";
+                        soLanThu--;  
+                        break;
+                }
+            }
+        }
 
     file.close();
 }
@@ -105,7 +290,7 @@ void dangKy(const string& vaiTro) {
         cin >> ten;
         cout.flush();
         setCursorPosition(19, 3);
-        cin >> matKhau;
+        matKhau = nhapMatKhau();
 
         if (ten.length() > 15 || ten.length() < 6) {
             in=1;
@@ -155,14 +340,22 @@ void dangKy(const string& vaiTro) {
         int d, m, y;
         cout << "Nhap ho ten khach hang: ";
         getline(cin >> ws, hoTen);
-        cout << "Nhap ngay sinh (dd mm yyyy): ";
-        cin >> d >> m >> y; 
-        cout << "Nhap so dien thoai: ";
-        cin >> sdt;
+        while (true) {
+            cout << "Nhap ngay sinh (dd mm yyyy): ";
+            cin >> d >> m >> y;
+            if (d > 0 && d <= 31 && m > 0 && m <= 12 && y >= 1900) break;
+            else cout << "Ngay sinh khong hop le. Vui long nhap lai.\n";
+        }
+        while (true) {
+            cout << "Nhap so dien thoai (10 chu so): ";
+            cin >> sdt;
+            if (sdt.length() == 10 && all_of(sdt.begin(), sdt.end(), ::isdigit)) break;
+            else cout << "So dien thoai khong hop le. Vui long nhap lai.\n";
+        }
         Date ngaySinh(d, m, y);
         file << ten << " " << matKhau << " 0 " << " "
-            << ngaySinh.getNgay() << " " << ngaySinh.getThang() << " " << ngaySinh.getNam() << " " << hoTen
-            << sdt << endl;
+            << ngaySinh.getNgay() << " " << ngaySinh.getThang() << " " << ngaySinh.getNam() << " " 
+            << sdt << " " << hoTen << endl;
     } else if (vaiTro == "NhanVien") {
         string hoTen, sdt;
         int d, m, y; 
@@ -170,20 +363,29 @@ void dangKy(const string& vaiTro) {
 
         cout << "Nhap ho ten nhan vien: ";
         getline(cin >> ws, hoTen);
-        cout << "Nhap ngay sinh (dd mm yyyy): ";
-        cin >> d >> m >> y; 
-        cout << "Nhap so dien thoai: ";
-        cin >> sdt;
+        while (true) {
+            cout << "Nhap ngay sinh (dd mm yyyy): ";
+            cin >> d >> m >> y;
+            if (d > 0 && d <= 31 && m > 0 && m <= 12 && y >= 1900) break;
+            else cout << "Ngay sinh khong hop le. Vui long nhap lai.\n";
+        }
+        while (true) {
+            cout << "Nhap so dien thoai (10 chu so): ";
+            cin >> sdt;
+            if (sdt.length() == 10 && all_of(sdt.begin(), sdt.end(), ::isdigit)) break;
+            else cout << "So dien thoai khong hop le. Vui long nhap lai.\n";
+        }
         Date ngaySinh(d, m, y);
         NhanVien nhanVien(ten, matKhau, hoTen, ngaySinh, sdt, lichLamViec);
-        file << ten << " " << matKhau << " " << lichLamViec << " " << hoTen << " "
+        file << ten << " " << matKhau << " " << lichLamViec << " "
             << ngaySinh.getNgay() << " " << ngaySinh.getThang() << " " << ngaySinh.getNam() << " "
-            << sdt << endl;
+            << sdt << " " << hoTen  << endl;
     } else {
         file << ten << " " << matKhau;
     }
 
     file.close();
+    cout << "\n";
     cout << "Dang ky thanh cong!" << endl;
 }
 
@@ -192,13 +394,15 @@ void menuKhachHang(KhachHang& khachHang) {
     vector<SanPham*> dsSanPham;
     docDuLieuTuFile("../resources/input.txt", dsSanPham);
     int koThanhToan=0;
+    clearScreen();
     do {
         cout << "---------\033[38;5;49m[MENU KHACH HANG]\033[0m---------" << endl;
         cout << "|           Ban muon:             |"<< endl;
         cout << "|         \033[38;5;214m~\033[0m 1. Mua hang           |"<< endl;
         cout << "|     \033[38;5;214m~\033[0m 2. Hien thi gio hang      |" << endl;
         cout << "|       \033[38;5;214m~\033[0m 3. Thanh toan           |"<< endl;
-        cout << "|          \033[38;5;214m~\033[0m 4. Thoat             |"<< endl;
+        cout << "|      \033[38;5;214m~\033[0m 4. Doi mat khau          |"<< endl;
+        cout << "|          \033[38;5;214m~\033[0m 5. Thoat             |"<< endl;
         cout << "-----------------------------------" << endl;
         if (koThanhToan == 1) cout << "Gio hang cua ban hien tai rong. Khong the thanh toan." << endl;
         cout.flush();
@@ -225,7 +429,11 @@ void menuKhachHang(KhachHang& khachHang) {
                 return;
             }
             case 4:
-                luaChon=5;
+                clearScreen();
+                doiMatKhau("KhachHang",khachHang.getTen());
+                break;
+            case 5:
+                luaChon=6;
                 break;
             default:
                 cout << "Thoat khoi he thong." << endl;
@@ -238,14 +446,15 @@ void menuNhanVien(NhanVien& nhanVien) {
     int luaChon;
     vector<string> ca;  
     int soCa;
-
+    clearScreen();
     do {
         cout << "----------\033[38;5;49m[MENU NHAN VIEN]\033[0m---------" << endl;
         cout << "|           Ban muon:             |"<< endl;
         cout << "|       \033[38;5;214m~\033[0m 1. Nhap san pham        |"<< endl;
         cout << "|       \033[38;5;214m~\033[0m 2. Xoa san pham         |" << endl;
         cout << "|      \033[38;5;214m~\033[0m 3. Dang ky ca lam        |"<< endl;
-        cout << "|          \033[38;5;214m~\033[0m 4. Thoat             |"<< endl;
+        cout << "|        \033[38;5;214m~\033[0m 4. Doi mat khau        |"<< endl;
+        cout << "|          \033[38;5;214m~\033[0m 5. Thoat             |"<< endl;
         cout << "-----------------------------------" << endl;
         cout.flush();
         setCursorPosition(22, 1); 
@@ -266,7 +475,11 @@ void menuNhanVien(NhanVien& nhanVien) {
                 break;
             }
             case 4:
-                luaChon=5;
+                clearScreen();
+                doiMatKhau("NhanVien",nhanVien.getTen());
+                break;
+            case 5:
+                luaChon=6;
                 break;
             default:
                 cout << "Thoat khoi he thong." << endl;
@@ -281,34 +494,43 @@ void menuNhanVien(NhanVien& nhanVien) {
 
 void menuGiamDoc(GiamDoc& giamDoc) {
     int luaChon;
+    clearScreen();
     do {
         cout << "------------\033[38;5;49m[MENU GIAM DOC]\033[0m------------" << endl;
         cout << "|              Ban muon:              |"<< endl;
         cout << "|    \033[38;5;214m~\033[0m 1. Xuat thong tin nhan vien    |"<< endl;
         cout << "|    \033[38;5;214m~\033[0m 2. Xuat thong tin san pham     |" << endl;
         cout << "|    \033[38;5;214m~\033[0m 3. Xuat thong tin khach hang   |"<< endl;
-        cout << "|            \033[38;5;214m~\033[0m 4. Thoat               |"<< endl;
+        cout << "|          \033[38;5;214m~\033[0m 4. Doi mat khau          |"<< endl;
+        cout << "|            \033[38;5;214m~\033[0m 5. Thoat               |"<< endl;
         cout << "---------------------------------------" << endl;
         cout.flush();
         setCursorPosition(25, 1); 
         cin >> luaChon;
-        clearScreen();
+        
 
         switch (luaChon) {
             case 1: {
+                clearScreen();
                 giamDoc.xuatThongTinNhanVien();
                 break;
             }
             case 2: {
+                clearScreen();
                 giamDoc.xuatThongTinSanPham();
                 break;
             }
             case 3: {
-                giamDoc.xuatThongTinKhachHang(); 
+                clearScreen();
+                giamDoc.xuatThongTinKhachHang();
                 break;
             }
             case 4:
-                luaChon=5;
+                clearScreen();
+                doiMatKhau("GiamDoc",giamDoc.getTen());
+                break;
+            case 5:
+                luaChon=6;
                 break;
             default:
                 cout << "Thoat khoi he thong." << endl;

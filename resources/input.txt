@@ -9,4 +9,4 @@ DoDongHop 60 CaHop 50000
 Ca 18 CaRo 20000
 Thit 62 Bo 20000
 Thit 20 Ga 20000
-Thit 100000  0
+Thit 100000 Heo 20000

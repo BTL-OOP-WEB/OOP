@@ -318,7 +318,7 @@ void KhachHang::muaHang(const vector<SanPham*>& danhSachSanPham) {
         cout << "| \033[38;5;214m~\033[0m 9. Quay Chen Bat              |                 |" << endl;
         cout << "| \033[38;5;214m~\033[0m 10. Quay Do Dong Hop          |                 |" << endl;
         cout << "| \033[38;5;214m~\033[0m 0. Quay lai                   |                 |" << endl;
-        cout << "| \033[38;5;214m~\033[0m Chon quay muon mua (1-10):    |                 |" << endl;
+        cout << "| \033[38;5;214m~\033[0m Chon quay muon mua (0-10):    |                 |" << endl;
         cout << "|________________________________|   |W|E|L|C|O|M|E| " << endl;
 
         cout.flush();

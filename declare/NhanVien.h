@@ -36,6 +36,7 @@ public:
     Date getNgaySinh() const; 
     string getSdt() const; 
     string getCaLam() const;
+    string getLichLamViec() const;
 
     static void docDanhSachNhanVien(vector<NhanVien*>& dsNhanVien);
 };
