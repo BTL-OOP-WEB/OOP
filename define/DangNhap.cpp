@@ -274,6 +274,7 @@ void dangNhap(const string& vaiTro) {
     file.close();
 }
 
+//Chuc nang dang ky
 void dangKy(const string& vaiTro) {
     string ten, matKhau, tenFile = "../resources/" + vaiTro + ".txt";
     int in=0;
