@@ -7,6 +7,27 @@
 #include <regex>
 using namespace std;
 
+string nhapMatKhau() {
+    string matKhau;
+    char kyTu;
+
+    while (true) {
+        kyTu = _getch();
+
+        if (kyTu == '\r') {
+            break;
+        } else if (kyTu == '\b' && !matKhau.empty()) { 
+            cout << "\b \b"; 
+            matKhau.pop_back();
+        } else if (kyTu != '\b') {
+            cout << '*'; 
+            matKhau.push_back(kyTu);
+        }
+    }
+    cout << endl;
+    return matKhau;
+}
+
 void doiMatKhau(const string& vaiTro, const string& tenNguoiDung) {
     string tenFile = "../resources/" + vaiTro + ".txt";
     string dong;
