@@ -393,6 +393,7 @@ void dangKy(const string& vaiTro) {
     cout << "Dang ky thanh cong!" << endl;
 }
 
+//Cac chuc nang danh cho khach hang
 void menuKhachHang(KhachHang& khachHang) {
     int luaChon;
     vector<SanPham*> dsSanPham;
