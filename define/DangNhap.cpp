@@ -329,7 +329,64 @@ void dangKy(const string& vaiTro) {
         break;
     }
 
-    
+    ofstream file(tenFile, ios::app);
+    if (!file) {
+        cout << "Khong the mo file!" << endl;
+        return;
+    }
+
+    if (vaiTro == "KhachHang") {
+        string hoTen, sdt;
+        int d, m, y;
+        cout << "Nhap ho ten khach hang: ";
+        getline(cin >> ws, hoTen);
+        while (true) {
+            cout << "Nhap ngay sinh (dd mm yyyy): ";
+            cin >> d >> m >> y;
+            if (d > 0 && d <= 31 && m > 0 && m <= 12 && y >= 1900) break;
+            else cout << "Ngay sinh khong hop le. Vui long nhap lai.\n";
+        }
+        while (true) {
+            cout << "Nhap so dien thoai (10 chu so): ";
+            cin >> sdt;
+            if (sdt.length() == 10 && all_of(sdt.begin(), sdt.end(), ::isdigit)) break;
+            else cout << "So dien thoai khong hop le. Vui long nhap lai.\n";
+        }
+        Date ngaySinh(d, m, y);
+        file << ten << " " << matKhau << " 0 " << " "
+            << ngaySinh.getNgay() << " " << ngaySinh.getThang() << " " << ngaySinh.getNam() << " " 
+            << sdt << " " << hoTen << endl;
+    } else if (vaiTro == "NhanVien") {
+        string hoTen, sdt;
+        int d, m, y; 
+        string lichLamViec = "0000000";
+
+        cout << "Nhap ho ten nhan vien: ";
+        getline(cin >> ws, hoTen);
+        while (true) {
+            cout << "Nhap ngay sinh (dd mm yyyy): ";
+            cin >> d >> m >> y;
+            if (d > 0 && d <= 31 && m > 0 && m <= 12 && y >= 1900) break;
+            else cout << "Ngay sinh khong hop le. Vui long nhap lai.\n";
+        }
+        while (true) {
+            cout << "Nhap so dien thoai (10 chu so): ";
+            cin >> sdt;
+            if (sdt.length() == 10 && all_of(sdt.begin(), sdt.end(), ::isdigit)) break;
+            else cout << "So dien thoai khong hop le. Vui long nhap lai.\n";
+        }
+        Date ngaySinh(d, m, y);
+        NhanVien nhanVien(ten, matKhau, hoTen, ngaySinh, sdt, lichLamViec);
+        file << ten << " " << matKhau << " " << lichLamViec << " "
+            << ngaySinh.getNgay() << " " << ngaySinh.getThang() << " " << ngaySinh.getNam() << " "
+            << sdt << " " << hoTen  << endl;
+    } else {
+        file << ten << " " << matKhau;
+    }
+
+    file.close();
+    cout << "\n";
+    cout << "Dang ky thanh cong!" << endl;
 }
 
 void menuKhachHang(KhachHang& khachHang) {
