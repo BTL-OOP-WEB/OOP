@@ -29,6 +29,7 @@ string nhapMatKhau() {
     return matKhau;
 }
 
+//Chuc nang doi mat khau
 void doiMatKhau(const string& vaiTro, const string& tenNguoiDung) {
     string tenFile = "../resources/" + vaiTro + ".txt";
     string dong;
