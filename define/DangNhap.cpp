@@ -272,7 +272,8 @@ void dangNhap(const string& vaiTro) {
 }
 
 void dangKy(const string& vaiTro) {
-    
+    string ten, matKhau, tenFile = "../resources/" + vaiTro + ".txt";
+    int in=0;
     while (true) {
         clearScreen();
         cout << "                \033[38;5;33m[DANG KY]\033[0m" << endl;
