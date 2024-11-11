@@ -441,7 +441,56 @@ void menuKhachHang(KhachHang& khachHang) {
     } while (luaChon != 5);
 }
 
+void menuNhanVien(NhanVien& nhanVien) {
+    vector<SanPham*> dsSanPham; 
+    int luaChon;
+    vector<string> ca;  
+    int soCa;
+    clearScreen();
+    do {
+        cout << "----------\033[38;5;49m[MENU NHAN VIEN]\033[0m---------" << endl;
+        cout << "|           Ban muon:             |"<< endl;
+        cout << "|       \033[38;5;214m~\033[0m 1. Nhap san pham        |"<< endl;
+        cout << "|       \033[38;5;214m~\033[0m 2. Xoa san pham         |" << endl;
+        cout << "|      \033[38;5;214m~\033[0m 3. Dang ky ca lam        |"<< endl;
+        cout << "|        \033[38;5;214m~\033[0m 4. Doi mat khau        |"<< endl;
+        cout << "|          \033[38;5;214m~\033[0m 5. Thoat             |"<< endl;
+        cout << "-----------------------------------" << endl;
+        cout.flush();
+        setCursorPosition(22, 1); 
+        cin >> luaChon;
+        clearScreen();
 
+        switch (luaChon) {
+            case 1: {
+                nhanVien.nhapSanPham(dsSanPham);
+                break;
+            }
+            case 2: {
+                nhanVien.xoaSanPham(dsSanPham);
+                break;
+            }
+            case 3: {
+                nhanVien.dangKyCaLam(nhanVien.getTenNguoiDung());  
+                break;
+            }
+            case 4:
+                clearScreen();
+                doiMatKhau("NhanVien",nhanVien.getTen());
+                break;
+            case 5:
+                luaChon=6;
+                break;
+            default:
+                cout << "Thoat khoi he thong." << endl;
+        }
+
+    } while (luaChon != 0);
+
+    for (SanPham* sp : dsSanPham) {
+        delete sp;
+    }
+}
 
 void menuGiamDoc(GiamDoc& giamDoc) {
     int luaChon;
