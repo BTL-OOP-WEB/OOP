@@ -181,6 +181,7 @@ void quenMatKhau(const string& vaiTro) {
     }
 }
 
+//Chuc nang dang nhap
 void dangNhap(const string& vaiTro) {
     string ten, matKhau, tenFile = "../resources/" + vaiTro + ".txt";
     bool timThay = false;
