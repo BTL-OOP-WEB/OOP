@@ -28,7 +28,71 @@ string nhapMatKhau() {
     return matKhau;
 }
 
+void doiMatKhau(const string& vaiTro, const string& tenNguoiDung) {
+    string tenFile = "../resources/" + vaiTro + ".txt";
+    string dong;
+    bool timThay = false;
 
+    ifstream fileIn(tenFile);
+    if (!fileIn) {
+        cout << "Khong the mo file!" << endl;
+        return;
+    }
+
+    vector<string> noiDungFile;
+    while (getline(fileIn, dong)) {
+        istringstream iss(dong);
+        string ten, mk, hoTen, sdt, lichLamViec;
+        int diem, d, m, y;
+        
+        iss >> ten >> mk;
+
+        if (ten == tenNguoiDung) {
+            timThay = true;
+            string matKhauMoi;
+
+            while (true) {
+                cout << " \033[38;5;214m~\033[0m Nhap mat khau moi: ";
+                matKhauMoi = nhapMatKhau();
+                bool coChuHoa = regex_search(matKhauMoi, regex("[A-Z]"));
+                bool coChuSo = regex_search(matKhauMoi, regex("[0-9]"));
+                bool coKyTuDacBiet = regex_search(matKhauMoi, regex("[^A-Za-z0-9]"));
+                bool doDaiHopLe = matKhauMoi.length() > 10 && matKhauMoi.length() < 20;
+
+                if (!doDaiHopLe || !coChuHoa || !coChuSo || !coKyTuDacBiet) {
+                    cout << "\033[38;5;196mMat khau khong hop le. Vui long thu lai.\033[0m" << endl;
+                } else {
+                    break;
+                }
+            }
+
+            if (vaiTro == "KhachHang") {
+                iss >> diem >> d >> m >> y >> sdt;
+                getline(iss, hoTen);
+                dong = ten + " " + matKhauMoi + " " + to_string(diem) + " " + to_string(d) + " " + to_string(m) + " " + to_string(y) + " " + sdt + hoTen;
+            } else if (vaiTro == "NhanVien") {
+                iss >> lichLamViec >> d >> m >> y >> sdt;
+                getline(iss, hoTen);
+                dong = ten + " " + matKhauMoi + " " + lichLamViec + " " + to_string(d) + " " + to_string(m) + " " + to_string(y) + " " + sdt + hoTen;
+            } else if (vaiTro == "GiamDoc") {
+                dong = ten + " " + matKhauMoi;
+            }
+        }
+        noiDungFile.push_back(dong);
+    }
+    fileIn.close();
+
+    if (timThay) {
+        ofstream fileOut(tenFile);
+        for (const string& line : noiDungFile) {
+            fileOut << line << endl;
+        }
+        fileOut.close();
+    } else {
+        cout << "Khong tim thay tai khoan." << endl;
+    }
+    clearScreen();
+}
 
 
 void quenMatKhau(const string& vaiTro) {
