@@ -96,6 +96,7 @@ void doiMatKhau(const string& vaiTro, const string& tenNguoiDung) {
     clearScreen();
 }
 
+//Chuc nang quen mat khau
 void quenMatKhau(const string& vaiTro) {
     string tenFile = "../resources/" + vaiTro + ".txt";
     string tenNguoiDung, dong;
