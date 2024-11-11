@@ -446,6 +446,7 @@ void menuKhachHang(KhachHang& khachHang) {
     } while (luaChon != 5);
 }
 
+//Cac chuc nang danh cho nhan vien
 void menuNhanVien(NhanVien& nhanVien) {
     vector<SanPham*> dsSanPham; 
     int luaChon;
