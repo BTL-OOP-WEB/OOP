@@ -274,60 +274,7 @@ void dangNhap(const string& vaiTro) {
 void dangKy(const string& vaiTro) {
     string ten, matKhau, tenFile = "../resources/" + vaiTro + ".txt";
     int in=0;
-    while (true) {
-        clearScreen();
-        cout << "                \033[38;5;33m[DANG KY]\033[0m" << endl;
-        cout << "-------------------------------------------" << endl;
-        cout << "| \033[38;5;214m~\033[0m Nhap ten dang nhap:                   |"<< endl;
-        cout << "| \033[38;5;214m~\033[0m Nhap mat khau:                        |"<< endl;
-        cout << "-------------------------------------------" << endl;
-        if (in==1) cout << "\033[38;5;196mTen khong duoc vuot qua 15 ky tu va khong duoc it hon 6 ky tu. Vui long nhap lai.\033[0m";
-        else if (in==2) cout << "\033[38;5;196mTen da ton tai. Vui long nhap ten khac.\033[0m";
-        else if (in==3) cout << "\033[38;5;196mMat khau phai dai hon 10 ky tu va it hon 20 ky tu. Vui long nhap lai.\033[0m";
-        else if (in==3) cout << "\033[38;5;196mMat khau phai co it nhat 1 chu hoa, 1 chu so va 1 ky tu dac biet. Vui long nhap lai.\033[0m";
-        cout.flush();
-        setCursorPosition(24, 2); 
-        cin >> ten;
-        cout.flush();
-        setCursorPosition(19, 3);
-        matKhau = nhapMatKhau();
-
-        if (ten.length() > 15 || ten.length() < 6) {
-            in=1;
-            continue;
-        }
-
-        ifstream file(tenFile);
-        bool tenTrung = false;
-        string line;
-        while (getline(file, line)) {
-            if (line.find(ten) == 0) {  
-                tenTrung = true;
-                break;
-            }
-        }
-        file.close();
-
-        if (tenTrung) {
-            in=2;
-            continue;
-        }
-
-        bool coChuHoa = regex_search(matKhau, regex("[A-Z]"));
-        bool coChuSo = regex_search(matKhau, regex("[0-9]"));
-        bool coKyTuDacBiet = regex_search(matKhau, regex("[^A-Za-z0-9]"));
-        bool doDaiHopLe = matKhau.length() > 10 && matKhau.length() < 20;
-
-        if (!doDaiHopLe) {
-            in=3;
-            continue;
-        }
-        if (!coChuHoa || !coChuSo || !coKyTuDacBiet) {
-            in=4;
-            continue;
-        }
-        break;
-    }
+    
 
     ofstream file(tenFile, ios::app);
     if (!file) {
