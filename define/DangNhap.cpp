@@ -179,7 +179,97 @@ void quenMatKhau(const string& vaiTro) {
     }
 }
 
+void dangNhap(const string& vaiTro) {
+    string ten, matKhau, tenFile = "../resources/" + vaiTro + ".txt";
+    bool timThay = false;
+    int soLanThu = 0; 
 
+    ifstream file(tenFile);
+    if (!file) {
+        cout << "Khong the mo file!" << endl;
+        return;
+    }
+    
+    while (soLanThu < 2) {
+        cout << "                \033[38;5;33m[DANG NHAP]\033[0m" << endl;
+        cout << "-------------------------------------------" << endl;
+        cout << "| \033[38;5;214m~\033[0m Nhap ten dang nhap:                   |"<< endl;
+        cout << "| \033[38;5;214m~\033[0m Nhap mat khau:                        |"<< endl;
+        cout << "-------------------------------------------" << endl;
+        cout.flush();
+        setCursorPosition(24, 2); 
+        cin >> ten;
+        cout.flush();
+        setCursorPosition(19, 3);
+        matKhau = nhapMatKhau();
+
+        string dong;
+        while (getline(file, dong)) {
+            istringstream iss(dong);
+            string tenNguoiDung, mk;
+            iss >> tenNguoiDung >> mk;
+
+            if (ten == tenNguoiDung && matKhau == mk) {
+                if (vaiTro == "KhachHang") {
+                    int diemTichLuy;
+                    string hoTen, sdt;
+                    Date ngaySinh;
+                    iss >> diemTichLuy;
+                    iss.ignore();
+                    getline(iss, hoTen);
+                    int d, m, y;
+                    iss >> d >> m >> y; 
+                    ngaySinh = Date(d, m, y);
+                    iss >> sdt;
+                    KhachHang khachHang(ten, matKhau, diemTichLuy, hoTen, ngaySinh, sdt);
+                    menuKhachHang(khachHang);
+                } else if (vaiTro == "NhanVien") {
+                    string hoTen, sdt, lichLamViec;
+                    int d, m, y;
+                    iss >> hoTen >> d >> m >> y >> sdt >> lichLamViec;
+                    Date ngaySinh(d, m, y);
+                    NhanVien nhanVien(ten, matKhau, hoTen, ngaySinh, sdt, lichLamViec);
+                    menuNhanVien(nhanVien);
+                } else if (vaiTro == "GiamDoc") {
+                    GiamDoc giamDoc(ten, matKhau);
+                    menuGiamDoc(giamDoc);
+                }
+                timThay = true;
+                soLanThu = 3;
+                break;
+            }
+        }
+
+        if (soLanThu < 3) {
+                int luaChon;
+                cout << "\nNhap sai tai khoan hoac mat khau.\n";
+                cout << "\033[38;5;214m~\033[0m 1. Thu lai(ban con " << 3-soLanThu <<" lan thu)\n\033[38;5;214m~\033[0m 2. Quen mat khau\n\033[38;5;214m~\033[0m 3. Thoat\n";
+                cout << "Nhap lua chon: ";
+                cin >> luaChon;
+
+                switch (luaChon) {
+                    case 1:
+                        file.clear();
+                        file.seekg(0);
+                        soLanThu++;
+                        continue;
+                    case 2:
+                        quenMatKhau(vaiTro);
+                        file.close();
+                        return;
+                    case 3:
+                        file.close();
+                        return;
+                    default:
+                        cout << "Lua chon khong hop le. Vui long thu lai.\n";
+                        soLanThu--;  
+                        break;
+                }
+            }
+        }
+
+    file.close();
+}
 
 void dangKy(const string& vaiTro) {
     string ten, matKhau, tenFile = "../resources/" + vaiTro + ".txt";
