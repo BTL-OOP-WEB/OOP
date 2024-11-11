@@ -498,6 +498,7 @@ void menuNhanVien(NhanVien& nhanVien) {
     }
 }
 
+//Cac chuc nang danh cho giam doc
 void menuGiamDoc(GiamDoc& giamDoc) {
     int luaChon;
     clearScreen();
