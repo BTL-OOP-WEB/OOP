@@ -7,6 +7,7 @@
 #include <regex>
 using namespace std;
 
+//Nhap mat khau
 string nhapMatKhau() {
     string matKhau;
     char kyTu;
@@ -93,7 +94,6 @@ void doiMatKhau(const string& vaiTro, const string& tenNguoiDung) {
     }
     clearScreen();
 }
-
 
 void quenMatKhau(const string& vaiTro) {
     string tenFile = "../resources/" + vaiTro + ".txt";
