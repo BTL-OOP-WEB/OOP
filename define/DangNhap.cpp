@@ -492,6 +492,50 @@ void menuNhanVien(NhanVien& nhanVien) {
     }
 }
 
+void menuGiamDoc(GiamDoc& giamDoc) {
+    int luaChon;
+    clearScreen();
+    do {
+        cout << "------------\033[38;5;49m[MENU GIAM DOC]\033[0m------------" << endl;
+        cout << "|              Ban muon:              |"<< endl;
+        cout << "|    \033[38;5;214m~\033[0m 1. Xuat thong tin nhan vien    |"<< endl;
+        cout << "|    \033[38;5;214m~\033[0m 2. Xuat thong tin san pham     |" << endl;
+        cout << "|    \033[38;5;214m~\033[0m 3. Xuat thong tin khach hang   |"<< endl;
+        cout << "|          \033[38;5;214m~\033[0m 4. Doi mat khau          |"<< endl;
+        cout << "|            \033[38;5;214m~\033[0m 5. Thoat               |"<< endl;
+        cout << "---------------------------------------" << endl;
+        cout.flush();
+        setCursorPosition(25, 1); 
+        cin >> luaChon;
+        
 
+        switch (luaChon) {
+            case 1: {
+                clearScreen();
+                giamDoc.xuatThongTinNhanVien();
+                break;
+            }
+            case 2: {
+                clearScreen();
+                giamDoc.xuatThongTinSanPham();
+                break;
+            }
+            case 3: {
+                clearScreen();
+                giamDoc.xuatThongTinKhachHang();
+                break;
+            }
+            case 4:
+                clearScreen();
+                doiMatKhau("GiamDoc",giamDoc.getTen());
+                break;
+            case 5:
+                luaChon=6;
+                break;
+            default:
+                cout << "Thoat khoi he thong." << endl;
+        }
+    } while (luaChon != 4);
+}
 
 
