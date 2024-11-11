@@ -7,6 +7,7 @@ Giay 25 GiayViet 30000
 ChenBat 12 ChenSu 45000
 DoDongHop 60 CaHop 50000
 Ca 18 CaRo 20000
-Thit 62 Bo 20000
+Thit 52 Bo 20000
 Thit 20 Ga 20000
 Thit 100000 Heo 20000
+Thit 10 lon 100000
