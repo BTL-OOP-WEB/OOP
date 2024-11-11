@@ -389,57 +389,7 @@ void dangKy(const string& vaiTro) {
     cout << "Dang ky thanh cong!" << endl;
 }
 
-void menuKhachHang(KhachHang& khachHang) {
-    int luaChon;
-    vector<SanPham*> dsSanPham;
-    docDuLieuTuFile("../resources/input.txt", dsSanPham);
-    int koThanhToan=0;
-    clearScreen();
-    do {
-        cout << "---------\033[38;5;49m[MENU KHACH HANG]\033[0m---------" << endl;
-        cout << "|           Ban muon:             |"<< endl;
-        cout << "|         \033[38;5;214m~\033[0m 1. Mua hang           |"<< endl;
-        cout << "|     \033[38;5;214m~\033[0m 2. Hien thi gio hang      |" << endl;
-        cout << "|       \033[38;5;214m~\033[0m 3. Thanh toan           |"<< endl;
-        cout << "|      \033[38;5;214m~\033[0m 4. Doi mat khau          |"<< endl;
-        cout << "|          \033[38;5;214m~\033[0m 5. Thoat             |"<< endl;
-        cout << "-----------------------------------" << endl;
-        if (koThanhToan == 1) cout << "Gio hang cua ban hien tai rong. Khong the thanh toan." << endl;
-        cout.flush();
-        setCursorPosition(22, 1); 
-        cin >> luaChon;
-        clearScreen();
 
-        switch (luaChon) {
-            case 1: {
-                khachHang.muaHang(dsSanPham);
-                break;
-            }
-            case 2: {
-                khachHang.hienThiGioHang();
-                break;
-            }
-            case 3: {
-                if (khachHang.neuGioHangRong()){ 
-                    koThanhToan = 1; 
-                    break;
-                } else {
-                    khachHang.thanhToan(dsSanPham); 
-                }
-                return;
-            }
-            case 4:
-                clearScreen();
-                doiMatKhau("KhachHang",khachHang.getTen());
-                break;
-            case 5:
-                luaChon=6;
-                break;
-            default:
-                cout << "Thoat khoi he thong." << endl;
-        }
-    } while (luaChon != 5);
-}
 
 void menuNhanVien(NhanVien& nhanVien) {
     vector<SanPham*> dsSanPham; 
