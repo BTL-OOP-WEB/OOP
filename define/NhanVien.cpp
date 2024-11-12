@@ -544,79 +544,79 @@ void NhanVien::xoaSanPham(vector<SanPham*>& dsSanPham) {
     }while (luaChonKho != 0);
     }
 
-//     } else if (luaChon1 == 2) {
-//             int luaChon;
-//             cout << " __________________________________________________ " << endl;
-//             cout << "| \033[38;5;214m~\033[0m 1. Kho Thit                  |                 |" << endl;
-//             cout << "| \033[38;5;214m~\033[0m 2. Kho Ca                    |                 |" << endl;
-//             cout << "| \033[38;5;214m~\033[0m 3. Kho Keo                   |                 |" << endl;
-//             cout << "| \033[38;5;214m~\033[0m 4. Kho Nuoc                  |                 |" << endl;
-//             cout << "| \033[38;5;214m~\033[0m 5. Kho Rau Cu                |                 |" << endl;
-//             cout << "| \033[38;5;214m~\033[0m 6. Kho Gia Vi                |                 |" << endl;
-//             cout << "| \033[38;5;214m~\033[0m 7. Kho Banh                  |                 |" << endl;
-//             cout << "| \033[38;5;214m~\033[0m 8. Kho Giay                  |                 |" << endl;
-//             cout << "| \033[38;5;214m~\033[0m 9. Kho Chen Bat              |                 |" << endl;
-//             cout << "| \033[38;5;214m~\033[0m 10. Kho Do Dong Hop          |                 |" << endl;
-//             cout << "| \033[38;5;214m~\033[0m 0. Kho lai                   |                 |" << endl;
-//             cout << "| \033[38;5;214m~\033[0m Chon Kho muon mua (1-10):    |                 |" << endl;
-//             cout << "|________________________________|   |W|E|L|C|O|M|E| " << endl;
-//             cout.flush();
-//             setCursorPosition(31, 11); 
-//             cin >> luaChon;
+    } else if (luaChon1 == 2) {
+            int luaChon;
+            cout << " __________________________________________________ " << endl;
+            cout << "| \033[38;5;214m~\033[0m 1. Kho Thit                  |                 |" << endl;
+            cout << "| \033[38;5;214m~\033[0m 2. Kho Ca                    |                 |" << endl;
+            cout << "| \033[38;5;214m~\033[0m 3. Kho Keo                   |                 |" << endl;
+            cout << "| \033[38;5;214m~\033[0m 4. Kho Nuoc                  |                 |" << endl;
+            cout << "| \033[38;5;214m~\033[0m 5. Kho Rau Cu                |                 |" << endl;
+            cout << "| \033[38;5;214m~\033[0m 6. Kho Gia Vi                |                 |" << endl;
+            cout << "| \033[38;5;214m~\033[0m 7. Kho Banh                  |                 |" << endl;
+            cout << "| \033[38;5;214m~\033[0m 8. Kho Giay                  |                 |" << endl;
+            cout << "| \033[38;5;214m~\033[0m 9. Kho Chen Bat              |                 |" << endl;
+            cout << "| \033[38;5;214m~\033[0m 10. Kho Do Dong Hop          |                 |" << endl;
+            cout << "| \033[38;5;214m~\033[0m 0. Kho lai                   |                 |" << endl;
+            cout << "| \033[38;5;214m~\033[0m Chon Kho muon mua (1-10):    |                 |" << endl;
+            cout << "|________________________________|   |W|E|L|C|O|M|E| " << endl;
+            cout.flush();
+            setCursorPosition(31, 11); 
+            cin >> luaChon;
 
-//             switch (luaChon)
-//             {
-//             case 1:
-//                 loaiSanPham=Thit;
-//                 break;
-//             case 2:
-//                 loaiSanPham=Ca;
-//                 break;
-//             case 3:
-//                 loaiSanPham=Keo;
-//                 break;
-//             case 4:
-//                 loaiSanPham=Nuoc;
-//                 break;
-//             case 5:
-//                 loaiSanPham=RauCu;
-//                 break;
-//             case 6:
-//                 loaiSanPham=GiaVi;
-//                 break;
-//             case 7:
-//                 loaiSanPham=Banh;
-//                 break;
-//             case 8:
-//                 loaiSanPham=Giay;
-//                 break;
-//             case 9:
-//                 loaiSanPham=ChenBat;
-//                 break;
-//             case 10:
-//                 loaiSanPham=DoDongHop;
-//                 break;
-//             default:
-//                 break;
-//             }
+            switch (luaChon)
+            {
+            case 1:
+                loaiSanPham=Thit;
+                break;
+            case 2:
+                loaiSanPham=Ca;
+                break;
+            case 3:
+                loaiSanPham=Keo;
+                break;
+            case 4:
+                loaiSanPham=Nuoc;
+                break;
+            case 5:
+                loaiSanPham=RauCu;
+                break;
+            case 6:
+                loaiSanPham=GiaVi;
+                break;
+            case 7:
+                loaiSanPham=Banh;
+                break;
+            case 8:
+                loaiSanPham=Giay;
+                break;
+            case 9:
+                loaiSanPham=ChenBat;
+                break;
+            case 10:
+                loaiSanPham=DoDongHop;
+                break;
+            default:
+                break;
+            }
 
-//             bool found = false;
-//             for (size_t i = 0; i < dsSanPham.size(); ++i) {
-//                 if (dsSanPham[i]->getTenSanPham() == tenSanPham) {
-//                     found = true;
-//                     this->xoaSanPhamRaKhoiFile(tenSanPham);
-//                     delete dsSanPham[i];
-//                     dsSanPham.erase(dsSanPham.begin() + i);
-//                     cout << "San pham da duoc xoa khoi kho va file." << endl;
-//                     break;
-//                 }
-//             }
+            bool found = false;
+            for (size_t i = 0; i < dsSanPham.size(); ++i) {
+                if (dsSanPham[i]->getTenSanPham() == tenSanPham) {
+                    found = true;
+                    this->xoaSanPhamRaKhoiFile(tenSanPham);
+                    delete dsSanPham[i];
+                    dsSanPham.erase(dsSanPham.begin() + i);
+                    cout << "San pham da duoc xoa khoi kho va file." << endl;
+                    break;
+                }
+            }
 
-//             if (!found) {
-//                 cout << "San pham khong ton tai trong danh sach." << endl;
-//             }
+            if (!found) {
+                cout << "San pham khong ton tai trong danh sach." << endl;
+            }
             
-// }
+}
 }
 
 
