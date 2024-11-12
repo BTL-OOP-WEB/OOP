@@ -181,7 +181,6 @@ void quenMatKhau(const string& vaiTro) {
     }
 }
 
-//Chuc nang dang nhap
 void dangNhap(const string& vaiTro) {
     string ten, matKhau, tenFile = "../resources/" + vaiTro + ".txt";
     bool timThay = false;
@@ -192,7 +191,7 @@ void dangNhap(const string& vaiTro) {
         cout << "Khong the mo file!" << endl;
         return;
     }
-    
+    clearScreen();
     while (soLanThu < 2) {
         cout << "                \033[38;5;33m[DANG NHAP]\033[0m" << endl;
         cout << "-------------------------------------------" << endl;
@@ -274,7 +273,6 @@ void dangNhap(const string& vaiTro) {
     file.close();
 }
 
-//Chuc nang dang ky
 void dangKy(const string& vaiTro) {
     string ten, matKhau, tenFile = "../resources/" + vaiTro + ".txt";
     int in=0;
