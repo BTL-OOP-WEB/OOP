@@ -544,7 +544,7 @@ void NhanVien::xoaSanPham(vector<SanPham*>& dsSanPham) {
     }while (luaChonKho != 0);
     }
 
-    } else if (luaChon1 == 2) {
+     else if (luaChon1 == 2) {
             int luaChon;
             cout << " __________________________________________________ " << endl;
             cout << "| \033[38;5;214m~\033[0m 1. Kho Thit                  |                 |" << endl;
@@ -567,34 +567,34 @@ void NhanVien::xoaSanPham(vector<SanPham*>& dsSanPham) {
             switch (luaChon)
             {
             case 1:
-                loaiSanPham=Thit;
+                loaiSanPham="Thit";
                 break;
             case 2:
-                loaiSanPham=Ca;
+                loaiSanPham="Ca";
                 break;
             case 3:
-                loaiSanPham=Keo;
+                loaiSanPham="Keo";
                 break;
             case 4:
-                loaiSanPham=Nuoc;
+                loaiSanPham="Nuoc";
                 break;
             case 5:
-                loaiSanPham=RauCu;
+                loaiSanPham="RauCu";
                 break;
             case 6:
-                loaiSanPham=GiaVi;
+                loaiSanPham="GiaVi";
                 break;
             case 7:
-                loaiSanPham=Banh;
+                loaiSanPham="Banh";
                 break;
             case 8:
-                loaiSanPham=Giay;
+                loaiSanPham="Giay";
                 break;
             case 9:
-                loaiSanPham=ChenBat;
+                loaiSanPham="ChenBat";
                 break;
             case 10:
-                loaiSanPham=DoDongHop;
+                loaiSanPham="DoDongHop";
                 break;
             default:
                 break;
@@ -602,9 +602,9 @@ void NhanVien::xoaSanPham(vector<SanPham*>& dsSanPham) {
 
             bool found = false;
             for (size_t i = 0; i < dsSanPham.size(); ++i) {
-                if (dsSanPham[i]->getTenSanPham() == tenSanPham) {
+                if (dsSanPham[i]->getTenSanPham() == loaiSanPham) {
                     found = true;
-                    this->xoaSanPhamRaKhoiFile(tenSanPham);
+                    this->xoaSanPhamRaKhoiFile(loaiSanPham);
                     delete dsSanPham[i];
                     dsSanPham.erase(dsSanPham.begin() + i);
                     cout << "San pham da duoc xoa khoi kho va file." << endl;
