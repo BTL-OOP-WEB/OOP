@@ -306,6 +306,7 @@ void KhachHang::muaHang(const vector<SanPham*>& danhSachSanPham) {
     int luaChonQuay;
 
     do {
+        clearScreen();
         cout << " __________________________________________________ " << endl;
         cout << "| \033[38;5;214m~\033[0m 1. Quay Thit                  |                 |" << endl;
         cout << "| \033[38;5;214m~\033[0m 2. Quay Ca                    |                 |" << endl;
@@ -322,7 +323,7 @@ void KhachHang::muaHang(const vector<SanPham*>& danhSachSanPham) {
         cout << "|________________________________|   |W|E|L|C|O|M|E| " << endl;
 
         cout.flush();
-        setCursorPosition(31, 11); 
+        setCursorPosition(31, 12); 
         cin >> luaChonQuay;
         clearScreen();
 
