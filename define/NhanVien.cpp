@@ -5,10 +5,12 @@
 #include <string>
 #include <fstream>
 #include <sstream>  
+#include <list>
 #include "../declare/NhanVien.h"
 #include "../declare/SanPham.h"
 #include "../declare/Khach_hang.h"
 #include "../declare/Date.h"
+#include "../declare/LinkedList.h"
 
 using namespace std;
 

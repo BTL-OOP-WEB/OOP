@@ -10,7 +10,8 @@
 #include "NhanVien.h"
 #include "Khach_hang.h"
 #include "Date.h"
-
+#include "LinkedList.h"
+#include <list>
 class NhanVien;
 class KhachHang;
 class SanPham;
@@ -26,5 +27,6 @@ public:
     void xuatThongTinSanPham();
     void xuatThongTinKhachHang();
 };
+
 
 #endif // GIAMDOC_H

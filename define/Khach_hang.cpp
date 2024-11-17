@@ -2,9 +2,11 @@
 #include <vector>
 #include <string>
 #include <iomanip>
+#include <list>
 #include "../declare/Khach_hang.h"
 #include "../declare/SanPham.h"
 #include "../declare/Date.h"
+#include "../declare/LinkedList.h"
 
 using namespace std;
 

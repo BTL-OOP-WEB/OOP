@@ -8,6 +8,8 @@
 #include "SanPham.h"
 #include "Khach_hang.h"
 #include "Date.h"
+#include "LinkedList.h"
+#include <list>
 
 class SanPham;
 

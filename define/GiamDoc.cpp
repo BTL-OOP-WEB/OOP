@@ -3,6 +3,8 @@
 #include "../declare/Khach_hang.h"
 #include "../declare/NhanVien.h"
 #include "../declare/Date.h"
+#include "../declare/LinkedList.h"
+#include <list>
 #include <iostream>
 #include <iomanip>
 #include <fstream>
@@ -232,83 +234,83 @@ void GiamDoc::xuatThongTinSanPham() {
 }
 
 void GiamDoc::xuatThongTinKhachHang() {
-    vector<KhachHang> dsKhachHang; 
-    vector<string> lines;
+    list<KhachHang> danhSachKhachHang; 
 
     ifstream file("../resources/KhachHang.txt");
     if (!file) {
-        cout << "Khong the mo file KhachHang.txt!" << endl;
-        return; 
+        cout << "Không thể mở file KhachHang.txt!" << endl;
+        return;
     }
 
     string line;
     while (getline(file, line)) {
         stringstream ss(line);
-        string tenDangNhap, matKhau, hoTen, temp, sdt;
+        string tenDangNhap, matKhau, hoTen, sdt;
         int diemTichLuy, ngay, thang, nam;
 
         ss >> tenDangNhap >> matKhau >> diemTichLuy >> ngay >> thang >> nam >> sdt;
-        getline(ss, hoTen);
+        getline(ss, hoTen); 
         Date ngaySinh(ngay, thang, nam);
 
         KhachHang kh(tenDangNhap, matKhau, diemTichLuy, hoTen, ngaySinh, sdt);
-        dsKhachHang.push_back(kh);
-        lines.push_back(line);
+        danhSachKhachHang.push_back(kh);
     }
 
     file.close();
-    
-    cout << left << setw(5) << "STT"
-        << setw(20) << "Ho Ten"
-        << setw(10) << "Diem TL"
-        << setw(10) << "Ngay Sinh"
-        << setw(15) << "So Dien Thoai" << endl;
 
-    cout << setfill('-') << setw(60) << "-" << setfill(' ') << endl;
+    cout << left << setw(5) << "STT"
+         << setw(20) << "Họ Tên"
+         << setw(10) << "Điểm TL"
+         << setw(15) << "Ngày Sinh"
+         << setw(15) << "Số Điện Thoại" << endl;
+    cout << setfill('-') << setw(65) << "-" << setfill(' ') << endl;
 
     size_t stt = 1;
-    for (const auto& kh : dsKhachHang) {
+    for (const auto& kh : danhSachKhachHang) {
         cout << left << setw(5) << stt++
-            << setw(20) << kh.getHoTen()
-            << setw(10) << kh.getDiemTichLuy()
-            << setw(2) << kh.getNgaySinh().getNgay() << "/"
-            << setw(2) << kh.getNgaySinh().getThang() << "/"
-            << setw(6) << kh.getNgaySinh().getNam()
-            << setw(15) << kh.getSdt() << endl;
+             << setw(20) << kh.getHoTen()
+             << setw(10) << kh.getDiemTichLuy()
+             << setw(2) << kh.getNgaySinh().getNgay() << "/"
+             << setw(2) << kh.getNgaySinh().getThang() << "/"
+             << setw(4) << kh.getNgaySinh().getNam()
+             << setw(15) << kh.getSdt() << endl;
     }
     cout << endl;
+
     int option;
     do {
-        cout << "\nChon hanh dong:\n\033[38;5;214m~\033[0m 1. Xoa khach hang\n\033[38;5;214m~\033[0m 2. Quay lai\nNhap lua chon cua ban: ";
+        cout << "\nChọn hành động:\n1. Xóa khách hàng\n2. Quay lại\nNhập lựa chọn của bạn: ";
         cin >> option;
 
         switch (option) {
             case 1: {
                 int indexToDelete;
-                cout << "Nhap so thu tu cua khach hang can xoa: ";
+                cout << "Nhập số thứ tự của khách hàng cần xóa: ";
                 cin >> indexToDelete;
 
-                if (indexToDelete > 0 && indexToDelete <= lines.size()) {
-                    lines.erase(lines.begin() + indexToDelete - 1);
-                    ofstream outFile("../resources/KhachHang.txt", ios::trunc);
-                    for (const auto& line : lines) {
-                        outFile << line << endl;
-                    }
-                    outFile.close();
-                    cout << "Da xoa khach hang thanh cong." << endl;
-                } else {
-                    cout << "So thu tu khong hop le." << endl;
+                if (indexToDelete < 1 || indexToDelete > danhSachKhachHang.size()) {
+                    cout << "Số thứ tự không hợp lệ." << endl;
+                    break;
                 }
+                auto it = danhSachKhachHang.begin();
+                advance(it, indexToDelete - 1); 
+                danhSachKhachHang.erase(it);
+                ofstream outFile("../resources/KhachHang.txt", ios::trunc);
+                for (const auto& kh : danhSachKhachHang) {
+                    outFile << kh.getTen() << " " << kh.getMatKhau() << " "
+                            << kh.getDiemTichLuy() << " " << kh.getNgaySinh().getNgay() << " "
+                            << kh.getNgaySinh().getThang() << " " << kh.getNgaySinh().getNam() << " "
+                            << kh.getSdt() << " " << kh.getHoTen() << endl;
+                }
+                outFile.close();
                 break;
             }
             case 2:
-                cout << "Quay lai menu chinh." << endl;
+                cout << "Quay lại menu chính." << endl;
                 break;
             default:
-                cout << "Lua chon khong hop le. Vui long chon lai." << endl;
+                cout << "Lựa chọn không hợp lệ. Vui lòng chọn lại." << endl;
                 break;
         }
-    } while (option != 1 && option != 2);
-    clearScreen();
-
+    } while (option != 2);
 }

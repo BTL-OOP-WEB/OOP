@@ -13,7 +13,8 @@
 #include "NhanVien.h"
 #include "User.h"
 #include "Date.h"
-
+#include "LinkedList.h"
+#include <list>
 using namespace std;
 
 string nhapMatKhau();

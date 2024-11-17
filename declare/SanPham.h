@@ -10,6 +10,8 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include "LinkedList.h"
+#include <list>
 
 using namespace std;
 

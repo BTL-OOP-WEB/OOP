@@ -5,6 +5,8 @@
 #include <cstdlib>
 #include <thread>
 #include "Date.h"
+#include "LinkedList.h"
+#include <list>
 
 inline void clearScreen() {
 #ifdef _WIN32

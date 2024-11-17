@@ -1,10 +1,12 @@
 #include "../declare/DangNhap.h"
 #include "../declare/Date.h"
+#include "../declare/LinkedList.h"
 #include <iostream>
 #include <conio.h>
 #include <fstream>
 #include <string>
 #include <regex>
+#include <list>
 using namespace std;
 
 //Nhap mat khau
@@ -95,8 +97,6 @@ void doiMatKhau(const string& vaiTro, const string& tenNguoiDung) {
     }
     clearScreen();
 }
-
-//Chuc nang quen mat khau
 void quenMatKhau(const string& vaiTro) {
     string tenFile = "../resources/" + vaiTro + ".txt";
     string tenNguoiDung, dong;
@@ -391,7 +391,6 @@ void dangKy(const string& vaiTro) {
     cout << "Dang ky thanh cong!" << endl;
 }
 
-//Cac chuc nang danh cho khach hang
 void menuKhachHang(KhachHang& khachHang) {
     int luaChon;
     vector<SanPham*> dsSanPham;
@@ -444,7 +443,6 @@ void menuKhachHang(KhachHang& khachHang) {
     } while (luaChon != 5);
 }
 
-//Cac chuc nang danh cho nhan vien
 void menuNhanVien(NhanVien& nhanVien) {
     vector<SanPham*> dsSanPham; 
     int luaChon;
@@ -496,7 +494,6 @@ void menuNhanVien(NhanVien& nhanVien) {
     }
 }
 
-//Cac chuc nang danh cho giam doc
 void menuGiamDoc(GiamDoc& giamDoc) {
     int luaChon;
     clearScreen();

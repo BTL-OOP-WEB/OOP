@@ -3,10 +3,12 @@
 #include "../declare/GiamDoc.h"
 #include "../declare/User.h"
 #include "../declare/Date.h"
+#include "../declare/LinkedList.h"
 #include <iostream>
 #include <conio.h>
 #include <fstream>
 #include <string>
+#include <list>
 
 using namespace std;
 

@@ -5,7 +5,7 @@
 #include <string>
 #include <conio.h> 
 #include <windows.h>
-
+#include <list>
 class Date {
 private:
     int ngay;

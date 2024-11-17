@@ -10,6 +10,7 @@
 #include "../declare/NhanVien.h"
 #include "../declare/DangNhap.h"
 #include "../declare/Date.h"
+#include "../declare/LinkedList.h"
 
 using namespace std;
 
